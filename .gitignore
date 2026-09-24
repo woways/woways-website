@@ -1,0 +1,7 @@
+# build artifacts / temp
+__pycache__/
+*.pyc
+_pdf_preview.png
+logo_pdf_b64.txt
+.DS_Store
+Thumbs.db
