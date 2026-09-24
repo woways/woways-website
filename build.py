@@ -105,7 +105,7 @@ def header(active):
     return ('<a href="#main" class="skip">Skip to content</a>'
       '<header class="sticky top-0 z-50 bg-brandNavy/95 backdrop-blur border-b border-white/10">'
       '<div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-16 flex items-center justify-between">'
-      '<a href="index.html" aria-label="Woways — Execute, Grow, Transform" class="shrink-0"><img src="%s" alt="Woways" class="h-6 md:h-7 w-auto"/></a>'
+      '<a href="index.html" aria-label="Woways — Execute, Grow, Transform" class="shrink-0"><img src="%s" alt="Woways" class="h-8 md:h-9 w-auto"/></a>'
       '<div class="flex items-center gap-8">'
       '<nav class="hidden md:flex items-center gap-8" aria-label="Primary">%s</nav>'
       '<a class="hidden sm:inline-flex items-center bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-6 py-2.5 transition-colors" href="contact.html">Talk to us</a>'
