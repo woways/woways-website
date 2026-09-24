@@ -316,7 +316,7 @@ def wowers_work():
 
 def faq(items):
     rows=''.join('<details class="border border-borderLine bg-white group"><summary class="cursor-pointer list-none flex justify-between items-center gap-4 p-5 font-display font-semibold text-brandNavy">%s<span class="material-symbols-outlined text-brandTeal transition-transform group-open:rotate-45" aria-hidden="true">add</span></summary><div class="px-5 pb-5 text-slate-600">%s</div></details>'%(q,a) for q,a in items)
-    return '<div class="max-w-3xl space-y-3 reveal">%s</div>'%rows
+    return '<div class="max-w-3xl mx-auto space-y-3 reveal">%s</div>'%rows
 
 def testimonials():
     data=[("Siri","Working on real projects helped me understand how professional software teams plan, build and improve products."),
@@ -403,7 +403,7 @@ def build_wowers():
       '<h2 class="hd2 text-white">Real work. Real responsibility. Real growth.</h2></div>')
     b += testimonials() + '</div></section>'
     b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
-    b += sec_head("Questions","Good to know.","")
+    b += '<div class="max-w-3xl mx-auto text-center mb-12 reveal"><span class="cap text-brandTeal block mb-2">Questions</span><h2 class="hd2 text-brandNavy">Good to know.</h2></div>'
     b += faq(faqs) + '</div></section>'
     b += cta_band()
     return page("Woways — For Wowers","wowers.html",b)
