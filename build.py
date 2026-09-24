@@ -318,6 +318,21 @@ def faq(items):
     rows=''.join('<details class="border border-borderLine bg-white group"><summary class="cursor-pointer list-none flex justify-between items-center gap-4 p-5 font-display font-semibold text-brandNavy">%s<span class="material-symbols-outlined text-brandTeal transition-transform group-open:rotate-45" aria-hidden="true">add</span></summary><div class="px-5 pb-5 text-slate-600">%s</div></details>'%(q,a) for q,a in items)
     return '<div class="max-w-3xl space-y-3 reveal">%s</div>'%rows
 
+def testimonials():
+    data=[("Siri","Working on real projects helped me understand how professional software teams plan, build and improve products."),
+      ("Abhigna","Woways gave me the opportunity to learn through execution—not only through theory. I became more confident in building practical solutions."),
+      ("Santoshi","Every task came with ownership and learning. The experience helped me understand how technology supports real business work."),
+      ("Shreelakshmi","I learned how collaboration, consistency and attention to detail turn an idea into a product people can use.")]
+    cards=''
+    for n,q in data:
+        cards+=('<div class="bg-white border border-borderLine p-7 card-lift flex flex-col">'
+          '<span class="material-symbols-outlined text-brandTeal mb-3" aria-hidden="true">format_quote</span>'
+          '<p class="text-slate-700 leading-relaxed flex-1">“%s”</p>'
+          '<div class="flex items-center gap-3 mt-6 pt-5 border-t border-borderLine">'
+          '<span class="w-10 h-10 rounded-full bg-brandNavy text-white grid place-items-center font-display font-bold text-sm">%s</span>'
+          '<div><div class="font-display font-semibold text-brandNavy text-sm">%s</div><div class="text-xs text-slate-500">Software Developer Intern</div></div></div></div>'%(q,n[0],n))
+    return '<div class="grid grid-cols-1 md:grid-cols-2 gap-6 stagger reveal">%s</div>'%cards
+
 # ================= PAGES =================
 def build_index():
     b = hero("Execution capacity, on demand","Your Additional Executive Partner.",
@@ -383,6 +398,10 @@ def build_wowers():
     b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("How it works","Three steps to your first project.","")
     b += '<div class="grid grid-cols-1 md:grid-cols-3 gap-8 stagger reveal">%s</div></div></section>' % sc
+    b += '<section class="bg-brandNavy py-20 lg:py-24"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += ('<div class="max-w-3xl mb-12 reveal"><span class="cap text-brandTeal block mb-2">What Wowers say</span>'
+      '<h2 class="hd2 text-white">Real work. Real responsibility. Real growth.</h2></div>')
+    b += testimonials() + '</div></section>'
     b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Questions","Good to know.","")
     b += faq(faqs) + '</div></section>'
