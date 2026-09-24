@@ -117,7 +117,7 @@ def header(active):
       '</header>') % (links, mob)
 
 def footer():
-    prod = [("https://talentignition.in","Talent Ignition"),("https://studentmentor.co.in","Student Mentor"),("https://collegemacha.com","College Macha"),("https://bispun.com","Bispun"),("https://woways-performance.vercel.app","Performance Portal")]
+    prod = [("https://talentignition.in","Talent Ignition"),("https://studentmentor.co.in","Student Mentor"),("https://collegemacha.com","College Macha"),("https://bispun.com","Bispun"),("https://woways-site.vercel.app","Performance Portal")]
     plinks = ''.join('<li><a class="hover:text-white transition-colors" href="%s" target="_blank" rel="noopener noreferrer">%s</a></li>'%(u,n) for u,n in prod)
     exp = ''.join('<li><a class="hover:text-white transition-colors" href="%s">%s</a></li>'%(h,l) for h,l in NAV)
     return ('<footer class="bg-brandNavy text-slate-400 py-16 border-t border-white/10">'
@@ -203,8 +203,8 @@ def product_cards(group):
          ("After Class 10 / 12","Student Mentor","Counselling for students after 12th, helping them choose the right course, college and career with clarity instead of guesswork.","https://studentmentor.co.in","Visit Student Mentor"),
          ("College discovery","College Macha","Explore, compare and decide on colleges that fit the student and the parent — estimates for guidance, not admission guarantees.","https://collegemacha.com","Visit College Macha")]
     biz=[("CRM & entity management","Bispun","A business control centre for leads, admissions, revenue and team activity — with AI surfacing corrections and plans from your data.","https://bispun.com","Visit Bispun"),
-         ("Company & employee performance","Performance Portal","Accountable work, goals, KPIs and attendance — management visibility across every department, without surveillance.","https://woways-performance.vercel.app","Open Performance Portal")]
-    IMG={"Student Mentor":"shot-studentmentor.jpg","College Macha":"shot-collegemacha.jpg","Bispun":"shot-bispun.jpg"}
+         ("Company & employee performance","Performance Portal","Accountable work, goals, KPIs and attendance — management visibility across every department, without surveillance.","https://woways-site.vercel.app","Open Performance Portal")]
+    IMG={"Student Mentor":"shot-studentmentor.jpg","College Macha":"shot-collegemacha.jpg","Bispun":"shot-bispun.jpg","Performance Portal":"shot-performance.jpg"}
     def card(tag,name,desc,url,cta,wide=False):
         shot=IMG.get(name)
         if shot:
