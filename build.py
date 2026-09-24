@@ -204,11 +204,17 @@ def product_cards(group):
          ("College discovery","College Macha","Explore, compare and decide on colleges that fit the student and the parent — estimates for guidance, not admission guarantees.","https://collegemacha.com","Visit College Macha")]
     biz=[("CRM & entity management","Bispun","A business control centre for leads, admissions, revenue and team activity — with AI surfacing corrections and plans from your data.","https://bispun.com","Visit Bispun"),
          ("Company & employee performance","Performance Portal","Accountable work, goals, KPIs and attendance — management visibility across every department, without surveillance.","https://woways-performance.vercel.app","Open Performance Portal")]
+    IMG={"Student Mentor":"shot-studentmentor.jpg","College Macha":"shot-collegemacha.jpg","Bispun":"shot-bispun.jpg"}
     def card(tag,name,desc,url,cta,wide=False):
-        return ('<a class="bg-white border border-borderLine p-8 card-lift grp flex flex-col justify-between hover:border-brandNavy" href="%s" target="_blank" rel="noopener noreferrer">'
-          '<div><span class="cap text-brandTeal bg-brandTealTint px-2.5 py-1">%s</span>'
+        shot=IMG.get(name)
+        if shot:
+            preview='<div class="aspect-[16/10] overflow-hidden -mx-8 -mt-8 mb-6 border-b border-borderLine"><img src="%s" alt="%s preview" loading="lazy" class="w-full h-full object-cover object-top"/></div>'%(shot,name)
+        else:
+            preview='<div class="aspect-[16/10] -mx-8 -mt-8 mb-6 border-b border-borderLine bg-gradient-to-br from-brandNavy to-brandInk grid place-items-center"><span class="font-display font-semibold text-white/85" style="font-size:18px">%s</span></div>'%name
+        return ('<a class="bg-white border border-borderLine p-8 card-lift grp flex flex-col justify-between hover:border-brandNavy overflow-hidden" href="%s" target="_blank" rel="noopener noreferrer">'
+          '<div>%s<span class="cap text-brandTeal bg-brandTealTint px-2.5 py-1">%s</span>'
           '<h3 class="hd3 text-brandNavy mt-4 mb-3" style="font-size:20px">%s</h3><p class="text-sm text-slate-600 leading-relaxed mb-8">%s</p></div>'
-          '<span class="inline-flex items-center gap-2 text-sm font-semibold text-brandNavy">%s <span class="material-symbols-outlined text-[16px] arrow-move" aria-hidden="true">open_in_new</span></span></a>' % (url,tag,name,desc,cta))
+          '<span class="inline-flex items-center gap-2 text-sm font-semibold text-brandNavy">%s <span class="material-symbols-outlined text-[16px] arrow-move" aria-hidden="true">open_in_new</span></span></a>' % (url,preview,tag,name,desc,cta))
     if group=='edu':
         return '<div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger reveal">%s</div>' % ''.join(card(*e) for e in edu)
     return '<div class="grid grid-cols-1 md:grid-cols-2 gap-6 stagger reveal">%s</div>' % ''.join(card(*b) for b in biz)
