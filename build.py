@@ -108,7 +108,7 @@ def header(active):
       '<a href="index.html" aria-label="Woways — Execute, Grow, Transform" class="flex items-center gap-2.5 md:gap-3 shrink-0">'
       '<img src="logo-icon.png" alt="" class="h-9 md:h-10 w-auto"/>'
       '<span class="w-px h-6 md:h-7 bg-white/25" aria-hidden="true"></span>'
-      '<img src="logo-word.png" alt="Woways" class="h-6 md:h-7 w-auto"/></a>'
+      '<img src="logo-word.png" alt="Woways" class="h-7 md:h-8 w-auto"/></a>'
       '<div class="flex items-center gap-8">'
       '<nav class="hidden md:flex items-center gap-8" aria-label="Primary">%s</nav>'
       '<a class="hidden sm:inline-flex items-center bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-6 py-2.5 transition-colors" href="contact.html">Talk to us</a>'
