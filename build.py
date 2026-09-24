@@ -123,15 +123,17 @@ def footer():
     return ('<footer class="bg-brandNavy text-slate-400 py-16 border-t border-white/10">'
       '<div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
       '<div class="grid grid-cols-2 md:grid-cols-4 gap-8 pb-10 border-b border-white/10">'
-      '<div class="col-span-2 md:col-span-1"><img src="%s" alt="Woways — Execute, Grow, Transform" class="h-8 w-auto mb-4"/>'
-      '<p class="mt-1 text-sm max-w-[30ch]">An additional executive partner and product studio.</p></div>'
+      '<div class="col-span-2 md:col-span-1">'
+      '<div class="flex items-center gap-1 mb-3"><img src="logo-icon.png" alt="" class="h-6 w-auto"/><img src="logo-word.png" alt="Woways" class="h-6 w-auto"/></div>'
+      '<p class="cap text-brandTeal mb-2">Execute. Grow. Transform.</p>'
+      '<p class="text-sm max-w-[30ch]">An additional executive partner and product studio.</p></div>'
       '<div><h4 class="cap text-white mb-4">Explore</h4><ul class="space-y-2.5 text-sm">%s<li><a class="hover:text-white transition-colors" href="contact.html">Talk to us</a></li></ul></div>'
       '<div><h4 class="cap text-white mb-4">Products</h4><ul class="space-y-2.5 text-sm">%s</ul></div>'
       '<div><h4 class="cap text-white mb-4">Contact</h4><p class="text-sm mb-1"><a class="hover:text-white transition-colors" href="mailto:info@woways.in">info@woways.in</a></p>'
       '<p class="text-sm">2nd floor, LorVen Smart Spaces,<br/>Gachibowli, Hyderabad, 500032</p></div>'
       '</div><div class="pt-6 text-sm text-slate-500 flex flex-wrap justify-between gap-3">'
       '<span>&copy; 2026 Woways Private Limited. All rights reserved.</span><span>Privacy · Terms · Cookie policy</span></div>'
-      '</div></footer>') % (LOGO, exp, plinks)
+      '</div></footer>') % (exp, plinks)
 
 SCRIPT = ('<script>'
  '(function(){var b=document.getElementById("mbtn"),m=document.getElementById("mmenu");if(b)b.addEventListener("click",function(){var o=m.classList.toggle("hidden");b.setAttribute("aria-expanded",String(!o));});})();'
