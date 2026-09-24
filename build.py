@@ -177,7 +177,7 @@ def egt():
           ("STAGE 03","Transform","We bring in the data, tooling and process changes that shift how the function runs going forward.","brandOrange")]
     cards=''
     for i,(idx,h,p,c) in enumerate(rows):
-        lb = ' border-l-4 border-l-brandOrange' if i==2 else ''
+        lb = ''
         cards += ('<div class="border border-borderLine%s p-8 bg-white card-lift"><div class="w-full h-1 bg-%s mb-6"></div>'
           '<span class="cap text-%s font-bold">%s</span><h3 class="hd3 text-brandNavy mt-2 mb-4" style="font-size:24px">%s</h3>'
           '<p class="text-slate-600 leading-relaxed">%s</p></div>' % (lb,c,c,idx,h,p))
@@ -422,9 +422,9 @@ def build_about():
     b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine" id="ecosystem"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("The ecosystem model","One partner. Two engines of growth.","Companies need execution and pipeline. Talent needs real experience. Woways connects the two into a single virtuous cycle.")
     b += ('<div class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal">'
-      '<div class="bg-white border border-borderLine p-8 relative"><div class="absolute top-0 left-0 w-1.5 h-full bg-brandTeal"></div>'
+      '<div class="bg-white border border-borderLine p-8"><div class="w-full h-1 bg-brandTeal mb-6"></div>'
       '<span class="cap text-slate-500">For companies</span><h3 class="hd3 text-brandNavy mt-2 mb-4" style="font-size:20px">Scale without adding overhead</h3><ul class="space-y-3.5">%s</ul></div>'
-      '<div class="bg-white border border-borderLine p-8 relative"><div class="absolute top-0 left-0 w-1.5 h-full bg-brandOrange"></div>'
+      '<div class="bg-white border border-borderLine p-8"><div class="w-full h-1 bg-brandOrange mb-6"></div>'
       '<span class="cap text-slate-500">For Wowers</span><h3 class="hd3 text-brandNavy mt-2 mb-4" style="font-size:20px">Build a career on real work</h3><ul class="space-y-3.5">%s</ul></div></div>' % (cl,wl))
     b += '</div></section>'
     b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
