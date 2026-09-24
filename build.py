@@ -219,7 +219,7 @@ def cta_band():
       '</div></section>')
 
 def industries():
-    inds=["Elevator Companies","AI Companies","Manufacturing","SaaS Startups","Service Businesses"]
+    inds=["Manufacturing","SaaS","Education","Professional Services","Growing Businesses"]
     pills=''.join('<span class="px-4 py-2 bg-white border border-borderLine text-sm font-display font-medium text-brandNavy">%s</span>'%i for i in inds)
     return ('<section class="bg-paperBg py-16 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12 reveal">'
       '<p class="cap text-slate-500 mb-5">Industries we serve</p><div class="flex flex-wrap gap-3">%s</div></div></section>') % pills
@@ -318,9 +318,9 @@ def faq(items):
 
 # ================= PAGES =================
 def build_index():
-    b = hero("Your Additional Executive Partner","Your Executive Partner.",
-        "Woways works alongside partner companies as an additional execution arm — stepping in wherever extra hands, skill or structure are needed to get real work done. Not advice. Delivery.",
-        [("Bring us in","contact.html",True),("Explore solutions","#products",False)], illo=illo_growth(), funcs=True)
+    b = hero("Execution capacity, on demand","Your Additional Executive Partner.",
+        "Woways gives growing companies accountable execution capacity across Sales, Marketing, Operations, HR and Technology—working inside your systems, alongside your team.<br class=\"hidden sm:block\"/><span class=\"inline-block mt-4 text-white font-semibold\">Not advice. Delivery.</span>",
+        [("Bring us in","contact.html",True),("Explore solutions","#products",False)], funcs=True)
     b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine" id="capabilities"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we do","An added execution layer across your core functions.","Woways works alongside partnered companies as an added execution layer — taking on the day-to-day work across five functions, the way an internal team would.")
     b += caps_grid()
@@ -329,7 +329,7 @@ def build_index():
     b += sec_head("How we work","Execute. Grow. Transform.","Every engagement moves through the same three stages — it's the reason clients bring us in, and the reason we stay.")
     b += egt() + '</div></section>'
     b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine" id="products"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
-    b += sec_head("Our products","Five products. One growth engine.","Woways is the common partner behind the ecosystem. Each product opens in its own live portal.")
+    b += sec_head("Our products","One execution partner. Five focused products.","Woways is the common partner behind the ecosystem. Each product opens in its own live portal.")
     b += '<div class="flex items-center gap-3 mb-6 reveal"><span class="cap text-slate-500">Education &amp; Career</span><div class="h-px bg-borderLine flex-1"></div></div>' + product_cards('edu')
     b += '<div class="flex items-center gap-3 mb-6 mt-12 reveal"><span class="cap text-slate-500">Business Visibility &amp; Execution</span><div class="h-px bg-borderLine flex-1"></div></div>' + product_cards('biz')
     b += '</div></section>'
@@ -337,14 +337,14 @@ def build_index():
     b += ('<section class="bg-brandNavy text-white py-20 lg:py-24"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
       '<div class="max-w-3xl reveal">%s<h2 class="hd2 text-white mb-4">Where careers get built.</h2>'
       '<p class="lead text-slate-300 mb-6">We create real project work for Wowers — the talent who help deliver it. Real projects, practical skills, performance-based growth.</p>'
-      '<a class="inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="wowers.html">Apply as a Wower <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a></div></div></section>' % eyebrow("For Wowers"))
+      '<a class="inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="wowers.html">Join as a Wower <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a></div></div></section>' % eyebrow("For Wowers"))
     b += cta_band()
     return page("Woways — Your Executive Partner","index.html",b)
 
 def build_companies():
-    b = hero("For Companies","Scale without adding overhead.",
+    b = hero("For Companies","Add execution capacity without building another internal team.",
         "Bring Woways in as an added execution layer. We embed like an internal team across five functions, run the work on your systems and standards, and report straight back to you.",
-        [("Bring us in","contact.html",True),("See our services","services.html",False)], illo=illo_growth())
+        [("Bring us in","contact.html",True),("See our services","services.html",False)])
     b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine" id="capabilities"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we execute","Five functions, one embedded team.","Point to a work area, describe the need, and we take it on — with the scope and standards of an internal team.")
     b += caps_detailed() + '</div></section>'
@@ -367,8 +367,8 @@ def build_wowers():
       ("How do I start?","Apply with your interests and availability; we match you to a live project on a partner company."),
       ("What will I gain?","Real project experience, practical business skills and a track record you can actually show.")]
     b = hero("For Wowers","Real work. Real growth.",
-        "A Wower doesn't fetch coffee. You work on live company projects, learn how a business actually grows, and get paid on the results you help deliver.",
-        [("Apply for an internship","contact.html",True)])
+        "A Wower doesn't fetch coffee. You work on live company projects, learn how a business actually grows, and get paid on the results you help deliver.<br class=\"hidden sm:block\"/><span class=\"inline-block mt-4 text-white font-semibold\">Real project work, practical skill-building and performance-based career growth.</span>",
+        [("Join as a Wower","contact.html",True)])
     b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Why Woways","What you get as a Wower.","")
     b += ('<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 reveal"><div class="bg-white border border-borderLine p-8"><ul class="space-y-4">%s</ul></div>'
@@ -443,7 +443,7 @@ def build_about():
     return page("Woways — About","about.html",b)
 
 def build_contact():
-    opts=["Execution support (sales, marketing, ops, HR, tech)","Internship — become a Wower","Talent Ignition","Student Mentor","College Macha","Bispun","Performance Portal","Become a mentor","Not sure yet"]
+    opts=["Execution support (sales, marketing, ops, HR, tech)","Join as a Wower","Talent Ignition","Student Mentor","College Macha","Bispun","Performance Portal","Become a mentor","Not sure yet"]
     os_=''.join('<option>%s</option>'%o for o in opts)
     reassure=["One short form. No sales call unless you ask for one.","We reply from a real person on the Woways team, not an inbox.","We'll get back to you within one business day."]
     rl=''.join('<div class="flex items-start gap-3 text-slate-300">%s<span>%s</span></div>'%(CHECK,x) for x in reassure)
@@ -453,7 +453,7 @@ def build_contact():
       '<p class="lead text-slate-300 mb-8 max-w-xl">Tell us a little about your company and what you\'re trying to get done. We\'ll come back with where Woways fits — execution support, one of our products, or both.</p>'
       '<div class="space-y-4">%s</div></div>'
       '<form class="bg-white p-8 lg:p-10 herofade" novalidate onsubmit="event.preventDefault();document.getElementById(\'ok\').classList.remove(\'hidden\');this.reset();">'
-      '<div id="ok" class="hidden mb-5 p-4 bg-brandTealTint text-brandTealDark text-sm border border-teal-200">Thanks — your request has been received. This is a demo form; no data is sent.</div>'
+      '<div id="ok" class="hidden mb-5 p-4 bg-brandTealTint text-brandTealDark text-sm border border-teal-200">Thank you. Our team will get back to you within one business day.</div>'
       '<div class="grid grid-cols-1 md:grid-cols-2 gap-5">'
       '<div><label class="cap text-slate-600 block mb-1.5" for="c-name">Your name</label><input id="c-name" required class="w-full h-11 px-3.5 border border-borderLine text-brandNavy" autocomplete="name"/></div>'
       '<div><label class="cap text-slate-600 block mb-1.5" for="c-desig">Designation</label><input id="c-desig" class="w-full h-11 px-3.5 border border-borderLine text-brandNavy" autocomplete="organization-title"/></div></div>'
@@ -465,7 +465,7 @@ def build_contact():
       '<div class="mt-5"><label class="cap text-slate-600 block mb-1.5" for="c-msg">Tell us briefly what you need</label><textarea id="c-msg" rows="3" class="w-full p-3.5 border border-borderLine text-brandNavy"></textarea></div>'
       '<label class="flex items-start gap-2.5 mt-5 text-sm text-slate-600"><input type="checkbox" required class="mt-1"/> <span>I agree to Woways contacting me about this enquiry and to the privacy policy.</span></label>'
       '<button type="submit" class="mt-6 w-full bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold py-4 transition-colors">Send request</button>'
-      '</form></div></section>' % (eyebrow("Connect to our expert"), rl, os_))
+      '</form></div></section>' % (eyebrow("Talk to the Woways team"), rl, os_))
     return page("Woways — Contact","contact.html",b)
 
 pages={'index.html':build_index(),'companies.html':build_companies(),'wowers.html':build_wowers(),
