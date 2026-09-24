@@ -105,14 +105,17 @@ def header(active):
     return ('<a href="#main" class="skip">Skip to content</a>'
       '<header class="sticky top-0 z-50 bg-brandNavy/95 backdrop-blur border-b border-white/10">'
       '<div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-16 flex items-center justify-between">'
-      '<a href="index.html" aria-label="Woways — Execute, Grow, Transform" class="shrink-0"><img src="%s" alt="Woways" class="h-8 md:h-9 w-auto"/></a>'
+      '<a href="index.html" aria-label="Woways — Execute, Grow, Transform" class="flex items-center gap-2.5 md:gap-3 shrink-0">'
+      '<img src="logo-icon.png" alt="" class="h-9 md:h-10 w-auto"/>'
+      '<span class="w-px h-6 md:h-7 bg-white/25" aria-hidden="true"></span>'
+      '<img src="logo-word.png" alt="Woways" class="h-6 md:h-7 w-auto"/></a>'
       '<div class="flex items-center gap-8">'
       '<nav class="hidden md:flex items-center gap-8" aria-label="Primary">%s</nav>'
       '<a class="hidden sm:inline-flex items-center bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-6 py-2.5 transition-colors" href="contact.html">Talk to us</a>'
       '<button id="mbtn" class="md:hidden text-white p-2" aria-label="Open menu" aria-expanded="false"><span class="material-symbols-outlined">menu</span></button>'
       '</div></div>'
       '<div id="mmenu" class="hidden md:hidden bg-brandNavy border-t border-white/10">%s</div>'
-      '</header>') % (LOGO, links, mob)
+      '</header>') % (links, mob)
 
 def footer():
     prod = [("https://talentignition.in","Talent Ignition"),("https://studentmentor.co.in","Student Mentor"),("https://collegemacha.com","College Macha"),("https://bispun.com","Bispun"),("https://woways-performance.vercel.app","Performance Portal")]
