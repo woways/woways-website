@@ -326,8 +326,8 @@ def testimonials():
     cards=''
     for n,q in data:
         cards+=('<div class="bg-white border border-borderLine p-7 card-lift flex flex-col">'
-          '<span class="material-symbols-outlined text-brandTeal mb-3" aria-hidden="true">format_quote</span>'
-          '<p class="text-slate-700 leading-relaxed flex-1">“%s”</p>'
+          '<span class="text-brandTeal font-display font-bold leading-none mb-2" style="font-size:44px" aria-hidden="true">“</span>'
+          '<p class="text-slate-700 leading-relaxed flex-1">%s</p>'
           '<div class="flex items-center gap-3 mt-6 pt-5 border-t border-borderLine">'
           '<span class="w-10 h-10 rounded-full bg-brandNavy text-white grid place-items-center font-display font-bold text-sm">%s</span>'
           '<div><div class="font-display font-semibold text-brandNavy text-sm">%s</div><div class="text-xs text-slate-500">Software Developer Intern</div></div></div></div>'%(q,n[0],n))
