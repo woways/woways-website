@@ -96,7 +96,7 @@ def illo_target():
       '<circle cx="160" cy="150" r="26" fill="none" stroke="#E8A33D" stroke-width="3"/><circle cx="160" cy="150" r="13" fill="none" stroke="#E8A33D" stroke-width="3"/><circle cx="160" cy="150" r="3" fill="#E8A33D"/>'
       '<circle cx="86" cy="70" r="5" fill="#00A9A9"/><circle cx="160" cy="70" r="5" fill="#00A9A9"/><circle cx="234" cy="70" r="5" fill="#00A9A9"/></svg>')
 
-NAV = [("index.html","Home"),("companies.html","For Companies"),("wowers.html","For Wowers"),("services.html","Services"),("about.html","About")]
+NAV = [("index.html","Home"),("companies.html","For Companies"),("wowers.html","For Wowers"),("companies.html#services","Services"),("about.html","About")]
 
 def header(active):
     links = ''
@@ -484,11 +484,14 @@ def build_index():
 def build_companies():
     b = hero("For Companies","Your extended execution partner.",
         "We work with companies as an extended execution partner across Sales, Marketing, Operations, Technology and HR — embedding like an internal team, running the work on your systems and standards, and reporting straight back to you.",
-        [("Partner with us","contact.html",True),("See our services","services.html",False)])
+        [("Partner with us","contact.html",True),("See our services","companies.html#services",False)])
     b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine" id="capabilities"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we execute","Five functions, one embedded team.","Point to a work area, describe the need, and we take it on — with the scope and standards of an internal team.")
     b += caps_detailed() + '</div></section>'
-    b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine" id="services"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += sec_head("Services","Five services, one pipeline.","Pick the service that unblocks you now, or combine them — each is run by our team and reports into yours.")
+    b += services_detailed() + '</div></section>'
+    b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Partnerships","What you get, and who we partner with.","")
     what=["Access to lead generation infrastructure","Sales pipeline management","Expansion into new markets","Cost-effective talent through the Wower ecosystem"]
     wl=''.join('<div class="flex items-start gap-3 text-slate-700">%s<span>%s</span></div>'%(CHECK,x) for x in what)
@@ -498,7 +501,7 @@ def build_companies():
       '<div class="bg-white border border-borderLine p-8"><h3 class="hd3 text-brandNavy mb-5" style="font-size:20px">What you get</h3><div class="space-y-4">%s</div></div>'
       '<div class="bg-white border border-borderLine p-8"><h3 class="hd3 text-brandNavy mb-5" style="font-size:20px">Partner types</h3><div class="flex flex-wrap gap-3">%s</div></div></div>' % (wl,pp))
     b += '</div></section>'
-    b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Bringing us in","How an engagement starts.","A short, clear path from first conversation to work moving — no drawn-out sales cycle.")
     b += journey() + '</div></section>'
     b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
