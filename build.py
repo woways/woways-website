@@ -444,10 +444,13 @@ def where_today():
 
 # ================= PAGES =================
 def build_index():
-    b = hero("Execution capacity, on demand","Your Additional Executive Partner.",
-        "Woways gives growing companies accountable execution capacity across Sales, Marketing, Operations, HR and Technology—working inside your systems, alongside your team.<br class=\"hidden sm:block\"/><span class=\"inline-block mt-4 text-white font-semibold\">Not advice. Delivery.</span>",
-        [("Bring us in","contact.html",True),("Explore solutions","#products",False)], funcs=True)
+    b = hero("Execution partner · Talent ecosystem","Where companies scale and Wowers build careers.",
+        "We work with companies as an extended execution partner across Sales, Marketing, Operations, Technology and HR — while creating real work opportunities for Wowers through internships, practical projects and performance-driven career paths.<br class=\"hidden sm:block\"/><span class=\"inline-block mt-4 text-white font-semibold\">Not advice. Delivery.</span>",
+        [("Partner with us","contact.html",True),("Apply for internship","wowers.html",False)], funcs=True)
     b += credibility_strip()
+    b += '<section class="bg-white py-16 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<p class="cap text-slate-500 mb-8 text-center reveal">Our impact</p>'
+    b += impact_stats() + '</div></section>'
     b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("The problem we solve","Two sides of the same gap.","Companies need execution and pipeline. Talent needs real experience. We connect the two.")
     b += problem_solve() + '</div></section>'
@@ -475,9 +478,9 @@ def build_index():
     return page("Woways — Your Executive Partner","index.html",b)
 
 def build_companies():
-    b = hero("For Companies","Add execution capacity without building another internal team.",
-        "Bring Woways in as an added execution layer. We embed like an internal team across five functions, run the work on your systems and standards, and report straight back to you.",
-        [("Bring us in","contact.html",True),("See our services","services.html",False)])
+    b = hero("For Companies","Your extended execution partner.",
+        "We work with companies as an extended execution partner across Sales, Marketing, Operations, Technology and HR — embedding like an internal team, running the work on your systems and standards, and reporting straight back to you.",
+        [("Partner with us","contact.html",True),("See our services","services.html",False)])
     b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine" id="capabilities"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we execute","Five functions, one embedded team.","Point to a work area, describe the need, and we take it on — with the scope and standards of an internal team.")
     b += caps_detailed() + '</div></section>'
@@ -509,9 +512,9 @@ def build_wowers():
       ("Do I need prior experience?","No. We match you to work at your level and support you as you learn."),
       ("How do I start?","Apply with your interests and availability; we match you to a live project on a partner company."),
       ("What will I gain?","Real project experience, practical business skills and a track record you can actually show.")]
-    b = hero("For Wowers","Real work. Real growth.",
-        "A Wower doesn't fetch coffee. You work on live company projects, learn how a business actually grows, and get paid on the results you help deliver.<br class=\"hidden sm:block\"/><span class=\"inline-block mt-4 text-white font-semibold\">Real project work, practical skill-building and performance-based career growth.</span>",
-        [("Join as a Wower","contact.html",True)])
+    b = hero("For Wowers · The WOW maker","Learn. Execute. Perform. Grow.",
+        "A performance-driven pathway that transforms aspiring talent into work-ready professionals through training, real projects and meaningful career opportunities.<br class=\"hidden sm:block\"/><span class=\"inline-block mt-4 text-white font-semibold\">Real project work, practical skill-building and performance-based career growth.</span>",
+        [("Apply now","contact.html",True)])
     b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("WOWER — the WOW maker","Learn. Execute. Perform. Grow.","A performance-driven pathway that turns aspiring talent into work-ready professionals through training, real projects and meaningful career opportunities.")
     b += wower_pathway() + '</div></section>'
@@ -565,8 +568,8 @@ def build_services():
     return page("Woways — Services","services.html",b)
 
 def build_about():
-    b = hero("About Woways","A growth ecosystem where companies scale and careers get built.",
-        "Woways is an additional executive partner and a product studio. We take on real execution for companies, and turn that work into real opportunities for talent — one connected ecosystem.",
+    b = hero("About","About Woways.",
+        "We work with companies as an extended execution partner across Sales, Marketing, Operations, Technology and HR — while creating real work opportunities for Wowers through internships, practical projects and performance-driven career paths.",
         [("Work with us","contact.html",True),("Meet the products","#products",False)], illo=illo_connect())
     b += '<section class="bg-brandNavy py-16 border-b border-white/10"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += '<div class="grid grid-cols-2 md:grid-cols-4 gap-8 stagger reveal">%s</div></div></section>' % ''.join('<div class="text-center"><div class="font-display font-bold text-white" style="font-size:clamp(30px,4.6vw,46px);letter-spacing:-0.02em">%s</div><div class="cap text-slate-400 mt-2">%s</div></div>'%(n,l) for n,l in [("300+","Wowers trained"),("25+","Companies partnered"),("59,675+","Leads generated"),("125+","Projects executed")])
