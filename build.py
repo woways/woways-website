@@ -131,7 +131,7 @@ def footer():
       '<p class="text-sm max-w-[30ch]">An additional executive partner and product studio.</p></div>'
       '<div><h4 class="cap text-white mb-4">Explore</h4><ul class="space-y-2.5 text-sm">%s<li><a class="hover:text-white transition-colors" href="contact.html">Talk to us</a></li></ul></div>'
       '<div><h4 class="cap text-white mb-4">Products</h4><ul class="space-y-2.5 text-sm">%s</ul></div>'
-      '<div><h4 class="cap text-white mb-4">Contact</h4><p class="text-sm mb-1"><a class="hover:text-white transition-colors" href="mailto:info@woways.in">info@woways.in</a></p>'
+      '<div><h4 class="cap text-white mb-4">Contact</h4><p class="text-sm mb-1"><a class="hover:text-white transition-colors" href="mailto:tech@woways.in">tech@woways.in</a></p>'
       '<p class="text-sm mb-1"><a class="hover:text-white transition-colors" href="tel:+919390188553">+91 93901 88553</a></p>'
       '<p class="text-sm">2nd floor, LorVen Smart Spaces,<br/>Gachibowli, Hyderabad, 500032</p></div>'
       '</div><div class="pt-6 text-sm text-slate-500 flex flex-wrap justify-between gap-3">'
@@ -225,7 +225,7 @@ def product_cards(group):
 def cta_band():
     return ('<section class="bg-brandNavy text-white py-20"><div class="max-w-[1440px] mx-auto px-6 lg:px-12 text-center reveal">'
       '<h2 class="hd2 text-white mb-4">Let\'s find where Woways fits.</h2>'
-      '<p class="lead text-slate-300 max-w-2xl mx-auto mb-8">One short form. We reply within one business day, from a real person on the Woways team.</p>'
+      '<p class="lead text-slate-300 max-w-2xl mx-auto mb-8">One short form. We reply within 48 hours, from a real person on the Woways team.</p>'
       '<a class="inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-8 py-4 transition-colors" href="contact.html">Bring us in <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>'
       '</div></section>')
 
@@ -342,11 +342,48 @@ def testimonials():
           '<div><div class="font-display font-semibold text-brandNavy text-sm">%s</div><div class="text-xs text-slate-500">Software Developer Intern</div></div></div></div>'%(q,n[0],n))
     return '<div class="grid grid-cols-1 md:grid-cols-2 gap-6 stagger reveal">%s</div>'%cards
 
+def impact_stats():
+    stats=[("300+","Wowers trained"),("25+","Companies partnered"),("59,675+","Leads generated"),("125+","Projects executed")]
+    st=''.join('<div class="text-center"><div class="font-display font-bold text-brandNavy" style="font-size:clamp(30px,4.6vw,46px);letter-spacing:-0.02em">%s</div><div class="cap text-slate-500 mt-2">%s</div></div>'%(n,l) for n,l in stats)
+    return '<div class="grid grid-cols-2 md:grid-cols-4 gap-8 stagger reveal">%s</div>'%st
+
+def credibility_strip():
+    return ('<section class="bg-brandNavy py-6"><div class="max-w-[1440px] mx-auto px-6 lg:px-12 flex flex-col md:flex-row items-center justify-center gap-3 md:gap-8 text-center reveal">'
+      '<span class="text-slate-200 text-sm md:text-base font-display">Built by IIT alumni and industry operators</span>'
+      '<span class="hidden md:inline text-white/20">|</span>'
+      '<span class="text-slate-200 text-sm md:text-base font-display">Mentors from Microsoft, Deloitte, PwC, KPMG &amp; Accenture</span>'
+      '</div></section>')
+
+def mentors():
+    data=[("Nambi Diwakar","Microsoft, USA"),("Beldari Lakshmi Sree","Structural Design Engineer, Dar Al-Handasah"),
+      ("Udaya Sri Kumari Pamugari","Consultant, Workday Integrations, Deloitte"),("Madhuvanthi Sankalkar","Software Engineer, Rakuten India"),
+      ("Punugu Jayanth Reddy","Consultant, KPMG"),("Rishitha Reddy Guddeti","Quality Engineering Analyst, Accenture"),
+      ("Bhargav Reddy Perugu","AML Analyst, PwC"),("Jagadishwar Reddy","Curriculum Coordinator & Educator"),
+      ("Sarath Chandra Reddy Yemma","Verizon Data Services"),("Wilson Teja","FWAI, India"),
+      ("Vihang Gunnam","Founder & Director, Prakara Learning"),("Durga Bhargav Chowdary Kotha","Founder & Community Builder"),
+      ("Rohit Karre","General Manager, DocTutorials"),("Gouse Lazam Shaik","Managing Director, AG Elevators & Zyrolifts"),
+      ("Magdumbi Shaik","Chief Sales Officer, Zyrolifts"),("Omkareshwar Boda","Regional Head, AP & TS, NxtWave"),
+      ("C. Latha Prakash","Educator, CBSE National Awardee"),("Peddamale Chetan","Educator & Associate NCC Officer")]
+    def ini(n):
+        parts=[p for p in n.replace(".","").split() if p]
+        return (parts[0][0]+ (parts[1][0] if len(parts)>1 else "")).upper()
+    cards=''
+    for n,r in data:
+        cards+=('<div class="bg-white border border-borderLine p-5 card-lift flex items-center gap-4">'
+          '<span class="w-11 h-11 shrink-0 rounded-full bg-brandNavy text-white grid place-items-center font-display font-bold text-sm">%s</span>'
+          '<div class="min-w-0"><div class="font-display font-semibold text-brandNavy text-sm leading-tight">%s</div>'
+          '<div class="text-xs text-slate-500 mt-1 leading-snug">%s</div></div></div>'%(ini(n),n,r))
+    return '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 stagger reveal">%s</div><p class="micro mt-6 reveal" style="font-style:italic;color:#6B7C93">Company names are trademarks of their respective owners and indicate where our mentors work.</p>'%cards
+
 # ================= PAGES =================
 def build_index():
     b = hero("Execution capacity, on demand","Your Additional Executive Partner.",
         "Woways gives growing companies accountable execution capacity across Sales, Marketing, Operations, HR and Technology—working inside your systems, alongside your team.<br class=\"hidden sm:block\"/><span class=\"inline-block mt-4 text-white font-semibold\">Not advice. Delivery.</span>",
         [("Bring us in","contact.html",True),("Explore solutions","#products",False)], funcs=True)
+    b += credibility_strip()
+    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<div class="max-w-2xl mb-10 reveal"><span class="cap text-brandTeal block mb-2">Our impact</span><h2 class="hd2 text-brandNavy">Real work, measured.</h2></div>'
+    b += impact_stats() + '</div></section>'
     b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine" id="capabilities"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we do","An added execution layer across your core functions.","Woways works alongside partnered companies as an added execution layer — taking on the day-to-day work across five functions, the way an internal team would.")
     b += caps_grid()
@@ -464,6 +501,9 @@ def build_about():
       ("hub","Growth for both sides","Every engagement builds a company and a career at the same time.")]
     vcards=''.join('<div class="bg-paperBg border border-borderLine p-7 card-lift"><span class="material-symbols-outlined text-brandTeal mb-4 block" aria-hidden="true">%s</span><h3 class="hd3 text-brandNavy mb-2" style="font-size:18px">%s</h3><p class="text-sm text-slate-600">%s</p></div>'%(ic,h,p) for ic,h,p in values)
     b += '<div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger reveal">%s</div></div></section>'%vcards
+    b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += sec_head("Our mentors","Guided by people who have done the work.","Mentors from Microsoft, Deloitte, PwC, KPMG, Accenture and more support our Wowers and our execution.")
+    b += mentors() + '</div></section>'
     b += '<section id="products" class="bg-paperBg py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Our products","Products we build ourselves.","The technology side of Woways, shipped as live products. Each opens in its own portal.")
     b += '<div class="flex items-center gap-3 mb-6 reveal"><span class="cap text-slate-500">Education &amp; Career</span><div class="h-px bg-borderLine flex-1"></div></div>'+product_cards('edu')
@@ -475,7 +515,7 @@ def build_about():
 def build_contact():
     opts=["Execution support (sales, marketing, ops, HR, tech)","Join as a Wower","Talent Ignition","Student Mentor","College Macha","Bispun","Performance Portal","Become a mentor","Not sure yet"]
     os_=''.join('<option>%s</option>'%o for o in opts)
-    reassure=["One short form. No sales call unless you ask for one.","We reply from a real person on the Woways team, not an inbox.","We'll get back to you within one business day."]
+    reassure=["One short form. No sales call unless you ask for one.","We reply from a real person on the Woways team, not an inbox.","We'll get back to you within 48 hours."]
     rl=''.join('<div class="flex items-start gap-3 text-slate-300">%s<span>%s</span></div>'%(CHECK,x) for x in reassure)
     b = ('<section class="bg-brandNavy text-white"><div class="absolute inset-0"></div>'
       '<div class="max-w-[1440px] mx-auto px-6 lg:px-12 py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">'
@@ -483,7 +523,7 @@ def build_contact():
       '<p class="lead text-slate-300 mb-8 max-w-xl">Tell us a little about your company and what you\'re trying to get done. We\'ll come back with where Woways fits — execution support, one of our products, or both.</p>'
       '<div class="space-y-4">%s</div></div>'
       '<form class="bg-white p-8 lg:p-10 herofade" novalidate onsubmit="event.preventDefault();document.getElementById(\'ok\').classList.remove(\'hidden\');this.reset();">'
-      '<div id="ok" class="hidden mb-5 p-4 bg-brandTealTint text-brandTealDark text-sm border border-teal-200">Thank you. Our team will get back to you within one business day.</div>'
+      '<div id="ok" class="hidden mb-5 p-4 bg-brandTealTint text-brandTealDark text-sm border border-teal-200">Thank you. Our team will get back to you within 48 hours.</div>'
       '<div class="grid grid-cols-1 md:grid-cols-2 gap-5">'
       '<div><label class="cap text-slate-600 block mb-1.5" for="c-name">Your name</label><input id="c-name" required class="w-full h-11 px-3.5 border border-borderLine text-brandNavy" autocomplete="name"/></div>'
       '<div><label class="cap text-slate-600 block mb-1.5" for="c-desig">Designation</label><input id="c-desig" class="w-full h-11 px-3.5 border border-borderLine text-brandNavy" autocomplete="organization-title"/></div></div>'
