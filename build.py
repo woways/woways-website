@@ -96,7 +96,7 @@ def illo_target():
       '<circle cx="160" cy="150" r="26" fill="none" stroke="#E8A33D" stroke-width="3"/><circle cx="160" cy="150" r="13" fill="none" stroke="#E8A33D" stroke-width="3"/><circle cx="160" cy="150" r="3" fill="#E8A33D"/>'
       '<circle cx="86" cy="70" r="5" fill="#00A9A9"/><circle cx="160" cy="70" r="5" fill="#00A9A9"/><circle cx="234" cy="70" r="5" fill="#00A9A9"/></svg>')
 
-NAV = [("companies.html","For Companies"),("wowers.html","For Wowers"),("services.html","Services"),("about.html","About")]
+NAV = [("index.html","Home"),("companies.html","For Companies"),("wowers.html","For Wowers"),("services.html","Services"),("about.html","About")]
 
 def header(active):
     links = ''
@@ -112,8 +112,8 @@ def header(active):
       '<a href="index.html" aria-label="Woways — Execute, Grow, Transform" class="flex items-center gap-1 shrink-0">'
       '<img src="logo-icon.png" alt="" class="h-5 w-auto"/>'
       '<img src="logo-word.png" alt="Woways" class="h-5 w-auto"/></a>'
-      '<div class="flex items-center gap-8">'
-      '<nav class="hidden md:flex items-center gap-8" aria-label="Primary">%s</nav>'
+      '<div class="flex items-center gap-6">'
+      '<nav class="hidden md:flex items-center gap-6 lg:gap-7" aria-label="Primary">%s</nav>'
       '<a class="hidden sm:inline-flex items-center bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-6 py-2.5 transition-colors" href="contact.html">Talk to us</a>'
       '<button id="mbtn" class="md:hidden text-white p-2" aria-label="Open menu" aria-expanded="false"><span class="material-symbols-outlined">menu</span></button>'
       '</div></div>'
@@ -516,8 +516,8 @@ def build_wowers():
       ("Do I need prior experience?","No. We match you to work at your level and support you as you learn."),
       ("How do I start?","Apply with your interests and availability; we match you to a live project on a partner company."),
       ("What will I gain?","Real project experience, practical business skills and a track record you can actually show.")]
-    b = hero("For Wowers · The WOW maker","Learn. Execute. Perform. Grow.",
-        "A performance-driven pathway that transforms aspiring talent into work-ready professionals through training, real projects and meaningful career opportunities.<br class=\"hidden sm:block\"/><span class=\"inline-block mt-4 text-white font-semibold\">Real project work, practical skill-building and performance-based career growth.</span>",
+    b = hero("WOWER — The WOW Maker","Learn. Execute. Perform. Grow.",
+        "A performance-driven pathway that transforms aspiring talent into work-ready professionals through training, real projects, and meaningful career opportunities.",
         [("Apply now","contact.html",True)])
     b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("WOWER — the WOW maker","Learn. Execute. Perform. Grow.","A performance-driven pathway that turns aspiring talent into work-ready professionals through training, real projects and meaningful career opportunities.")
