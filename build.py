@@ -358,10 +358,14 @@ def impact_stats():
     return '<div class="grid grid-cols-2 md:grid-cols-4 gap-8 stagger reveal">%s</div>'%st
 
 def credibility_strip():
-    return ('<section class="bg-brandNavy py-6"><div class="max-w-[1440px] mx-auto px-6 lg:px-12 flex flex-col md:flex-row items-center justify-center gap-3 md:gap-8 text-center reveal">'
-      '<span class="text-slate-200 text-sm md:text-base font-display">Built by IIT alumni and industry operators</span>'
-      '<span class="hidden md:inline text-white/20">|</span>'
-      '<span class="text-slate-200 text-sm md:text-base font-display">Mentors from Microsoft, Deloitte, PwC, KPMG &amp; Accenture</span>'
+    faces=[("jagadishwar-reddy.jpg","Jagadishwar Reddy"),("vihang.jpg","Vihang Gunnam"),
+      ("bhargav-chowdary.jpg","Durga Bhargav Chowdary Kotha"),("rohit-karre.jpg","Rohit Karre"),
+      ("omkareshwar-boda.jpg","Omkareshwar Boda")]
+    av=''.join('<img src="m/%s" alt="%s" loading="lazy" class="w-10 h-10 rounded-full object-cover border-2 border-brandNavy ring-1 ring-white/25 -ml-3 first:ml-0"/>'%(f,n) for f,n in faces)
+    return ('<section class="bg-brandNavy py-6 border-b border-white/10"><div class="max-w-[1440px] mx-auto px-6 lg:px-12 flex flex-col sm:flex-row items-center sm:items-center gap-4 sm:gap-6 reveal">'
+      '<div class="flex items-center shrink-0" aria-hidden="true">%s</div>'
+      '<div class="text-center sm:text-left"><div class="text-white text-sm md:text-base font-display font-semibold">Built by IIT alumni and industry operators</div>'
+      '<div class="text-slate-300 text-sm md:text-base">Mentors from Microsoft, Deloitte, PwC, KPMG and Accenture</div></div>'
       '</div></section>')
 
 def mentors():
