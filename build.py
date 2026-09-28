@@ -366,7 +366,7 @@ def credibility_strip():
       '<div class="flex items-center shrink-0" aria-hidden="true">%s</div>'
       '<div class="text-center sm:text-left"><div class="text-white text-sm md:text-base font-display font-semibold">Built by IIT alumni and industry operators</div>'
       '<div class="text-slate-300 text-sm md:text-base">Mentors from Microsoft, Deloitte, PwC, KPMG and Accenture</div></div>'
-      '</div></section>')
+      '</div></section>') % av
 
 def mentors():
     data=[("Nambi Diwakar","Microsoft, USA","o","org-microsoft.png"),
