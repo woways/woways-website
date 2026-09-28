@@ -429,6 +429,19 @@ def inspiration():
       '<div class="mt-6"><div class="font-display font-semibold text-white">Dr. B. Bhaskar Rao</div>'
       '<div class="text-sm text-slate-400 mt-1">Managing Director &amp; Senior Consultant</div></div></div></div></div></section>')
 
+def core_team():
+    data=[("workspace_premium","Significant industry experience","Our core team brings strong experience across key sectors, with deep exposure to real-world business environments."),
+      ("bolt","Execution-driven mindset","Built with a practical understanding of how businesses operate and execute — not theory, delivery.")]
+    cards=''.join('<div class="bg-paperBg border border-borderLine p-8 card-lift"><span class="material-symbols-outlined text-brandTeal mb-4 block" aria-hidden="true">%s</span><h3 class="hd3 text-brandNavy mb-2" style="font-size:20px">%s</h3><p class="text-slate-600 leading-relaxed">%s</p></div>'%(ic,h,p) for ic,h,p in data)
+    return '<div class="grid grid-cols-1 md:grid-cols-2 gap-6 stagger reveal">%s</div>'%cards
+
+def where_today():
+    pts=["We are currently working with early-stage and growing companies.",
+      "We are building outreach systems that deliver repeatable results.",
+      "We focus on measurable outcomes — meetings booked, leads generated, pipelines built."]
+    items=''.join('<div class="flex gap-5 reveal"><div class="shrink-0 w-10 h-10 bg-brandNavy text-white grid place-items-center font-display font-bold text-sm">%02d</div><div class="pb-5 border-b border-borderLine flex-1 self-center"><p class="text-slate-700 text-lg">%s</p></div></div>'%(i+1,x) for i,x in enumerate(pts))
+    return '<div class="max-w-3xl space-y-5">%s</div>'%items
+
 # ================= PAGES =================
 def build_index():
     b = hero("Execution capacity, on demand","Your Additional Executive Partner.",
@@ -555,6 +568,8 @@ def build_about():
     b = hero("About Woways","A growth ecosystem where companies scale and careers get built.",
         "Woways is an additional executive partner and a product studio. We take on real execution for companies, and turn that work into real opportunities for talent — one connected ecosystem.",
         [("Work with us","contact.html",True),("Meet the products","#products",False)], illo=illo_connect())
+    b += '<section class="bg-brandNavy py-16 border-b border-white/10"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<div class="grid grid-cols-2 md:grid-cols-4 gap-8 stagger reveal">%s</div></div></section>' % ''.join('<div class="text-center"><div class="font-display font-bold text-white" style="font-size:clamp(30px,4.6vw,46px);letter-spacing:-0.02em">%s</div><div class="cap text-slate-400 mt-2">%s</div></div>'%(n,l) for n,l in [("300+","Wowers trained"),("25+","Companies partnered"),("59,675+","Leads generated"),("125+","Projects executed")])
     # two-sided
     comp=["Lead generation, sales support and growth operations","Execution across Sales, Marketing, Operations, HR and Technology","Our own products where they help — reporting into your team"]
     wow=["Real company projects, not busywork","Practical business skills and mentoring","Performance incentives and career growth"]
@@ -566,6 +581,12 @@ def build_about():
       '<p>Woways started with a simple observation: companies need execution, and talented people need real experience. Most consultancies sell advice; most internships offer busywork.</p>'
       '<p>We built Woways to do the opposite — run real work for companies, and staff it with talent that grows by doing. Our mission is to be the execution layer that helps companies grow, and the launchpad where careers get built.</p></div>'
       '</div></section>')
+    b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += sec_head("Our core team","Experience that has done the work.","")
+    b += core_team() + '</div></section>'
+    b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += sec_head("Where we are today","Focused on measurable outcomes.","")
+    b += where_today() + '</div></section>'
     b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine" id="ecosystem"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("The ecosystem model","One partner. Two engines of growth.","Companies need execution and pipeline. Talent needs real experience. Woways connects the two into a single virtuous cycle.")
     b += ('<div class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal">'
@@ -602,7 +623,12 @@ def build_contact():
       '<div class="max-w-[1440px] mx-auto px-6 lg:px-12 py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">'
       '<div class="herofade">%s<h1 class="hd1 text-white mb-5" style="font-size:clamp(30px,4.5vw,48px)">Get in touch.</h1>'
       '<p class="lead text-slate-300 mb-8 max-w-xl">Whether you\'re a company seeking growth or a Wower seeking opportunity, let\'s talk. Tell us what you\'re trying to get done and we\'ll come back with where Woways fits — execution support, one of our products, or both.</p>'
-      '<div class="space-y-4">%s</div></div>'
+      '<div class="space-y-4">%s</div>'
+      '<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">'
+      '<div class="border border-white/15 bg-white/5 p-5"><div class="cap text-brandTeal mb-2">For companies</div>'
+      '<p class="text-sm text-slate-300 leading-relaxed">Partner with Woways and our team reviews your requirement and gets in touch within 48 hours to explore how we can create value together.</p></div>'
+      '<div class="border border-white/15 bg-white/5 p-5"><div class="cap text-brandOrange mb-2">For Wowers</div>'
+      '<p class="text-sm text-slate-300 leading-relaxed">Freshers, graduates and career starters looking for real work and growth — send us your query and we\'ll connect you with opportunities at partner companies.</p></div></div></div>'
       '<form class="bg-white p-8 lg:p-10 herofade" novalidate onsubmit="event.preventDefault();document.getElementById(\'ok\').classList.remove(\'hidden\');this.reset();">'
       '<div id="ok" class="hidden mb-5 p-4 bg-brandTealTint text-brandTealDark text-sm border border-teal-200">Thank you. Our team will get back to you within 48 hours.</div>'
       '<div class="grid grid-cols-1 md:grid-cols-2 gap-5">'
@@ -616,6 +642,7 @@ def build_contact():
       '<div class="mt-5"><label class="cap text-slate-600 block mb-1.5" for="c-msg">Tell us briefly what you need</label><textarea id="c-msg" rows="3" class="w-full p-3.5 border border-borderLine text-brandNavy"></textarea></div>'
       '<label class="flex items-start gap-2.5 mt-5 text-sm text-slate-600"><input type="checkbox" required class="mt-1"/> <span>I agree to Woways contacting me about this enquiry and to the privacy policy.</span></label>'
       '<button type="submit" class="mt-6 w-full bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold py-4 transition-colors">Send request</button>'
+      '<p class="mt-5 text-xs text-slate-500 leading-relaxed">We collect these details only to reply to your enquiry and discuss working together. We keep them for up to 24 months after our last contact, then delete them. To see, correct or delete your details, write to <a class="underline hover:text-brandTeal" href="mailto:tech@woways.in">tech@woways.in</a>. Woways connects applicants with opportunities at partner companies; Woways is not the employer.</p>'
       '</form></div></section>' % (eyebrow("Talk to the Woways team"), rl, os_))
     return page("Woways — Contact","contact.html",b)
 
