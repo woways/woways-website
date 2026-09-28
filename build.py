@@ -357,25 +357,34 @@ def credibility_strip():
       '</div></section>')
 
 def mentors():
-    data=[("Nambi Diwakar","Microsoft, USA"),("Beldari Lakshmi Sree","Structural Design Engineer, Dar Al-Handasah"),
-      ("Udaya Sri Kumari Pamugari","Consultant, Workday Integrations, Deloitte"),("Madhuvanthi Sankalkar","Software Engineer, Rakuten India"),
-      ("Punugu Jayanth Reddy","Consultant, KPMG"),("Rishitha Reddy Guddeti","Quality Engineering Analyst, Accenture"),
-      ("Bhargav Reddy Perugu","AML Analyst, PwC"),("Jagadishwar Reddy","Curriculum Coordinator & Educator"),
-      ("Sarath Chandra Reddy Yemma","Verizon Data Services"),("Wilson Teja","FWAI, India"),
-      ("Vihang Gunnam","Founder & Director, Prakara Learning"),("Durga Bhargav Chowdary Kotha","Founder & Community Builder"),
-      ("Rohit Karre","General Manager, DocTutorials"),("Gouse Lazam Shaik","Managing Director, AG Elevators & Zyrolifts"),
-      ("Magdumbi Shaik","Chief Sales Officer, Zyrolifts"),("Omkareshwar Boda","Regional Head, AP & TS, NxtWave"),
-      ("C. Latha Prakash","Educator, CBSE National Awardee"),("Peddamale Chetan","Educator & Associate NCC Officer")]
-    def ini(n):
-        parts=[p for p in n.replace(".","").split() if p]
-        return (parts[0][0]+ (parts[1][0] if len(parts)>1 else "")).upper()
+    data=[("Nambi Diwakar","Microsoft, USA","o","org-microsoft.png"),
+      ("Beldari Lakshmi Sree","Structural Design Engineer, Dar Al-Handasah","o","org-dar-al-handasah.svg"),
+      ("Udaya Sri Kumari Pamugari","Consultant, Workday Integrations, Deloitte","o","org-deloitte.png"),
+      ("Madhuvanthi Sankalkar","Software Engineer, Rakuten India","o","org-rakuten.svg"),
+      ("Punugu Jayanth Reddy","Consultant, KPMG","o","org-kpmg.svg"),
+      ("Rishitha Reddy Guddeti","Quality Engineering Analyst, Accenture","o","org-accenture.svg"),
+      ("Bhargav Reddy Perugu","AML Analyst, PwC","o","org-pwc.svg"),
+      ("Jagadishwar Reddy","Curriculum Coordinator & Educator","p","jagadishwar-reddy.jpg"),
+      ("Sarath Chandra Reddy Yemma","Verizon Data Services","o","org-verizon.svg"),
+      ("Wilson Teja","FWAI, India","o","org-fwai.png"),
+      ("Vihang Gunnam","Founder & Director, Prakara Learning","p","vihang.jpg"),
+      ("Durga Bhargav Chowdary Kotha","Founder & Community Builder","p","bhargav-chowdary.jpg"),
+      ("Rohit Karre","General Manager, DocTutorials","p","rohit-karre.jpg"),
+      ("Gouse Lazam Shaik","Managing Director, AG Elevators & Zyrolifts","p","gouse-lazam-shaik.jpg"),
+      ("Magdumbi Shaik","Chief Sales Officer, Zyrolifts","p","magdumbi-shaik.jpg"),
+      ("Omkareshwar Boda","Regional Head, AP & TS, NxtWave","p","omkareshwar-boda.jpg"),
+      ("C. Latha Prakash","Educator, CBSE National Awardee","p","latha-prakash.jpg"),
+      ("Peddamale Chetan","Educator & Associate NCC Officer","p","chetan.jpg")]
     cards=''
-    for n,r in data:
-        cards+=('<div class="bg-white border border-borderLine p-5 card-lift flex items-center gap-4">'
-          '<span class="w-11 h-11 shrink-0 rounded-full bg-brandNavy text-white grid place-items-center font-display font-bold text-sm">%s</span>'
+    for n,r,k,a in data:
+        if k=='p':
+            av='<img src="m/%s" alt="%s" loading="lazy" class="w-12 h-12 rounded-full object-cover shrink-0 border border-borderLine"/>'%(a,n)
+        else:
+            av='<span class="w-12 h-12 rounded-full bg-white border border-borderLine grid place-items-center shrink-0 p-2.5"><img src="m/%s" alt="" loading="lazy" class="max-w-full max-h-full object-contain"/></span>'%a
+        cards+=('<div class="bg-white border border-borderLine p-5 card-lift flex items-center gap-4">%s'
           '<div class="min-w-0"><div class="font-display font-semibold text-brandNavy text-sm leading-tight">%s</div>'
-          '<div class="text-xs text-slate-500 mt-1 leading-snug">%s</div></div></div>'%(ini(n),n,r))
-    return '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 stagger reveal">%s</div><p class="micro mt-6 reveal" style="font-style:italic;color:#6B7C93">Company names are trademarks of their respective owners and indicate where our mentors work.</p>'%cards
+          '<div class="text-xs text-slate-500 mt-1 leading-snug">%s</div></div></div>'%(av,n,r))
+    return '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 stagger reveal">%s</div><p class="micro mt-6 reveal" style="font-style:italic;color:#6B7C93">Company names and logos are trademarks of their respective owners and indicate where our mentors work.</p>'%cards
 
 # ================= PAGES =================
 def build_index():
@@ -383,9 +392,6 @@ def build_index():
         "Woways gives growing companies accountable execution capacity across Sales, Marketing, Operations, HR and Technology—working inside your systems, alongside your team.<br class=\"hidden sm:block\"/><span class=\"inline-block mt-4 text-white font-semibold\">Not advice. Delivery.</span>",
         [("Bring us in","contact.html",True),("Explore solutions","#products",False)], funcs=True)
     b += credibility_strip()
-    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
-    b += '<div class="max-w-2xl mb-10 reveal"><span class="cap text-brandTeal block mb-2">Our impact</span><h2 class="hd2 text-brandNavy">Real work, measured.</h2></div>'
-    b += impact_stats() + '</div></section>'
     b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine" id="capabilities"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we do","An added execution layer across your core functions.","Woways works alongside partnered companies as an added execution layer — taking on the day-to-day work across five functions, the way an internal team would.")
     b += caps_grid()
