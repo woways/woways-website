@@ -110,18 +110,24 @@ def illo_pathway():
       '<path d="M56 150 L122 118 L188 90 L254 60" fill="none" stroke="#66DCD9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.6s" begin="0.7s" fill="freeze"/></path>'
       '<circle cx="254" cy="60" r="5" fill="#E8A33D" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.4s" begin="1.1s" fill="freeze"/></circle>'+bars+'</svg>')
 
-NAV = [("index.html","Home"),("companies.html","For Companies"),("wowers.html","For Wowers"),("companies.html#services","Services"),("about.html","About")]
+NAV = [("index.html","Home"),("companies.html","For Companies"),("wowers.html","For Wowers"),
+       ("companies.html#services","Services"),("companies.html#partnerships","Partnerships"),
+       ("wowers.html#pathway","Internships"),("about.html","About"),("contact.html","Contact")]
+FOOTER_NAV = [("index.html","Home"),("companies.html","For Companies"),("wowers.html","For Wowers"),("about.html","About"),("contact.html","Contact")]
 
 def header(active):
     links = ''
     for href,label in NAV:
         cur = ' aria-current="page"' if href==active else ''
-        cls = 'text-white' if href==active else 'text-slate-300 hover:text-white'
+        if label=="Contact":
+            cls = 'text-brandOrange hover:text-white'
+        else:
+            cls = 'text-white' if href==active else 'text-slate-300 hover:text-white'
         links += '<a class="cap %s transition-colors" href="%s"%s>%s</a>' % (cls,href,cur,label)
-    mob = ''.join('<a class="block px-6 py-3 text-slate-200 border-t border-white/10 font-display font-semibold" href="%s">%s</a>'%(h,l) for h,l in NAV)
-    mob += ('<div class="p-4 border-t border-white/10 space-y-3">'
-      '<a class="block text-center bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-6 py-3 transition-colors" href="contact.html">Partner with us</a>'
-      '<a class="block text-center border border-white/30 hover:bg-white/5 text-white text-sm font-semibold px-6 py-3 transition-colors" href="wowers.html">Apply for internship</a></div>')
+    mob=''
+    for h,l in NAV:
+        c = 'text-brandOrange' if l=="Contact" else 'text-slate-200'
+        mob += '<a class="block px-6 py-3 %s border-t border-white/10 font-display font-semibold" href="%s">%s</a>'%(c,h,l)
     return ('<a href="#main" class="skip">Skip to content</a>'
       '<header class="sticky top-0 z-50 bg-brandNavy/95 backdrop-blur border-b border-white/10">'
       '<div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-16 flex items-center justify-between">'
@@ -129,9 +135,7 @@ def header(active):
       '<img src="logo-icon.png" alt="" class="h-5 w-auto"/>'
       '<img src="logo-word.png" alt="Woways" class="h-5 w-auto"/></a>'
       '<div class="flex items-center gap-6">'
-      '<nav class="hidden md:flex items-center gap-6 lg:gap-7" aria-label="Primary">%s</nav>'
-      '<a class="hidden lg:inline-flex items-center border border-white/30 hover:border-white hover:bg-white/5 text-white text-sm font-semibold px-5 py-2.5 transition-colors" href="wowers.html">Apply for internship</a>'
-      '<a class="hidden sm:inline-flex items-center bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-5 py-2.5 transition-colors" href="contact.html">Partner with us</a>'
+      '<nav class="hidden md:flex items-center gap-4 lg:gap-6" aria-label="Primary">%s</nav>'
       '<button id="mbtn" class="md:hidden text-white p-2" aria-label="Open menu" aria-expanded="false"><span class="material-symbols-outlined">menu</span></button>'
       '</div></div>'
       '<div id="mmenu" class="hidden md:hidden bg-brandNavy border-t border-white/10">%s</div>'
@@ -141,7 +145,7 @@ def footer():
     prod = [("https://studentmentor.co.in","Student Mentor"),("https://collegemacha.com","College Macha"),("https://bispun.com","Bispun"),("https://woways-site.vercel.app","Perfoin")]
     plinks = ''.join('<li><a class="hover:text-white transition-colors" href="%s" target="_blank" rel="noopener noreferrer">%s</a></li>'%(u,n) for u,n in prod)
     plinks += '<li><span class="text-slate-500">Talent Ignition <span class="text-xs">(soon)</span></span></li>'
-    exp = ''.join('<li><a class="hover:text-white transition-colors" href="%s">%s</a></li>'%(h,l) for h,l in NAV)
+    exp = ''.join('<li><a class="hover:text-white transition-colors" href="%s">%s</a></li>'%(h,l) for h,l in FOOTER_NAV)
     return ('<footer class="bg-brandNavy text-slate-400 py-16 border-t border-white/10">'
       '<div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
       '<div class="grid grid-cols-2 md:grid-cols-4 gap-8 pb-10 border-b border-white/10">'
@@ -149,7 +153,7 @@ def footer():
       '<div class="flex items-center gap-1 mb-3"><img src="logo-icon.png" alt="" class="h-6 w-auto"/><img src="logo-word.png" alt="Woways" class="h-6 w-auto"/></div>'
       '<p class="cap text-brandTeal mb-2">Execute. Grow. Transform.</p>'
       '<p class="text-sm max-w-[30ch]">An additional executive partner and product studio.</p></div>'
-      '<div><h4 class="cap text-white mb-4">Explore</h4><ul class="space-y-2.5 text-sm">%s<li><a class="hover:text-white transition-colors" href="contact.html">Talk to us</a></li></ul></div>'
+      '<div><h4 class="cap text-white mb-4">Explore</h4><ul class="space-y-2.5 text-sm">%s</ul></div>'
       '<div><h4 class="cap text-white mb-4">Products</h4><ul class="space-y-2.5 text-sm">%s</ul></div>'
       '<div><h4 class="cap text-white mb-4">Contact</h4><p class="text-sm mb-1"><a class="hover:text-white transition-colors" href="mailto:tech@woways.in">tech@woways.in</a></p>'
       '<p class="text-sm mb-1"><a class="hover:text-white transition-colors" href="tel:+919390188553">+91 93901 88553</a></p>'
@@ -393,35 +397,41 @@ def credibility_strip():
       '<div class="text-slate-300 text-sm md:text-base">Mentors from Microsoft, Deloitte, PwC, KPMG and Accenture</div></div>'
       '</div></section>') % av
 
+MENTOR_DATA=[("Nambi Diwakar","Microsoft, USA","nambi-diwakar.jpg"),
+  ("Beldari Lakshmi Sree","Structural Design Engineer, Dar Al-Handasah","lakshmi-sree.jpg"),
+  ("Udaya Sri Kumari Pamugari","Consultant, Workday Integrations, Deloitte","udaya-sri.jpg"),
+  ("Madhuvanthi Sankalkar","Software Engineer, Rakuten India","madhuvanthi.jpg"),
+  ("Punugu Jayanth Reddy","Consultant, KPMG","jayanth-reddy.jpg"),
+  ("Rishitha Reddy Guddeti","Quality Engineering Analyst, Accenture","rishitha-reddy.jpg"),
+  ("Bhargav Reddy Perugu","AML Analyst, PwC","bhargav-reddy.jpg"),
+  ("Jagadishwar Reddy","Curriculum Coordinator & Educator","jagadishwar-reddy.jpg"),
+  ("Sarath Chandra Reddy Yemma","Verizon Data Services","sarath-yemma.jpg"),
+  ("Wilson Teja","FWAI, India","wilson-teja.jpg"),
+  ("Vihang Gunnam","Founder & Director, Prakara Learning","vihang.jpg"),
+  ("Durga Bhargav Chowdary Kotha","Founder & Community Builder","bhargav-chowdary.jpg"),
+  ("Rohit Karre","General Manager, DocTutorials","rohit-karre.jpg"),
+  ("Gouse Lazam Shaik","Managing Director, AG Elevators & Zyrolifts","gouse-lazam-shaik.jpg"),
+  ("Magdumbi Shaik","Chief Sales Officer, Zyrolifts","magdumbi-shaik.jpg"),
+  ("Omkareshwar Boda","Regional Head, AP & TS, NxtWave","omkareshwar-boda.jpg"),
+  ("C. Latha Prakash","Educator, CBSE National Awardee","latha-prakash.jpg"),
+  ("Peddamale Chetan","Educator & Associate NCC Officer","chetan.jpg")]
+
 def mentors():
-    data=[("Nambi Diwakar","Microsoft, USA","o","org-microsoft.png"),
-      ("Beldari Lakshmi Sree","Structural Design Engineer, Dar Al-Handasah","o","org-dar-al-handasah.svg"),
-      ("Udaya Sri Kumari Pamugari","Consultant, Workday Integrations, Deloitte","o","org-deloitte.png"),
-      ("Madhuvanthi Sankalkar","Software Engineer, Rakuten India","o","org-rakuten.svg"),
-      ("Punugu Jayanth Reddy","Consultant, KPMG","o","org-kpmg.svg"),
-      ("Rishitha Reddy Guddeti","Quality Engineering Analyst, Accenture","o","org-accenture.svg"),
-      ("Bhargav Reddy Perugu","AML Analyst, PwC","o","org-pwc.svg"),
-      ("Jagadishwar Reddy","Curriculum Coordinator & Educator","p","jagadishwar-reddy.jpg"),
-      ("Sarath Chandra Reddy Yemma","Verizon Data Services","o","org-verizon.svg"),
-      ("Wilson Teja","FWAI, India","o","org-fwai.png"),
-      ("Vihang Gunnam","Founder & Director, Prakara Learning","p","vihang.jpg"),
-      ("Durga Bhargav Chowdary Kotha","Founder & Community Builder","p","bhargav-chowdary.jpg"),
-      ("Rohit Karre","General Manager, DocTutorials","p","rohit-karre.jpg"),
-      ("Gouse Lazam Shaik","Managing Director, AG Elevators & Zyrolifts","p","gouse-lazam-shaik.jpg"),
-      ("Magdumbi Shaik","Chief Sales Officer, Zyrolifts","p","magdumbi-shaik.jpg"),
-      ("Omkareshwar Boda","Regional Head, AP & TS, NxtWave","p","omkareshwar-boda.jpg"),
-      ("C. Latha Prakash","Educator, CBSE National Awardee","p","latha-prakash.jpg"),
-      ("Peddamale Chetan","Educator & Associate NCC Officer","p","chetan.jpg")]
     cards=''
-    for n,r,k,a in data:
-        if k=='p':
-            av='<img src="m/%s" alt="%s" loading="lazy" class="w-12 h-12 rounded-full object-cover shrink-0 border border-borderLine"/>'%(a,n)
-        else:
-            av='<span class="w-12 h-12 rounded-full bg-white border border-borderLine grid place-items-center shrink-0 p-2.5"><img src="m/%s" alt="" loading="lazy" class="max-w-full max-h-full object-contain"/></span>'%a
-        cards+=('<div class="bg-white border border-borderLine p-5 card-lift flex items-center gap-4">%s'
-          '<div class="min-w-0"><div class="font-display font-semibold text-brandNavy text-sm leading-tight">%s</div>'
-          '<div class="text-xs text-slate-500 mt-1 leading-snug">%s</div></div></div>'%(av,n,r))
-    return '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 stagger reveal">%s</div><p class="micro mt-6 reveal" style="font-style:italic;color:#6B7C93">Company names and logos are trademarks of their respective owners and indicate where our mentors work.</p>'%cards
+    for n,r,a in MENTOR_DATA:
+        cards+=('<div class="snap-start shrink-0 w-[240px] bg-white border border-borderLine card-lift overflow-hidden">'
+          '<div class="aspect-[4/3] overflow-hidden bg-paperDim"><img src="m/%s" alt="%s" loading="lazy" class="w-full h-full object-cover object-top"/></div>'
+          '<div class="p-5 text-center"><div class="font-display font-semibold text-brandNavy text-[15px] leading-tight">%s</div>'
+          '<div class="text-xs text-slate-500 mt-2 leading-snug">%s</div></div></div>'%(a,n,n,r))
+    arrow=('<button type="button" aria-label="%s" onclick="document.getElementById(\'mscroll\').scrollBy({left:%d,behavior:\'smooth\'})" '
+      'class="absolute %s top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white border border-borderLine shadow-md grid place-items-center text-brandNavy hover:bg-brandNavy hover:text-white transition-colors">'
+      '<span class="material-symbols-outlined" aria-hidden="true">%s</span></button>')
+    left=arrow%("Previous mentors",-520,"left-0 lg:-left-2","chevron_left")
+    right=arrow%("Next mentors",520,"right-0 lg:-right-2","chevron_right")
+    return ('<div class="relative reveal">%s%s'
+      '<div id="mscroll" class="flex gap-5 overflow-x-auto snap-x scroll-smooth pb-4 px-1 [scrollbar-width:none] [-ms-overflow-style:none]" style="scrollbar-width:none">%s</div></div>'
+      '<style>#mscroll::-webkit-scrollbar{display:none}</style>'
+      '<p class="mt-6 reveal text-center" style="font-style:italic;color:#6B7C93;font-size:12px">Company names indicate where our mentors work and are trademarks of their respective owners.</p>'%(left,right,cards))
 
 def problem_solve():
     comp=["Generating qualified leads","Building sales pipelines","Scaling operations cost-effectively"]
@@ -433,12 +443,12 @@ def problem_solve():
 
 def wower_pathway():
     steps=[("Join","Become part of the Woways talent ecosystem and begin your professional journey."),
-      ("Learn","Structured induction, training and practical learning aligned with business requirements."),
-      ("Execute","Work on real projects across Sales, Marketing, Operations, HR, Technology and Digital Business."),
-      ("Perform","Show your skills, ownership and ability to deliver measurable outcomes."),
-      ("Grow","Pathways to PPOs, jobs, extended internships and other career opportunities.")]
-    sc=''.join('<div class="border border-borderLine p-6 bg-white card-lift text-center"><div class="w-10 h-10 mx-auto bg-brandTeal text-white grid place-items-center font-display font-bold mb-4">%d</div><h3 class="hd3 text-brandNavy mb-2" style="font-size:17px">%s</h3><p class="text-sm text-slate-600">%s</p></div>'%(i+1,h,p) for i,(h,p) in enumerate(steps))
-    return '<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 stagger reveal">%s</div>'%sc
+      ("Learn","Go through structured induction, training and practical learning aligned with business requirements."),
+      ("Execute","Work on real projects across functions such as Sales, Marketing, Operations, HR, Technology and Digital Business."),
+      ("Perform","Demonstrate your skills, ownership, commitment, professionalism and ability to deliver measurable outcomes."),
+      ("Grow","Your performance can open pathways to PPO opportunities, jobs with potential packages, extended internships and other career opportunities.")]
+    sc=''.join('<div class="border border-borderLine p-6 bg-white card-lift text-left"><div class="flex items-center gap-3 mb-4"><div class="w-10 h-10 bg-brandTeal text-white grid place-items-center font-display font-bold shrink-0">%02d</div><h3 class="hd3 text-brandNavy" style="font-size:17px">%s</h3></div><p class="text-sm text-slate-600 leading-relaxed">%s</p></div>'%(i+1,h,p) for i,(h,p) in enumerate(steps))
+    return '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 stagger reveal">%s</div>'%sc
 
 def ecosystem_model():
     steps=[("Companies","brandTeal","Companies partner with us"),("Woways","brandNavy","We build lead pipelines"),
@@ -450,7 +460,7 @@ def ecosystem_model():
     return '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 stagger reveal">%s</div>'%sc
 
 def inspiration():
-    return ('<section class="bg-brandNavy py-20 lg:py-24"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    return ('<section class="bg-brandNavy py-16 lg:py-20"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
       '<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-[auto_1fr] gap-8 md:gap-10 items-center reveal">'
       '<img src="m/bhaskar-rao.jpg" alt="Dr. B. Bhaskar Rao" loading="lazy" class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover object-top border-2 border-brandTeal/40 mx-auto"/>'
       '<div class="text-center md:text-left"><span class="cap text-brandTeal block mb-4">Our inspiration</span>'
@@ -480,35 +490,37 @@ def build_index():
     b += '<section class="bg-white py-16 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += '<p class="cap text-slate-500 mb-8 text-center reveal">Our impact</p>'
     b += impact_stats() + '</div></section>'
-    b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("The problem we solve","Two sides of the same gap.","Companies need execution and pipeline. Talent needs real experience. We connect the two.")
     b += problem_solve() + '</div></section>'
-    b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine" id="capabilities"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine" id="capabilities"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we do","An added execution layer across your core functions.","Woways works alongside partnered companies as an added execution layer — taking on the day-to-day work across five functions, the way an internal team would.")
     b += caps_grid()
     b += '<div class="mt-10 reveal"><a class="inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors grp" href="companies.html">See the executive partnership <span class="material-symbols-outlined text-[18px] arrow-move" aria-hidden="true">arrow_forward</span></a></div></div></section>'
-    b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine" id="how"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine" id="how"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("How we work","Execute. Grow. Transform.","Every engagement moves through the same three stages — it's the reason clients bring us in, and the reason we stay.")
     b += egt() + '</div></section>'
-    b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("The ecosystem model","How the loop works.","Woways connects industry needs with emerging talent and execution capabilities — a virtuous cycle.")
     b += ecosystem_model() + '</div></section>'
-    b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine" id="products"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine" id="products"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Our products","One execution partner. Five focused products.","Software built by Woways — for education and career growth, and for running businesses.")
     b += '<div class="flex items-center gap-3 mb-6 reveal"><span class="cap text-slate-500">Education &amp; Career</span><div class="h-px bg-borderLine flex-1"></div></div>' + product_cards('edu')
     b += '<div class="flex items-center gap-3 mb-6 mt-12 reveal"><span class="cap text-slate-500">Business Visibility &amp; Execution</span><div class="h-px bg-borderLine flex-1"></div></div>' + product_cards('biz')
     b += '</div></section>'
     b += industries()
-    # WOWER — big pathway section (reference-style, with animated illustration)
+    # WOWER — full-width text section (For Wowers)
     b += ('<section class="relative bg-brandNavy text-white overflow-hidden"><div class="absolute inset-0 glow pointer-events-none"></div>'
-      '<div class="relative max-w-[1440px] mx-auto px-6 lg:px-12 py-20 lg:py-24 grid lg:grid-cols-2 gap-12 items-center">'
-      '<div class="reveal">%s<h2 class="hd2 text-white mb-2" style="font-size:clamp(30px,4.5vw,46px)">Learn. Execute.<br/>Perform. Grow.</h2>'
-      '<p class="lead text-slate-300 mb-8 max-w-xl">A performance-driven pathway that transforms aspiring talent into work-ready professionals through training, real projects, and meaningful career opportunities.</p>'
+      '<div class="absolute inset-0 gridlines opacity-60 pointer-events-none"></div>'
+      '<div class="relative max-w-[1440px] mx-auto px-6 lg:px-12 py-16 lg:py-24">'
+      '<div class="max-w-3xl reveal">%s'
+      '<h2 class="hd2 text-white mb-3" style="font-size:clamp(32px,5vw,52px)">WOWER — The WOW Maker</h2>'
+      '<p class="font-display font-semibold text-brandTeal mb-6" style="font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em">Learn. Execute. Perform. Grow.</p>'
+      '<p class="lead text-slate-300 mb-8 max-w-2xl">A performance-driven pathway that transforms aspiring talent into work-ready professionals through training, real projects, and meaningful career opportunities.</p>'
       '<div class="flex flex-wrap gap-4"><a class="inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="wowers.html">Apply for internship <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>'
-      '<a class="inline-flex items-center gap-2 border border-white/30 hover:border-white hover:bg-white/5 text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="wowers.html">How WOWER works</a></div></div>'
-      '<div class="reveal flex items-center justify-center">%s</div></div></section>' % (eyebrow("WOWER — The WOW Maker"), illo_pathway()))
+      '<a class="inline-flex items-center gap-2 border border-white/30 hover:border-white hover:bg-white/5 text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="wowers.html#pathway">How WOWER works</a></div></div></div></section>' % eyebrow("For Wowers"))
     b += inspiration()
-    b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Our mentors","Guided by people who have done the work.","Mentors from Microsoft, Deloitte, PwC, KPMG, Accenture and more support our Wowers and our execution.")
     b += mentors() + '</div></section>'
     b += cta_band()
@@ -518,13 +530,13 @@ def build_companies():
     b = hero("For Companies","Your extended execution partner.",
         "We work with companies as an extended execution partner across Sales, Marketing, Operations, Technology and HR — embedding like an internal team, running the work on your systems and standards, and reporting straight back to you.",
         [("Partner with us","contact.html",True),("See our services","companies.html#services",False)])
-    b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine" id="capabilities"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine" id="capabilities"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we execute","Five functions, one embedded team.","Point to a work area, describe the need, and we take it on — with the scope and standards of an internal team.")
     b += caps_detailed() + '</div></section>'
-    b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine" id="services"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine" id="services"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Services","Five services, one pipeline.","Pick the service that unblocks you now, or combine them — each is run by our team and reports into yours.")
     b += services_detailed() + '</div></section>'
-    b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine" id="partnerships"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Partnerships","What you get, and who we partner with.","")
     what=["Access to lead generation infrastructure","Sales pipeline management","Expansion into new markets","Cost-effective talent through the Wower ecosystem"]
     wl=''.join('<div class="flex items-start gap-3 text-slate-700">%s<span>%s</span></div>'%(CHECK,x) for x in what)
@@ -534,10 +546,10 @@ def build_companies():
       '<div class="bg-white border border-borderLine p-8"><h3 class="hd3 text-brandNavy mb-5" style="font-size:20px">What you get</h3><div class="space-y-4">%s</div></div>'
       '<div class="bg-white border border-borderLine p-8"><h3 class="hd3 text-brandNavy mb-5" style="font-size:20px">Partner types</h3><div class="flex flex-wrap gap-3">%s</div></div></div>' % (wl,pp))
     b += '</div></section>'
-    b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Bringing us in","How an engagement starts.","A short, clear path from first conversation to work moving — no drawn-out sales cycle.")
     b += journey() + '</div></section>'
-    b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Why companies choose Woways","Execution you can hold accountable.","")
     b += why_cards() + '</div></section>'
     b += industries() + cta_band()
@@ -552,39 +564,41 @@ def build_wowers():
       ("Do I need prior experience?","No. We match you to work at your level and support you as you learn."),
       ("How do I start?","Apply with your interests and availability; we match you to a live project on a partner company."),
       ("What will I gain?","Real project experience, practical business skills and a track record you can actually show.")]
-    b = hero("WOWER — The WOW Maker","Learn. Execute. Perform. Grow.",
-        "A performance-driven pathway that transforms aspiring talent into work-ready professionals through training, real projects, and meaningful career opportunities.",
-        [("Apply now","contact.html",True),("How WOWER works","#pathway",False)], illo=illo_pathway())
-    b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine" id="pathway"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
-    b += sec_head("How WOWER works","Learn. Execute. Perform. Grow.","A performance-driven pathway that turns aspiring talent into work-ready professionals through training, real projects and meaningful career opportunities.")
+    b = hero("For Wowers","WOWER — The WOW Maker",
+        "<span class=\"block text-brandTeal font-display font-semibold mb-4\" style=\"font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em\">Learn. Execute. Perform. Grow.</span>A performance-driven pathway that transforms aspiring talent into work-ready professionals through training, real projects, and meaningful career opportunities.",
+        [("Apply now","contact.html",True),("How WOWER works","#pathway",False)])
+    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine" id="pathway"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += sec_head("How WOWER works","Five steps, one performance-driven pathway.","From joining the ecosystem to real career growth — here is how a Wower's journey unfolds.")
     b += wower_pathway() + '</div></section>'
-    b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
-    b += sec_head("Who is a Wower","Potential, ready to perform.","")
-    b += ('<div class="max-w-3xl reveal space-y-5 text-lg text-slate-700 leading-relaxed">'
-      '<p>A Wower is an aspiring professional ready to learn, execute, grow and create a WOW factor through meaningful work — freshers, interns, graduates, pursuing graduates and career starters.</p>'
-      '<p>We identify potential, provide structured training, and place Wowers into real-world projects aligned with our partner companies. Instead of waiting for an opportunity, Wowers learn by doing, contribute to real business work, and build their careers through performance.</p></div>')
-    promise=["Real Work","Real Learning","Real Performance","Real Growth"]
-    pc=''.join('<span class="px-4 py-2.5 bg-white border border-borderLine text-brandNavy font-display font-semibold">%s</span>'%x for x in promise)
-    b += ('<div class="mt-10 reveal"><p class="cap text-brandTeal mb-4">The WOWER promise</p><div class="flex flex-wrap gap-3">%s</div>'
-      '<p class="mt-8 font-display text-brandNavy" style="font-size:clamp(18px,2.4vw,24px);letter-spacing:-0.01em">“Potential gets the opportunity. Performance creates the growth.”</p></div>'%pc)
+    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += sec_head("Who is a Wower","Potential, ready to perform.","A Wower is an aspiring professional who is ready to learn, execute, grow, and create a WOW factor through meaningful work.")
+    who=[("diversity_3","Every kind of starter","Wowers can be freshers, interns, graduates, pursuing graduates, career starters, or individuals actively looking for meaningful job and growth opportunities."),
+      ("rocket_launch","Learning by doing","At Woways, we identify potential, provide structured training, and place Wowers into real-world projects aligned with our partner companies. Instead of waiting for an opportunity, Wowers learn by doing, contribute to real business work, and build their careers through performance.")]
+    wc2=''.join('<div class="bg-paperBg border border-borderLine p-8 card-lift"><span class="material-symbols-outlined text-brandTeal mb-4 block" aria-hidden="true">%s</span><h3 class="hd3 text-brandNavy mb-2" style="font-size:19px">%s</h3><p class="text-slate-600 leading-relaxed">%s</p></div>'%(ic,h,p) for ic,h,p in who)
+    b += '<div class="grid grid-cols-1 md:grid-cols-2 gap-6 stagger reveal">%s</div></div></section>'%wc2
+    b += ('<section class="relative bg-brandNavy text-white overflow-hidden"><div class="absolute inset-0 glow pointer-events-none"></div>'
+      '<div class="relative max-w-[1440px] mx-auto px-6 lg:px-12 py-16 lg:py-20 text-center reveal">'
+      '<span class="cap text-brandTeal block mb-4">Our objective</span>'
+      '<p class="font-display text-white mx-auto max-w-3xl" style="font-size:clamp(20px,2.8vw,30px);line-height:1.4;letter-spacing:-0.02em">To transform aspiring talent into capable professionals by providing real work, structured learning, and performance-driven growth opportunities.</p>'
+      '<p class="mt-8 text-brandTeal font-display font-semibold" style="font-size:clamp(18px,2.2vw,24px)">&ldquo;Potential gets the opportunity. Performance creates the growth.&rdquo;</p>'
+      '</div></section>')
+    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12 grid lg:grid-cols-2 gap-12 items-center">'
+    b += ('<div class="reveal"><span class="cap text-brandTeal block mb-3">More than a job opportunity</span>'
+      '<h2 class="hd2 text-brandNavy mb-5" style="font-size:clamp(26px,3.4vw,38px)">Built work-ready, not just placed.</h2>'
+      '<p class="text-slate-600 leading-relaxed mb-4">Being a Wower is not just about getting placed into a role. It is about becoming work-ready, gaining practical business exposure, contributing to real organizations, and creating a foundation for long-term professional growth.</p>'
+      '<p class="text-slate-600 leading-relaxed">At Woways, every Wower gets the opportunity to learn with purpose, work with responsibility, and grow through performance.</p></div>')
+    promise=[("Real Work","work"),("Real Learning","school"),("Real Performance","trending_up"),("Real Growth","rocket_launch")]
+    pcards=''.join('<div class="bg-brandNavy text-white p-6 card-lift"><span class="material-symbols-outlined text-brandTeal mb-3 block" aria-hidden="true">%s</span><div class="font-display font-semibold" style="font-size:18px">%s</div></div>'%(ic,t) for t,ic in promise)
+    b += '<div class="reveal"><p class="cap text-slate-500 mb-4">The WOWER promise</p><div class="grid grid-cols-2 gap-4 stagger">%s</div></div>'%pcards
     b += '</div></section>'
-    b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
-    b += sec_head("Why Woways","What you get as a Wower.","")
-    b += ('<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 reveal"><div class="bg-white border border-borderLine p-8"><ul class="space-y-4">%s</ul></div>'
-      '<div class="bg-brandTealTint border border-teal-200/60 p-8 flex items-center">'
-      '<p class="font-display text-brandNavy" style="font-size:22px;line-height:1.4">\u201CYour career starts with real projects, not just theory.\u201D</p></div></div>' % bl)
-    b += '</div></section>'
-    b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What you'll work on","Real work across partner companies.","")
     b += wowers_work() + '</div></section>'
-    b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
-    b += sec_head("How it works","Three steps to your first project.","")
-    b += '<div class="grid grid-cols-1 md:grid-cols-3 gap-8 stagger reveal">%s</div></div></section>' % sc
-    b += '<section class="bg-brandNavy py-20 lg:py-24"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<section class="bg-brandNavy py-16 lg:py-20"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += ('<div class="max-w-3xl mb-12 reveal"><span class="cap text-brandTeal block mb-2">What Wowers say</span>'
       '<h2 class="hd2 text-white">Real work. Real responsibility. Real growth.</h2></div>')
     b += testimonials() + '</div></section>'
-    b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += '<div class="max-w-3xl mx-auto text-center mb-12 reveal"><span class="cap text-brandTeal block mb-2">Questions</span><h2 class="hd2 text-brandNavy">Good to know.</h2></div>'
     b += faq(faqs) + '</div></section>'
     b += cta_band()
@@ -594,10 +608,10 @@ def build_services():
     b = hero("Services","The work we run, end to end.",
         "Productized execution you can start with one service and scale as it proves out — from first outreach to closed revenue, plus the talent engine that delivers it.",
         [("Discuss your needs","contact.html",True),("For companies","companies.html",False)], illo=illo_target())
-    b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we do","Four services, one pipeline.","Each service is run by our team and reports into yours. Pick one, or combine them.")
     b += services_detailed() + '</div></section>'
-    b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("How an engagement works","Start small. Scale with results.","")
     b += how_engagement() + '</div></section>'
     b += ('<section class="bg-paperBg py-16 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12 reveal flex flex-col md:flex-row md:items-center justify-between gap-6">'
@@ -610,7 +624,7 @@ def build_services():
 def build_about():
     b = hero("About","About Woways.",
         "We work with companies as an extended execution partner across Sales, Marketing, Operations, Technology and HR — while creating real work opportunities for Wowers through internships, practical projects and performance-driven career paths.",
-        [("Work with us","contact.html",True),("Meet the products","#products",False)], illo=illo_connect())
+        [("Work with us","contact.html",True),("How we work","#ecosystem",False)])
     b += '<section class="bg-brandNavy py-16 border-b border-white/10"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += '<div class="grid grid-cols-2 md:grid-cols-4 gap-8 stagger reveal">%s</div></div></section>' % ''.join('<div class="text-center"><div class="font-display font-bold text-white" style="font-size:clamp(30px,4.6vw,46px);letter-spacing:-0.02em">%s</div><div class="cap text-slate-400 mt-2">%s</div></div>'%(n,l) for n,l in [("300+","Wowers trained"),("25+","Companies partnered"),("59,675+","Leads generated"),("125+","Projects executed")])
     # two-sided
@@ -618,19 +632,19 @@ def build_about():
     wow=["Real company projects, not busywork","Practical business skills and mentoring","Performance incentives and career growth"]
     cl=''.join('<li class="flex items-start gap-3 text-slate-700">%s<span>%s</span></li>'%(CHECK,x) for x in comp)
     wl=''.join('<li class="flex items-start gap-3 text-slate-700">%s<span>%s</span></li>'%(CHECK,x) for x in wow)
-    b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Our story","Built to do the opposite of advice.","")
     b += ('<div class="max-w-3xl reveal space-y-5 text-lg text-slate-700 leading-relaxed">'
       '<p>Woways started with a simple observation: companies need execution, and talented people need real experience. Most consultancies sell advice; most internships offer busywork.</p>'
       '<p>We built Woways to do the opposite — run real work for companies, and staff it with talent that grows by doing. Our mission is to be the execution layer that helps companies grow, and the launchpad where careers get built.</p></div>'
       '</div></section>')
-    b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Our core team","Experience that has done the work.","")
     b += core_team() + '</div></section>'
-    b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Where we are today","Focused on measurable outcomes.","")
     b += where_today() + '</div></section>'
-    b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine" id="ecosystem"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine" id="ecosystem"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("The ecosystem model","One partner. Two engines of growth.","Companies need execution and pipeline. Talent needs real experience. Woways connects the two into a single virtuous cycle.")
     b += ('<div class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal">'
       '<div class="bg-white border border-borderLine p-8"><div class="w-full h-1 bg-brandTeal mb-6"></div>'
@@ -638,22 +652,23 @@ def build_about():
       '<div class="bg-white border border-borderLine p-8"><div class="w-full h-1 bg-brandOrange mb-6"></div>'
       '<span class="cap text-slate-500">For Wowers</span><h3 class="hd3 text-brandNavy mt-2 mb-4" style="font-size:20px">Build a career on real work</h3><ul class="space-y-3.5">%s</ul></div></div>' % (cl,wl))
     b += '</div></section>'
-    b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("How we operate","What we stand for.","")
     values=[("bolt","Delivery over decks","We run the work and are measured on outcomes, not slideware."),
       ("verified","Honesty over hype","Intended value, stated plainly — no inflated claims or fake metrics."),
       ("hub","Growth for both sides","Every engagement builds a company and a career at the same time.")]
     vcards=''.join('<div class="bg-paperBg border border-borderLine p-7 card-lift"><span class="material-symbols-outlined text-brandTeal mb-4 block" aria-hidden="true">%s</span><h3 class="hd3 text-brandNavy mb-2" style="font-size:18px">%s</h3><p class="text-sm text-slate-600">%s</p></div>'%(ic,h,p) for ic,h,p in values)
     b += '<div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger reveal">%s</div></div></section>'%vcards
-    b += inspiration()
-    b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
-    b += sec_head("Our mentors","Guided by people who have done the work.","Mentors from Microsoft, Deloitte, PwC, KPMG, Accenture and more support our Wowers and our execution.")
-    b += mentors() + '</div></section>'
-    b += '<section id="products" class="bg-paperBg py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
-    b += sec_head("Our products","Products we build ourselves.","The technology side of Woways, shipped as live products. Each opens in its own portal.")
-    b += '<div class="flex items-center gap-3 mb-6 reveal"><span class="cap text-slate-500">Education &amp; Career</span><div class="h-px bg-borderLine flex-1"></div></div>'+product_cards('edu')
-    b += '<div class="flex items-center gap-3 mb-6 mt-12 reveal"><span class="cap text-slate-500">Business Systems</span><div class="h-px bg-borderLine flex-1"></div></div>'+product_cards('biz')
-    b += '</div></section>'
+    # The honest version — attractive, candid section
+    b += '<section class="relative bg-brandNavy text-white overflow-hidden"><div class="absolute inset-0 glow pointer-events-none"></div><div class="absolute inset-0 gridlines opacity-60 pointer-events-none"></div>'
+    b += '<div class="relative max-w-[1440px] mx-auto px-6 lg:px-12 py-16 lg:py-20">'
+    b += '<div class="max-w-3xl mb-12 reveal"><span class="cap text-brandTeal block mb-2">The honest version</span><h2 class="hd2 text-white mb-3">No inflated claims. Just work we can stand behind.</h2><p class="lead text-slate-300">We would rather under-promise and deliver than sell a story. Here is exactly what Woways is — and what it is not.</p></div>'
+    honest=[("We are an execution partner, not a consultancy","We do the work and report outcomes. We do not hand you a deck and walk away."),
+      ("We are early, and we say so","We are working with early-stage and growing companies, building outreach systems that produce repeatable results. We are honest about where we are today."),
+      ("We measure what matters","Meetings booked, leads generated, pipelines built — real, checkable outcomes, not vanity metrics."),
+      ("We are not the employer","For Wowers, we connect talent with real opportunities at partner companies and grow careers through performance — clearly and transparently.")]
+    hc=''.join('<div class="border border-white/12 bg-white/5 p-7 card-lift"><span class="material-symbols-outlined text-brandTeal mb-4 block" aria-hidden="true">%s</span><h3 class="hd3 text-white mb-2" style="font-size:18px">%s</h3><p class="text-sm text-slate-300 leading-relaxed">%s</p></div>'%(ic,h,p) for ic,(h,p) in zip(["handshake","trending_up","query_stats","diversity_3"],honest))
+    b += '<div class="grid grid-cols-1 md:grid-cols-2 gap-5 stagger reveal">%s</div></div></section>'%hc
     b += cta_band()
     return page("Woways — About","about.html",b)
 
