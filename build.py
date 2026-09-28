@@ -96,6 +96,20 @@ def illo_target():
       '<circle cx="160" cy="150" r="26" fill="none" stroke="#E8A33D" stroke-width="3"/><circle cx="160" cy="150" r="13" fill="none" stroke="#E8A33D" stroke-width="3"/><circle cx="160" cy="150" r="3" fill="#E8A33D"/>'
       '<circle cx="86" cy="70" r="5" fill="#00A9A9"/><circle cx="160" cy="70" r="5" fill="#00A9A9"/><circle cx="234" cy="70" r="5" fill="#00A9A9"/></svg>')
 
+def illo_pathway():
+    labels=[("Learn",120,"#0A1830"),("Execute",92,"#00807F"),("Perform",64,"#00A9A9"),("Grow",40,"#E8A33D")]
+    bars=''; x=30
+    for i,(lab,y,c) in enumerate(labels):
+        bh=196-y
+        bars+='<rect x="%d" y="%d" width="52" height="%d" rx="8" fill="%s"><animate attributeName="height" from="0" to="%d" dur="0.8s" begin="%.2fs" fill="freeze"/><animate attributeName="y" from="196" to="%d" dur="0.8s" begin="%.2fs" fill="freeze"/></rect>'%(x,y,bh,c,bh,i*0.15,y,i*0.15)
+        bars+='<text x="%d" y="214" text-anchor="middle" font-family="Hanken Grotesk" font-size="11" fill="rgba(255,255,255,.75)">%s</text>'%(x+26,lab)
+        x+=66
+    return ('<svg viewBox="0 0 320 230" class="w-full h-auto max-w-[420px]" role="img" aria-label="The Wower pathway: Learn, Execute, Perform, Grow">'
+      '<rect x="8" y="8" width="304" height="214" rx="16" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.14)"/>'
+      '<line x1="22" y1="196" x2="298" y2="196" stroke="rgba(255,255,255,.25)"/>'
+      '<path d="M56 150 L122 118 L188 90 L254 60" fill="none" stroke="#66DCD9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.6s" begin="0.7s" fill="freeze"/></path>'
+      '<circle cx="254" cy="60" r="5" fill="#E8A33D" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.4s" begin="1.1s" fill="freeze"/></circle>'+bars+'</svg>')
+
 NAV = [("index.html","Home"),("companies.html","For Companies"),("wowers.html","For Wowers"),("companies.html#services","Services"),("about.html","About")]
 
 def header(active):
@@ -105,7 +119,9 @@ def header(active):
         cls = 'text-white' if href==active else 'text-slate-300 hover:text-white'
         links += '<a class="cap %s transition-colors" href="%s"%s>%s</a>' % (cls,href,cur,label)
     mob = ''.join('<a class="block px-6 py-3 text-slate-200 border-t border-white/10 font-display font-semibold" href="%s">%s</a>'%(h,l) for h,l in NAV)
-    mob += '<a class="block px-6 py-3 text-slate-200 border-t border-white/10 font-display font-semibold" href="contact.html">Talk to us</a>'
+    mob += ('<div class="p-4 border-t border-white/10 space-y-3">'
+      '<a class="block text-center bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-6 py-3 transition-colors" href="contact.html">Partner with us</a>'
+      '<a class="block text-center border border-white/30 hover:bg-white/5 text-white text-sm font-semibold px-6 py-3 transition-colors" href="wowers.html">Apply for internship</a></div>')
     return ('<a href="#main" class="skip">Skip to content</a>'
       '<header class="sticky top-0 z-50 bg-brandNavy/95 backdrop-blur border-b border-white/10">'
       '<div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-16 flex items-center justify-between">'
@@ -114,7 +130,8 @@ def header(active):
       '<img src="logo-word.png" alt="Woways" class="h-5 w-auto"/></a>'
       '<div class="flex items-center gap-6">'
       '<nav class="hidden md:flex items-center gap-6 lg:gap-7" aria-label="Primary">%s</nav>'
-      '<a class="hidden sm:inline-flex items-center bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-6 py-2.5 transition-colors" href="contact.html">Talk to us</a>'
+      '<a class="hidden lg:inline-flex items-center border border-white/30 hover:border-white hover:bg-white/5 text-white text-sm font-semibold px-5 py-2.5 transition-colors" href="wowers.html">Apply for internship</a>'
+      '<a class="hidden sm:inline-flex items-center bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-5 py-2.5 transition-colors" href="contact.html">Partner with us</a>'
       '<button id="mbtn" class="md:hidden text-white p-2" aria-label="Open menu" aria-expanded="false"><span class="material-symbols-outlined">menu</span></button>'
       '</div></div>'
       '<div id="mmenu" class="hidden md:hidden bg-brandNavy border-t border-white/10">%s</div>'
@@ -138,7 +155,8 @@ def footer():
       '<p class="text-sm mb-1"><a class="hover:text-white transition-colors" href="tel:+919390188553">+91 93901 88553</a></p>'
       '<p class="text-sm">2nd floor, LorVen Smart Spaces,<br/>Gachibowli, Hyderabad, 500032</p></div>'
       '</div><div class="pt-6 text-sm text-slate-500 flex flex-wrap justify-between gap-3">'
-      '<span>&copy; 2026 Woways Private Limited. All rights reserved.</span><span>Privacy · Terms · Cookie policy</span></div>'
+      '<span>&copy; 2026 Woways Private Limited. All rights reserved.</span>'
+      '<span class="flex flex-wrap gap-x-4 gap-y-1"><a class="hover:text-white transition-colors" href="privacy.html">Privacy Policy</a><a class="hover:text-white transition-colors" href="terms.html">Terms of Use</a><a class="hover:text-white transition-colors" href="cookies.html">Cookie Policy</a></span></div>'
       '</div></footer>') % (exp, plinks)
 
 SCRIPT = ('<script>'
@@ -255,9 +273,16 @@ def hero(eb, h, sub, ctas, illo=None, funcs=False):
     for i,(label,href,prim) in enumerate(ctas):
         if prim: btns+='<a class="bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors inline-flex items-center gap-2" href="%s">%s <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>'%(href,label)
         else: btns+='<a class="border border-white/30 hover:border-white hover:bg-white/5 text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="%s">%s</a>'%(href,label)
+    if illo:
+        col='<div class="hidden lg:flex items-center justify-center herofade" style="animation-delay:.18s">%s</div>'%illo
+        grid='<div class="relative max-w-[1440px] mx-auto px-6 lg:px-12 pt-20 lg:pt-28 pb-14 lg:pb-20 grid lg:grid-cols-2 gap-12 items-center"><div class="max-w-2xl herofade">%s</div>%s</div>'
+        inner=('<div class="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/15 text-brandTeal cap mb-6"><span class="w-1.5 h-1.5 bg-brandTeal inline-block"></span> %s</div>'
+          '<h1 class="hd1 text-white mb-6">%s</h1><p class="lead text-slate-300 mb-8">%s</p><div class="flex flex-wrap gap-4">%s</div>%s'%(eb,h,sub,btns,fn))
+        return ('<section class="relative bg-brandNavy text-white overflow-hidden"><div class="absolute inset-0 glow pointer-events-none"></div>'
+          '<div class="absolute inset-0 gridlines opacity-60 pointer-events-none"></div>'+(grid%(inner,col))+'</section>')
     return ('<section class="relative bg-brandNavy text-white overflow-hidden"><div class="absolute inset-0 glow pointer-events-none"></div>'
       '<div class="absolute inset-0 gridlines opacity-60 pointer-events-none"></div>'
-      '<div class="relative max-w-[1440px] mx-auto px-6 lg:px-12 py-20 lg:py-28"><div class="max-w-3xl herofade">'
+      '<div class="relative max-w-[1440px] mx-auto px-6 lg:px-12 pt-20 lg:pt-28 pb-14 lg:pb-16"><div class="max-w-3xl herofade">'
       '<div class="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/15 text-brandTeal cap mb-6">'
       '<span class="w-1.5 h-1.5 bg-brandTeal inline-block"></span> %s</div>'
       '<h1 class="hd1 text-white mb-6">%s</h1><p class="lead text-slate-300 max-w-2xl mb-8">%s</p>'
@@ -285,9 +310,9 @@ def journey():
       ("Kick off","Access, data handling and a working cadence — set after a formal agreement.")]
     items=''
     for i,(h,p) in enumerate(steps):
-        items+=('<div class="flex gap-5 reveal"><div class="shrink-0 w-10 h-10 bg-brandNavy text-white grid place-items-center font-display font-bold text-sm">%02d</div>'
+        items+=('<div class="flex gap-5 group"><div class="shrink-0 w-10 h-10 bg-brandNavy group-hover:bg-brandTeal transition-colors text-white grid place-items-center font-display font-bold text-sm">%02d</div>'
           '<div class="pb-5 border-b border-borderLine flex-1"><h3 class="hd3 text-brandNavy mb-1" style="font-size:18px">%s</h3><p class="text-slate-600">%s</p></div></div>'%(i+1,h,p))
-    return '<div class="max-w-3xl space-y-5">%s</div>'%items
+    return '<div class="max-w-3xl space-y-5 stagger reveal">%s</div>'%items
 
 def why_cards():
     data=[("bolt","Delivery, not slideware","We run the work and report back — you get outcomes, not a deck."),
@@ -427,7 +452,7 @@ def ecosystem_model():
 def inspiration():
     return ('<section class="bg-brandNavy py-20 lg:py-24"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
       '<div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-[auto_1fr] gap-8 md:gap-10 items-center reveal">'
-      '<img src="m/bhaskar-rao.jpg" alt="Dr. B. Bhaskar Rao" loading="lazy" class="w-28 h-28 md:w-36 md:h-36 rounded-full object-cover border-2 border-brandTeal/40 mx-auto"/>'
+      '<img src="m/bhaskar-rao.jpg" alt="Dr. B. Bhaskar Rao" loading="lazy" class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover object-top border-2 border-brandTeal/40 mx-auto"/>'
       '<div class="text-center md:text-left"><span class="cap text-brandTeal block mb-4">Our inspiration</span>'
       '<p class="font-display text-white" style="font-size:clamp(20px,2.8vw,28px);line-height:1.4;letter-spacing:-0.02em">“Inspired by a vision to empower people, bridge the employability gap, and contribute to a stronger, future-ready India.”</p>'
       '<div class="mt-6"><div class="font-display font-semibold text-white">Dr. B. Bhaskar Rao</div>'
@@ -473,11 +498,19 @@ def build_index():
     b += '<div class="flex items-center gap-3 mb-6 reveal"><span class="cap text-slate-500">Education &amp; Career</span><div class="h-px bg-borderLine flex-1"></div></div>' + product_cards('edu')
     b += '<div class="flex items-center gap-3 mb-6 mt-12 reveal"><span class="cap text-slate-500">Business Visibility &amp; Execution</span><div class="h-px bg-borderLine flex-1"></div></div>' + product_cards('biz')
     b += '</div></section>'
-    # wowers teaser
-    b += ('<section class="bg-brandNavy text-white py-20 lg:py-24"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
-      '<div class="max-w-3xl reveal">%s<h2 class="hd2 text-white mb-4">Where careers get built.</h2>'
-      '<p class="lead text-slate-300 mb-6">We create real project work for Wowers — the talent who help deliver it. Real projects, practical skills, performance-based growth.</p>'
-      '<a class="inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="wowers.html">Join as a Wower <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a></div></div></section>' % eyebrow("For Wowers"))
+    b += industries()
+    # WOWER — big pathway section (reference-style, with animated illustration)
+    b += ('<section class="relative bg-brandNavy text-white overflow-hidden"><div class="absolute inset-0 glow pointer-events-none"></div>'
+      '<div class="relative max-w-[1440px] mx-auto px-6 lg:px-12 py-20 lg:py-24 grid lg:grid-cols-2 gap-12 items-center">'
+      '<div class="reveal">%s<h2 class="hd2 text-white mb-2" style="font-size:clamp(30px,4.5vw,46px)">Learn. Execute.<br/>Perform. Grow.</h2>'
+      '<p class="lead text-slate-300 mb-8 max-w-xl">A performance-driven pathway that transforms aspiring talent into work-ready professionals through training, real projects, and meaningful career opportunities.</p>'
+      '<div class="flex flex-wrap gap-4"><a class="inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="wowers.html">Apply for internship <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>'
+      '<a class="inline-flex items-center gap-2 border border-white/30 hover:border-white hover:bg-white/5 text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="wowers.html">How WOWER works</a></div></div>'
+      '<div class="reveal flex items-center justify-center">%s</div></div></section>' % (eyebrow("WOWER — The WOW Maker"), illo_pathway()))
+    b += inspiration()
+    b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += sec_head("Our mentors","Guided by people who have done the work.","Mentors from Microsoft, Deloitte, PwC, KPMG, Accenture and more support our Wowers and our execution.")
+    b += mentors() + '</div></section>'
     b += cta_band()
     return page("Woways — Your Executive Partner","index.html",b)
 
@@ -521,9 +554,9 @@ def build_wowers():
       ("What will I gain?","Real project experience, practical business skills and a track record you can actually show.")]
     b = hero("WOWER — The WOW Maker","Learn. Execute. Perform. Grow.",
         "A performance-driven pathway that transforms aspiring talent into work-ready professionals through training, real projects, and meaningful career opportunities.",
-        [("Apply now","contact.html",True)])
-    b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
-    b += sec_head("WOWER — the WOW maker","Learn. Execute. Perform. Grow.","A performance-driven pathway that turns aspiring talent into work-ready professionals through training, real projects and meaningful career opportunities.")
+        [("Apply now","contact.html",True),("How WOWER works","#pathway",False)], illo=illo_pathway())
+    b += '<section class="bg-white py-20 lg:py-24 border-b border-borderLine" id="pathway"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += sec_head("How WOWER works","Learn. Execute. Perform. Grow.","A performance-driven pathway that turns aspiring talent into work-ready professionals through training, real projects and meaningful career opportunities.")
     b += wower_pathway() + '</div></section>'
     b += '<section class="bg-paperBg py-20 lg:py-24 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Who is a Wower","Potential, ready to perform.","")
@@ -656,11 +689,55 @@ def build_contact():
       '</form></div></section>' % (eyebrow("Talk to the Woways team"), rl, os_))
     return page("Woways — Contact","contact.html",b)
 
+def legal_page(title, active, eyebrow_t, heading, updated, blocks):
+    body=''
+    for h,paras in blocks:
+        body+='<h2 class="hd3 text-brandNavy mt-10 mb-3" style="font-size:20px">%s</h2>'%h
+        for p in paras:
+            body+='<p class="text-slate-600 leading-relaxed mb-4">%s</p>'%p
+    b=('<section class="bg-brandNavy text-white"><div class="max-w-[1440px] mx-auto px-6 lg:px-12 py-16 lg:py-20 herofade">'
+      '<span class="cap text-brandTeal block mb-3">%s</span><h1 class="hd1 text-white" style="font-size:clamp(30px,4.5vw,48px)">%s</h1>'
+      '<p class="text-slate-400 mt-4 text-sm">Last updated: %s</p></div></section>'
+      '<section class="bg-white py-16 lg:py-20"><div class="max-w-3xl mx-auto px-6 lg:px-12 reveal">%s'
+      '<p class="text-slate-600 leading-relaxed mt-10">Questions about this policy? Write to <a class="text-brandTeal underline" href="mailto:tech@woways.in">tech@woways.in</a>.</p>'
+      '</div></section>')%(eyebrow_t,heading,updated,body)
+    return page(title,active,b)
+
+def build_privacy():
+    return legal_page("Woways — Privacy Policy","privacy.html","Legal","Privacy Policy","28 September 2026",[
+      ("Who we are",["Woways Private Limited (\"Woways\", \"we\", \"us\") operates this website and provides execution services and talent-ecosystem programmes. This policy explains what personal data we collect, why, and your rights over it."]),
+      ("What we collect",["When you submit an enquiry or application, we collect the details you provide — such as your name, email, phone number, company or education details, and the content of your message.","We also collect basic technical data (such as device and usage information) needed to run the site securely."]),
+      ("Why we use it",["We use your details only to respond to your enquiry, discuss working together, process an application, and keep you updated where you have asked us to. We do not sell your personal data."]),
+      ("How long we keep it",["We keep enquiry and application details for up to 24 months after our last contact with you, then delete them, unless we are required to keep them longer by law."]),
+      ("Your rights",["You can ask us to see, correct or delete your details, or withdraw your consent, at any time by writing to tech@woways.in. Where applicable, you may also lodge a complaint with a data-protection authority."]),
+      ("A note on opportunities",["Woways connects applicants with opportunities at partner companies; Woways is not the employer. Where we share your application with a partner company, we do so only to progress an opportunity you have applied for."]),
+    ])
+
+def build_terms():
+    return legal_page("Woways — Terms of Use","terms.html","Legal","Terms of Use","28 September 2026",[
+      ("Acceptance",["By using this website you agree to these terms. If you do not agree, please do not use the site."]),
+      ("Use of the site",["You may use this site for lawful purposes only. You agree not to misuse it, attempt to disrupt it, or use it to infringe the rights of others."]),
+      ("Services and content",["Information on this site is provided for general information about Woways and its services and products. It does not constitute a binding offer or professional advice, and any engagement is subject to a separate written agreement."]),
+      ("Intellectual property",["The Woways name, logo, content and design are owned by Woways Private Limited or its licensors. Company names and logos of mentors' employers are trademarks of their respective owners and are shown only to indicate where our mentors work."]),
+      ("External links",["Our products and some links open external sites we do not control. We are not responsible for their content or practices."]),
+      ("Liability",["To the extent permitted by law, Woways is not liable for any indirect or consequential loss arising from use of this site."]),
+      ("Contact",["Questions about these terms can be sent to tech@woways.in."]),
+    ])
+
+def build_cookies():
+    return legal_page("Woways — Cookie Policy","cookies.html","Legal","Cookie Policy","28 September 2026",[
+      ("About cookies",["Cookies are small files stored on your device. We use only what is necessary to run the site reliably and to understand, in aggregate, how it is used."]),
+      ("What we use",["Essential cookies keep the site working. Where we use analytics, it is to improve the site — never to build advertising profiles of you."]),
+      ("Your choices",["You can control or delete cookies through your browser settings. Blocking essential cookies may affect how the site works."]),
+      ("Contact",["Questions about this policy can be sent to tech@woways.in."]),
+    ])
+
 pages={'index.html':build_index(),'companies.html':build_companies(),'wowers.html':build_wowers(),
-       'services.html':build_services(),'about.html':build_about(),'contact.html':build_contact()}
+       'services.html':build_services(),'about.html':build_about(),'contact.html':build_contact(),
+       'privacy.html':build_privacy(),'terms.html':build_terms(),'cookies.html':build_cookies()}
 import os,re
 def clean_hrefs(h):
-    for k in ['companies','wowers','services','about','contact']:
+    for k in ['companies','wowers','services','about','contact','privacy','terms','cookies']:
         h=h.replace('href="%s.html"'%k,'href="%s"'%k).replace('href="%s.html#'%k,'href="%s#'%k)
     h=h.replace('href="index.html"','href="/"')
     return h
