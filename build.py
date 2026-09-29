@@ -506,7 +506,7 @@ def build_index():
     b = hero("Execution partner · Talent ecosystem","Where companies scale and Wowers build careers.",
         "Woways helps growing companies execute sales, marketing, operations, technology and HR — through embedded teams, systems and measurable delivery.<br class=\"hidden sm:block\"/><span class=\"inline-block mt-4 text-white font-semibold\">Not advice. Delivery.</span>",
         [("Book a discovery call","partnerships.html#partner-form",True),("Apply to join","internships.html#apply-form",False)], funcs=True,
-        illo='<img src="hero-home.jpg" alt="Abstract visual of work moving forward" loading="eager" class="rounded-xl border border-white/15 shadow-[0_30px_60px_-20px_rgba(0,0,0,.7)] w-full"/>')
+        illo='<img src="hero-home.png" alt="Abstract visual of work moving forward" loading="eager" class="w-full" style="filter:drop-shadow(0 26px 45px rgba(0,0,0,.55))"/>')
     b += credibility_strip()
     b += '<section class="bg-brandNavy py-14 lg:py-16 border-b border-white/10"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += '<p class="cap text-slate-400 mb-8 text-center reveal">Our impact</p>'
@@ -551,7 +551,7 @@ def build_companies():
     b = hero("For Companies","Your extended execution partner.",
         "We work with companies as an extended execution partner across Sales, Marketing, Operations, Technology and HR — embedding like an internal team, running the work on your systems and standards, and reporting straight back to you.",
         [("Book a discovery call","partnerships.html#partner-form",True),("See our services","companies.html#services",False)],
-        illo='<img src="hero-companies.jpg" alt="A team planning work together" loading="eager" class="rounded-xl border border-white/15 shadow-[0_30px_60px_-20px_rgba(0,0,0,.7)] w-full"/>')
+        illo='<img src="hero-companies.png" alt="A team planning work together" loading="eager" class="w-full" style="filter:drop-shadow(0 26px 45px rgba(0,0,0,.55))"/>')
     b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine" id="capabilities"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we execute","Five functions, one embedded team.","Point to a work area, describe the need, and we take it on — with the scope and standards of an internal team.")
     b += caps_detailed() + '</div></section>'
@@ -589,7 +589,7 @@ def build_wowers():
     b = hero("For Wowers","WOWER — The WOW Maker",
         "<span class=\"block text-brandTeal font-display font-semibold mb-4\" style=\"font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em\">Learn. Execute. Perform. Grow.</span>A performance-driven pathway that transforms aspiring talent into work-ready professionals through training, real projects, and meaningful career opportunities.",
         [("Apply to join","internships.html#apply-form",True),("How WOWER works","#pathway",False)],
-        illo='<img src="hero-wowers.jpg" alt="Wowers collaborating on a project" loading="eager" class="rounded-xl border border-white/15 shadow-[0_30px_60px_-20px_rgba(0,0,0,.7)] w-full"/>')
+        illo='<img src="hero-wowers.png" alt="Wowers collaborating on a project" loading="eager" class="w-full" style="filter:drop-shadow(0 26px 45px rgba(0,0,0,.55))"/>')
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine" id="pathway"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("How WOWER works","Five steps, one performance-driven pathway.","From joining the ecosystem to real career growth — here is how a Wower's journey unfolds.")
     b += wower_pathway() + '</div></section>'
@@ -648,7 +648,7 @@ def build_about():
     b = hero("About","About Woways.",
         "We work with companies as an extended execution partner across Sales, Marketing, Operations, Technology and HR — while creating real work opportunities for Wowers through internships, practical projects and performance-driven career paths.",
         [("Work with us","contact.html",True),("How we work","#ecosystem",False)],
-        illo='<img src="hero-about.jpg" alt="The Woways team at work" loading="eager" class="rounded-xl border border-white/15 shadow-[0_30px_60px_-20px_rgba(0,0,0,.7)] w-full"/>')
+        illo='<img src="hero-about.png" alt="The Woways team at work" loading="eager" class="w-full" style="filter:drop-shadow(0 26px 45px rgba(0,0,0,.55))"/>')
     b += '<section class="bg-brandNavy py-14 lg:py-16 border-b border-white/10"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += impact_stats(dark=True) + '</div></section>'
     # two-sided
