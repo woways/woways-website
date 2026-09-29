@@ -588,7 +588,11 @@ def build_companies():
     b = hero("For Companies","Your execution team for the work that cannot wait.",
         "When sales pipelines, campaigns, operations or systems need momentum, Woways works alongside your team to make the work move — inside your tools, standards and reporting rhythm.",
         [("Discuss your requirement","partnerships.html#partner-form",True),("See our services","companies.html#services",False)],
-        illo='<img src="hero-companies.png" alt="Leadership reviewing execution progress" loading="eager" class="w-full" style="-webkit-mask-image:radial-gradient(120% 120% at 62% 40%,#000 46%,rgba(0,0,0,0) 82%);mask-image:radial-gradient(120% 120% at 62% 40%,#000 46%,rgba(0,0,0,0) 82%)"/>')
+        illo=hero_panel("What working with us looks like",[
+          ("Embedded like your team","Inside your tools, standards and rhythm."),
+          ("You point, we execute","Sales, marketing, operations, tech and people."),
+          ("Clear reporting","Results reported straight into your team."),
+          ("Fast to start","We reply within 48 hours.")]))
     b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine" id="capabilities"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we execute","Five functions, one embedded team.","Point to a work area, describe the need, and we take it on — with the scope and standards of an internal team.")
     b += caps_detailed() + '</div></section>'
@@ -628,7 +632,11 @@ def build_wowers():
     b = hero("For Wowers","Build your career by doing real work.",
         "<span class=\"block text-brandTeal font-display font-semibold mb-4\" style=\"font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em\">Learn. Execute. Perform. Grow.</span>A Wower is an emerging professional who learns through live projects, structured guidance and performance-based growth — not classroom theory alone.",
         [("Explore opportunities","internships.html#apply-form",True),("How WOWER works","#pathway",False)],
-        illo='<img src="hero-wowers.png" alt="Young professionals collaborating on a project" loading="eager" class="w-full" style="-webkit-mask-image:radial-gradient(120% 120% at 62% 40%,#000 46%,rgba(0,0,0,0) 82%);mask-image:radial-gradient(120% 120% at 62% 40%,#000 46%,rgba(0,0,0,0) 82%)"/>')
+        illo=hero_panel("The WOWER pathway",[
+          ("Learn","Structured, practical training."),
+          ("Execute","Real projects across functions."),
+          ("Perform","Ownership and measurable outcomes."),
+          ("Grow","Referrals and role opportunities.")]))
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine" id="pathway"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("How WOWER works","Five steps, one performance-driven pathway.","From joining the ecosystem to real career growth — here is how a Wower's journey unfolds.")
     b += wower_pathway() + '</div></section>'
