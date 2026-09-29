@@ -116,8 +116,8 @@ def illo_pathway():
       '<circle cx="254" cy="60" r="5" fill="#E8A33D" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.4s" begin="1.1s" fill="freeze"/></circle>'+bars+'</svg>')
 
 NAV = [("index.html","Home"),("companies.html","For Companies"),("wowers.html","For Wowers"),
-       ("products.html","Products"),("about.html","About"),("contact.html","Contact")]
-FOOTER_NAV = NAV
+       ("products.html","Products"),("about.html","About")]
+FOOTER_NAV = NAV + [("contact.html","Contact")]
 
 def header(active):
     links = ''
@@ -525,11 +525,25 @@ def where_today():
     items=''.join('<div class="flex gap-5 reveal"><div class="shrink-0 w-10 h-10 bg-brandNavy text-white grid place-items-center font-display font-bold text-sm">%02d</div><div class="pb-5 border-b border-borderLine flex-1 self-center"><p class="text-slate-700 text-lg">%s</p></div></div>'%(i+1,x) for i,x in enumerate(pts))
     return '<div class="max-w-3xl space-y-5">%s</div>'%items
 
+def hero_panel(title, items):
+    li=''
+    for h,p in items:
+        sub='<div class="text-sm text-slate-400 mt-0.5 leading-snug">%s</div>'%p if p else ''
+        li+=('<li class="flex items-start gap-3"><span class="mt-[7px] w-1.5 h-1.5 rounded-full bg-brandTeal shrink-0"></span>'
+          '<div><div class="font-display font-semibold text-white text-[15px] leading-tight">%s</div>%s</div></li>'%(h,sub))
+    return ('<div class="w-full max-w-[430px] rounded-2xl border border-white/12 bg-white/[0.05] backdrop-blur p-7 lg:p-8 shadow-[0_36px_80px_-40px_rgba(0,0,0,.8)]">'
+      '<div class="cap text-brandTeal mb-5">%s</div><ul class="space-y-4">%s</ul></div>')%(title,li)
+
 # ================= PAGES =================
 def build_index():
     b = hero("Execution partner · Talent ecosystem","Build momentum without building everything alone.",
         "Woways gives growing companies an execution layer across sales, marketing, operations, technology and people functions. At the same time, we prepare emerging professionals through meaningful, real-world work.<br class=\"hidden sm:block\"/><span class=\"inline-block mt-4 text-white font-semibold\">Not advice. Delivery.</span>",
-        [("Talk about your business need","partnerships.html#partner-form",True),("Explore the Wower pathway","wowers.html",False)], funcs=True)
+        [("Talk about your business need","partnerships.html#partner-form",True),("Explore the Wower pathway","wowers.html",False)],
+        illo=hero_panel("Where Woways fits",[
+          ("Execution across five functions","Sales, marketing, operations, technology and people."),
+          ("Real work for emerging talent","Wowers learn by doing on live projects."),
+          ("Products we build ourselves","Student Mentor, College Macha, Bispun, Perfoin and more."),
+          ("Measurable delivery","Meetings booked, leads generated, pipelines built.")]))
     b += credibility_strip()
     b += '<section class="bg-brandNavy py-14 lg:py-16 border-b border-white/10"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += '<p class="cap text-slate-400 mb-8 text-center reveal">Our impact</p>'
@@ -573,7 +587,8 @@ def build_index():
 def build_companies():
     b = hero("For Companies","Your execution team for the work that cannot wait.",
         "When sales pipelines, campaigns, operations or systems need momentum, Woways works alongside your team to make the work move — inside your tools, standards and reporting rhythm.",
-        [("Discuss your requirement","partnerships.html#partner-form",True),("See our services","companies.html#services",False)])
+        [("Discuss your requirement","partnerships.html#partner-form",True),("See our services","companies.html#services",False)],
+        illo='<img src="hero-companies.png" alt="Leadership reviewing execution progress" loading="eager" class="w-full" style="-webkit-mask-image:radial-gradient(120% 120% at 62% 40%,#000 46%,rgba(0,0,0,0) 82%);mask-image:radial-gradient(120% 120% at 62% 40%,#000 46%,rgba(0,0,0,0) 82%)"/>')
     b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine" id="capabilities"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we execute","Five functions, one embedded team.","Point to a work area, describe the need, and we take it on — with the scope and standards of an internal team.")
     b += caps_detailed() + '</div></section>'
@@ -612,7 +627,8 @@ def build_wowers():
       ("What will I gain?","Real project experience, practical business skills and a track record you can actually show.")]
     b = hero("For Wowers","Build your career by doing real work.",
         "<span class=\"block text-brandTeal font-display font-semibold mb-4\" style=\"font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em\">Learn. Execute. Perform. Grow.</span>A Wower is an emerging professional who learns through live projects, structured guidance and performance-based growth — not classroom theory alone.",
-        [("Explore opportunities","internships.html#apply-form",True),("How WOWER works","#pathway",False)])
+        [("Explore opportunities","internships.html#apply-form",True),("How WOWER works","#pathway",False)],
+        illo='<img src="hero-wowers.png" alt="Young professionals collaborating on a project" loading="eager" class="w-full" style="-webkit-mask-image:radial-gradient(120% 120% at 62% 40%,#000 46%,rgba(0,0,0,0) 82%);mask-image:radial-gradient(120% 120% at 62% 40%,#000 46%,rgba(0,0,0,0) 82%)"/>')
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine" id="pathway"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("How WOWER works","Five steps, one performance-driven pathway.","From joining the ecosystem to real career growth — here is how a Wower's journey unfolds.")
     b += wower_pathway() + '</div></section>'
@@ -653,7 +669,13 @@ def build_wowers():
 def build_services():
     b = hero("Services","Practical execution across the functions that drive growth.",
         "Each service is run by our team and reports into yours — practical execution with a clear output, whether you start with one or combine several.",
-        [("Discuss your requirement","partnerships.html#partner-form",True),("For companies","companies.html",False)])
+        [("Discuss your requirement","partnerships.html#partner-form",True),("For companies","companies.html",False)],
+        illo=hero_panel("Five services",[
+          ("Lead Generation","A qualified pipeline you can sell to."),
+          ("Sales Support","Booked meetings and follow-through."),
+          ("Marketing Execution","Consistent presence and interest."),
+          ("Operations Systems","Processes that run without gaps."),
+          ("Business Scaling","Momentum that compounds.")]))
     b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we do","Five services, one execution partner.","Each service is run by our team and reports into yours. Pick one, or combine them.")
     b += services_detailed() + '</div></section>'
@@ -670,7 +692,11 @@ def build_services():
 def build_about():
     b = hero("About","Built for work that creates visible progress.",
         "Woways was created around a simple belief: growing companies need dependable execution, and emerging professionals need meaningful opportunities to prove themselves. We connect both through real work, clear ownership and measurable progress.",
-        [("Work with us","contact.html",True),("How we work","#ecosystem",False)])
+        [("Work with us","contact.html",True),("How we work","#ecosystem",False)],
+        illo=hero_panel("What we value",[
+          ("Work that moves","Outputs, ownership and momentum."),
+          ("Growth with evidence","Progress you can measure."),
+          ("Opportunity through performance","Careers built on real work.")]))
     b += '<section class="bg-brandNavy py-14 lg:py-16 border-b border-white/10"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += impact_stats(dark=True) + '</div></section>'
     # two-sided
