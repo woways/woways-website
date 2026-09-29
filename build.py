@@ -111,16 +111,16 @@ def illo_pathway():
       '<circle cx="254" cy="60" r="5" fill="#E8A33D" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.4s" begin="1.1s" fill="freeze"/></circle>'+bars+'</svg>')
 
 NAV = [("index.html","Home"),("companies.html","For Companies"),("wowers.html","For Wowers"),
-       ("services.html","Services"),("partnerships.html","Partnerships"),
-       ("internships.html","Internships"),("about.html","About")]
-FOOTER_NAV = [("index.html","Home"),("companies.html","For Companies"),("wowers.html","For Wowers"),("services.html","Services"),("partnerships.html","Partnerships"),("internships.html","Internships"),("about.html","About"),("contact.html","Contact")]
+       ("products.html","Products"),("about.html","About"),("contact.html","Contact")]
+FOOTER_NAV = NAV
 
 def header(active):
     links = ''
     for href,label in NAV:
-        cur = ' aria-current="page"' if href==active else ''
-        cls = 'text-white' if href==active else 'text-slate-300 hover:text-white'
-        links += '<a class="cap %s transition-colors" href="%s"%s>%s</a>' % (cls,href,cur,label)
+        if href==active:
+            links += '<a class="cap text-white transition-colors relative" href="%s" aria-current="page">%s<span class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-brandTeal"></span></a>' % (href,label)
+        else:
+            links += '<a class="cap text-slate-300 hover:text-white transition-colors" href="%s">%s</a>' % (href,label)
     mob=''
     for h,l in NAV:
         mob += '<a class="block px-6 py-3 text-slate-200 border-t border-white/10 font-display font-semibold" href="%s">%s</a>'%(h,l)
@@ -132,7 +132,7 @@ def header(active):
       '<img src="logo-icon.png" alt="" class="h-5 w-auto"/>'
       '<img src="logo-word.png" alt="Woways" class="h-5 w-auto"/></a>'
       '<div class="flex items-center gap-5">'
-      '<nav class="hidden md:flex items-center gap-4 lg:gap-6" aria-label="Primary">%s</nav>'
+      '<nav class="hidden md:flex items-center gap-5 lg:gap-7" aria-label="Primary">%s</nav>'
       '<a class="hidden sm:inline-flex items-center bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-5 py-2.5 transition-colors" href="contact.html">Talk to us</a>'
       '<button id="mbtn" class="md:hidden text-white p-2" aria-label="Open menu" aria-expanded="false"><span class="material-symbols-outlined">menu</span></button>'
       '</div></div>'
@@ -145,7 +145,7 @@ def footer():
     exp = ''.join('<li><a class="hover:text-white transition-colors" href="%s">%s</a></li>'%(h,l) for h,l in FOOTER_NAV)
     return ('<footer class="bg-brandNavy text-slate-400 py-16 border-t border-white/10">'
       '<div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
-      '<div class="grid grid-cols-2 md:grid-cols-4 gap-8 pb-10 border-b border-white/10">'
+      '<div class="grid grid-cols-2 md:grid-cols-4 gap-x-8 lg:gap-x-16 gap-y-10 pb-12 border-b border-white/10">'
       '<div class="col-span-2 md:col-span-1">'
       '<div class="flex items-center gap-1 mb-3"><img src="logo-icon.png" alt="" class="h-6 w-auto"/><img src="logo-word.png" alt="Woways" class="h-6 w-auto"/></div>'
       '<p class="cap text-brandTeal mb-2">Execute. Grow. Transform.</p>'
@@ -168,6 +168,7 @@ SCRIPT = ('<script>'
  'var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.12,rootMargin:"0px 0px -6% 0px"});'
  'els.forEach(function(e){io.observe(e);});'
  'setTimeout(function(){els.forEach(function(e){e.classList.add("in");});},1600);})();'
+ '(function(){var els=document.querySelectorAll(".countup");if(!els.length)return;var fmt=function(n){return n.toLocaleString("en-IN");};var run=function(el){var to=parseInt(el.getAttribute("data-to"),10)||0,st=null,d=1400;setTimeout(function(){el.textContent=fmt(to);},d+500);if(matchMedia("(prefers-reduced-motion: reduce)").matches||!window.requestAnimationFrame){el.textContent=fmt(to);return;}el.textContent="0";function step(t){if(!st)st=t;var p=Math.min((t-st)/d,1);el.textContent=fmt(Math.floor((1-Math.pow(1-p,3))*to));if(p<1)requestAnimationFrame(step);}requestAnimationFrame(step);};if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){run(e.target);io.unobserve(e.target);}});},{threshold:.4});els.forEach(function(e){io.observe(e);});}else{els.forEach(run);}})();'
  '(function(){document.querySelectorAll("form.w3form").forEach(function(f){f.addEventListener("submit",function(e){e.preventDefault();'
  'var ok=f.querySelector(".form-ok"),err=f.querySelector(".form-err"),btn=f.querySelector("button[type=submit]"),lbl=btn?btn.textContent:"";'
  'if(err)err.classList.add("hidden");if(ok)ok.classList.add("hidden");'
@@ -265,7 +266,7 @@ def cta_band():
     return ('<section class="bg-brandNavy text-white py-20"><div class="max-w-[1440px] mx-auto px-6 lg:px-12 text-center reveal">'
       '<h2 class="hd2 text-white mb-4">Let\'s find where Woways fits.</h2>'
       '<p class="lead text-slate-300 max-w-2xl mx-auto mb-8">One short form. We reply within 48 hours, from a real person on the Woways team.</p>'
-      '<a class="inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-8 py-4 transition-colors" href="contact.html">Bring us in <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>'
+      '<a class="inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-8 py-4 transition-colors" href="contact.html">Talk to us <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>'
       '</div></section>')
 
 def industries():
@@ -339,17 +340,18 @@ def why_cards():
     return '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger reveal">%s</div>'%cards
 
 def services_detailed():
-    data=[("filter_alt","Lead Generation","DM campaigns, prospect research and targeted outreach to build a qualified pipeline."),
-      ("call","Sales Services","Telecalling, demo scheduling, follow-ups and closing support."),
-      ("campaign","Marketing","Digital campaigns, content outreach and social media management."),
-      ("account_tree","Operations","CRM setup, pipeline management and process automation."),
-      ("rocket_launch","Business Scaling","Support for startups at the 0-to-1 stage: strategy, execution and iteration.")]
+    data=[("filter_alt","Lead Generation","DM campaigns, prospect research and targeted outreach to build a qualified pipeline.","A qualified pipeline you can sell to."),
+      ("call","Sales Services","Telecalling, demo scheduling, follow-ups and closing support.","Booked meetings and follow-through to close."),
+      ("campaign","Marketing","Digital campaigns, content outreach and social media management.","Consistent presence and inbound interest."),
+      ("account_tree","Operations","CRM setup, pipeline management and process automation.","A CRM and process that actually run."),
+      ("rocket_launch","Business Scaling","Support for startups at the 0-to-1 stage: strategy, execution and iteration.","Momentum from zero to first traction.")]
     cards=''
-    for i,(ic,n,d) in enumerate(data):
-        cards+=('<div class="bg-white border border-borderLine p-7 card-lift">'
-          '<div class="flex items-center justify-between mb-5"><span class="w-11 h-11 bg-brandTealTint text-brandTealDark grid place-items-center"><span class="material-symbols-outlined" aria-hidden="true">%s</span></span>'
-          '<span class="font-display font-bold text-borderLine" style="font-size:22px;color:#DCE3EA">%02d</span></div>'
-          '<h3 class="hd3 text-brandNavy mb-2" style="font-size:19px">%s</h3><p class="text-slate-600">%s</p></div>'%(ic,i+1,n,d))
+    for i,(ic,n,d,out) in enumerate(data):
+        cards+=('<div class="group bg-white border border-borderLine p-7 card-lift hover:border-brandTeal transition-colors">'
+          '<div class="flex items-center justify-between mb-5"><span class="w-11 h-11 bg-brandTealTint text-brandTealDark group-hover:bg-brandTeal group-hover:text-white transition-colors grid place-items-center"><span class="material-symbols-outlined" aria-hidden="true">%s</span></span>'
+          '<span class="font-display font-bold" style="font-size:22px;color:#DCE3EA">%02d</span></div>'
+          '<h3 class="hd3 text-brandNavy mb-2" style="font-size:19px">%s</h3><p class="text-slate-600 mb-4">%s</p>'
+          '<div class="pt-4 border-t border-borderLine flex items-start gap-2"><span class="material-symbols-outlined text-brandTeal text-[18px] mt-0.5" aria-hidden="true">arrow_outward</span><span class="text-sm font-display font-semibold text-brandNavy">%s</span></div></div>'%(ic,i+1,n,d,out))
     return '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger reveal">%s</div>'%cards
 
 def how_engagement():
@@ -388,10 +390,18 @@ def testimonials():
           '<div><div class="font-display font-semibold text-brandNavy text-sm">%s</div><div class="text-xs text-slate-500">Software Developer Intern</div></div></div></div>'%(q,n[0],n))
     return '<div class="grid grid-cols-1 md:grid-cols-2 gap-6 stagger reveal">%s</div>'%cards
 
-def impact_stats():
-    stats=[("300+","Wowers trained"),("25+","Companies partnered"),("59,675+","Leads generated"),("125+","Projects executed")]
-    st=''.join('<div class="text-center"><div class="font-display font-bold text-brandNavy" style="font-size:clamp(30px,4.6vw,46px);letter-spacing:-0.02em">%s</div><div class="cap text-slate-500 mt-2">%s</div></div>'%(n,l) for n,l in stats)
-    return '<div class="grid grid-cols-2 md:grid-cols-4 gap-8 stagger reveal">%s</div>'%st
+def impact_stats(dark=False):
+    stats=[("300","+","Wowers trained"),("25","+","Companies partnered"),("59675","+","Leads generated"),("125","+","Projects executed")]
+    num='text-white' if dark else 'text-brandNavy'
+    lab='text-slate-400' if dark else 'text-slate-500'
+    div='md:border-l md:border-white/10' if dark else 'md:border-l md:border-borderLine'
+    st=''
+    for i,(v,suf,l) in enumerate(stats):
+        edge='' if i==0 else div
+        disp='{:,}'.format(int(v))
+        st+=('<div class="text-center px-2 %s"><div class="font-display font-bold %s" style="font-size:clamp(30px,4.6vw,46px);letter-spacing:-0.02em">'
+          '<span class="countup" data-to="%s">%s</span>%s</div><div class="cap %s mt-2">%s</div></div>'%(edge,num,v,disp,suf,lab,l))
+    return '<div class="grid grid-cols-2 md:grid-cols-4 gap-y-8 reveal">%s</div>'%st
 
 def credibility_strip():
     faces=[("jagadishwar-reddy.jpg","Jagadishwar Reddy"),("vihang.jpg","Vihang Gunnam"),
@@ -495,12 +505,12 @@ def where_today():
 # ================= PAGES =================
 def build_index():
     b = hero("Execution partner · Talent ecosystem","Where companies scale and Wowers build careers.",
-        "We work with companies as an extended execution partner across Sales, Marketing, Operations, Technology and HR — while creating real work opportunities for Wowers through internships, practical projects and performance-driven career paths.<br class=\"hidden sm:block\"/><span class=\"inline-block mt-4 text-white font-semibold\">Not advice. Delivery.</span>",
-        [("Partner with us","partnerships.html#partner-form",True),("Apply for internship","internships.html#apply-form",False)], funcs=True)
+        "Woways helps growing companies execute sales, marketing, operations, technology and HR — through embedded teams, systems and measurable delivery.<br class=\"hidden sm:block\"/><span class=\"inline-block mt-4 text-white font-semibold\">Not advice. Delivery.</span>",
+        [("Book a discovery call","partnerships.html#partner-form",True),("Apply to join","internships.html#apply-form",False)], funcs=True)
     b += credibility_strip()
-    b += '<section class="bg-white py-16 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
-    b += '<p class="cap text-slate-500 mb-8 text-center reveal">Our impact</p>'
-    b += impact_stats() + '</div></section>'
+    b += '<section class="bg-brandNavy py-14 lg:py-16 border-b border-white/10"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += '<p class="cap text-slate-400 mb-8 text-center reveal">Our impact</p>'
+    b += impact_stats(dark=True) + '</div></section>'
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("The problem we solve","Two sides of the same gap.","Companies need execution and pipeline. Talent needs real experience. We connect the two.")
     b += problem_solve() + '</div></section>'
@@ -528,7 +538,7 @@ def build_index():
       '<h2 class="hd2 text-white mb-3" style="font-size:clamp(32px,5vw,52px)">WOWER — The WOW Maker</h2>'
       '<p class="font-display font-semibold text-brandTeal mb-6" style="font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em">Learn. Execute. Perform. Grow.</p>'
       '<p class="lead text-slate-300 mb-8 max-w-2xl">A performance-driven pathway that transforms aspiring talent into work-ready professionals through training, real projects, and meaningful career opportunities.</p>'
-      '<div class="flex flex-wrap gap-4"><a class="inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="internships.html#apply-form">Apply for internship <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>'
+      '<div class="flex flex-wrap gap-4"><a class="inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="internships.html#apply-form">Apply to join <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>'
       '<a class="inline-flex items-center gap-2 border border-white/30 hover:border-white hover:bg-white/5 text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="wowers.html#pathway">How WOWER works</a></div></div></div></section>' % eyebrow("For Wowers"))
     b += inspiration()
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
@@ -540,12 +550,12 @@ def build_index():
 def build_companies():
     b = hero("For Companies","Your extended execution partner.",
         "We work with companies as an extended execution partner across Sales, Marketing, Operations, Technology and HR — embedding like an internal team, running the work on your systems and standards, and reporting straight back to you.",
-        [("Partner with us","contact.html",True),("See our services","companies.html#services",False)])
+        [("Book a discovery call","partnerships.html#partner-form",True),("See our services","companies.html#services",False)])
     b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine" id="capabilities"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we execute","Five functions, one embedded team.","Point to a work area, describe the need, and we take it on — with the scope and standards of an internal team.")
     b += caps_detailed() + '</div></section>'
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine" id="services"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
-    b += sec_head("Services","Five services, one pipeline.","Pick the service that unblocks you now, or combine them — each is run by our team and reports into yours.")
+    b += sec_head("Services","Five services, one execution partner.","Pick the service that unblocks you now, or combine them — each is run by our team and reports into yours.")
     b += services_detailed() + '</div></section>'
     b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine" id="partnerships"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Partnerships","What you get, and who we partner with.","")
@@ -577,7 +587,7 @@ def build_wowers():
       ("What will I gain?","Real project experience, practical business skills and a track record you can actually show.")]
     b = hero("For Wowers","WOWER — The WOW Maker",
         "<span class=\"block text-brandTeal font-display font-semibold mb-4\" style=\"font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em\">Learn. Execute. Perform. Grow.</span>A performance-driven pathway that transforms aspiring talent into work-ready professionals through training, real projects, and meaningful career opportunities.",
-        [("Apply now","internships.html#apply-form",True),("How WOWER works","#pathway",False)])
+        [("Apply to join","internships.html#apply-form",True),("How WOWER works","#pathway",False)])
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine" id="pathway"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("How WOWER works","Five steps, one performance-driven pathway.","From joining the ecosystem to real career growth — here is how a Wower's journey unfolds.")
     b += wower_pathway() + '</div></section>'
@@ -618,9 +628,9 @@ def build_wowers():
 def build_services():
     b = hero("Services","The work we run, end to end.",
         "Productized execution you can start with one service and scale as it proves out — from first outreach to closed revenue, plus the talent engine that delivers it.",
-        [("Discuss your needs","contact.html",True),("For companies","companies.html",False)])
+        [("Book a discovery call","partnerships.html#partner-form",True),("For companies","companies.html",False)])
     b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
-    b += sec_head("What we do","Four services, one pipeline.","Each service is run by our team and reports into yours. Pick one, or combine them.")
+    b += sec_head("What we do","Five services, one execution partner.","Each service is run by our team and reports into yours. Pick one, or combine them.")
     b += services_detailed() + '</div></section>'
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("How an engagement works","Start small. Scale with results.","")
@@ -636,8 +646,8 @@ def build_about():
     b = hero("About","About Woways.",
         "We work with companies as an extended execution partner across Sales, Marketing, Operations, Technology and HR — while creating real work opportunities for Wowers through internships, practical projects and performance-driven career paths.",
         [("Work with us","contact.html",True),("How we work","#ecosystem",False)])
-    b += '<section class="bg-brandNavy py-16 border-b border-white/10"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
-    b += '<div class="grid grid-cols-2 md:grid-cols-4 gap-8 stagger reveal">%s</div></div></section>' % ''.join('<div class="text-center"><div class="font-display font-bold text-white" style="font-size:clamp(30px,4.6vw,46px);letter-spacing:-0.02em">%s</div><div class="cap text-slate-400 mt-2">%s</div></div>'%(n,l) for n,l in [("300+","Wowers trained"),("25+","Companies partnered"),("59,675+","Leads generated"),("125+","Projects executed")])
+    b += '<section class="bg-brandNavy py-14 lg:py-16 border-b border-white/10"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += impact_stats(dark=True) + '</div></section>'
     # two-sided
     comp=["Lead generation, sales support and growth operations","Execution across Sales, Marketing, Operations, HR and Technology","Our own products where they help — reporting into your team"]
     wow=["Real company projects, not busywork","Practical business skills and mentoring","Performance incentives and career growth"]
@@ -675,7 +685,7 @@ def build_about():
     b += '<div class="relative max-w-[1440px] mx-auto px-6 lg:px-12 py-16 lg:py-20">'
     b += '<div class="max-w-3xl mb-12 reveal"><span class="cap text-brandTeal block mb-2">The honest version</span><h2 class="hd2 text-white mb-3">No inflated claims. Just work we can stand behind.</h2><p class="lead text-slate-300">We would rather under-promise and deliver than sell a story. Here is exactly what Woways is — and what it is not.</p></div>'
     honest=[("We are an execution partner, not a consultancy","We do the work and report outcomes. We do not hand you a deck and walk away."),
-      ("We are early, and we say so","We are working with early-stage and growing companies, building outreach systems that produce repeatable results. We are honest about where we are today."),
+      ("Built for early-stage and growing companies","We work with early-stage and growing companies that need practical execution, building outreach systems that produce repeatable, measurable results."),
       ("We measure what matters","Meetings booked, leads generated, pipelines built — real, checkable outcomes, not vanity metrics."),
       ("We are not the employer","For Wowers, we connect talent with real opportunities at partner companies and grow careers through performance — clearly and transparently.")]
     hc=''.join('<div class="border border-white/12 bg-white/5 p-7 card-lift"><span class="material-symbols-outlined text-brandTeal mb-4 block" aria-hidden="true">%s</span><h3 class="hd3 text-white mb-2" style="font-size:18px">%s</h3><p class="text-sm text-slate-300 leading-relaxed">%s</p></div>'%(ic,h,p) for ic,(h,p) in zip(["handshake","trending_up","query_stats","diversity_3"],honest))
@@ -716,7 +726,7 @@ def render_form(form_id, fields, submit_label, subject, ok_msg="Thank you. Our t
       '<input type="hidden" name="subject" value="%s"/>'
       '<input type="hidden" name="from_name" value="Woways website"/>'
       '<input type="checkbox" name="botcheck" tabindex="-1" aria-hidden="true" style="display:none"/>'
-      '<div id="%s" class="form-ok hidden mb-5 p-4 bg-brandTealTint text-brandTealDark text-sm border border-teal-200">%s</div>'
+      '<div id="%s" class="form-ok hidden mb-5 p-5 bg-brandTealTint border border-teal-200 flex items-start gap-3"><span class="material-symbols-outlined text-brandTeal" aria-hidden="true">check_circle</span><span class="text-brandTealDark text-sm">%s</span></div>'
       '<div id="%s" class="form-err hidden mb-5 p-4 bg-red-50 text-red-700 text-sm border border-red-200" role="alert"></div>'
       '<div class="grid grid-cols-1 md:grid-cols-2 gap-5">%s</div>'
       '<label class="flex items-start gap-2.5 mt-6 text-sm text-slate-600"><input type="checkbox" required class="mt-1"/> <span>I agree to Woways contacting me about this and to the <a class="underline hover:text-brandTeal" href="privacy.html">privacy policy</a>.</span></label>'
@@ -798,7 +808,7 @@ def build_cookies():
 def build_partnerships():
     b = hero("Partnerships","Partner with Woways.",
         "Bring Woways in as an extended execution partner. We embed like an internal team across Sales, Marketing, Operations, Technology and HR — running the work on your systems and standards, and reporting straight back to you.",
-        [("Partner with us","#partner-form",True),("See our services","services.html",False)])
+        [("Book a discovery call","#partner-form",True),("See our services","services.html",False)])
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What partnership looks like","What you get, and who we partner with.","")
     what=["Access to lead generation infrastructure","Sales pipeline management","Expansion into new markets","Cost-effective talent through the Wower ecosystem"]
@@ -824,6 +834,7 @@ def build_partnerships():
       {'t':'select','id':'size','label':'Company size','options':['Startup (1–10)','SME (11–50)','Mid-size (51–200)','Large (201–1,000)','Enterprise (1,000+)']},
       {'t':'select','id':'timeline','label':'Timeline','options':['Immediately','Within 1 month','1–3 months','3–6 months','Just exploring']},
       {'t':'select','id':'need','label':'What do you need?','options':['Lead generation','Sales support','Marketing','Operations','Business scaling','Multiple / not sure']},
+      {'t':'select','id':'budget','label':'Monthly budget (optional)','options':['Under ₹50K','₹50K–2 lakh','₹2–5 lakh','₹5 lakh+','Not decided']},
       {'t':'textarea','id':'req','label':'Describe your requirement','req':True,'full':True}]
     pform=render_form('partner',pfields,'Submit requirement','New partnership requirement — Woways website',ok_msg="Thank you. Our partnerships team will review your requirement and get back within 48 hours.")
     b += form_section('partner-form','Become a partner','Tell us what you need.',
@@ -834,7 +845,7 @@ def build_partnerships():
 def build_internships():
     b = hero("Internships","Start your internship journey.",
         "<span class=\"block text-brandTeal font-display font-semibold mb-4\" style=\"font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em\">Learn. Execute. Perform. Grow.</span>Real work on live company projects, structured training and performance-based growth. Apply, and we'll match you to a project aligned with our partner companies.",
-        [("Apply now","#apply-form",True),("How WOWER works","#pathway",False)])
+        [("Apply to join","#apply-form",True),("How WOWER works","#pathway",False)])
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine" id="pathway"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("How WOWER works","Five steps, one performance-driven pathway.","From joining the ecosystem to real career growth — here is how a Wower's internship journey unfolds.")
     b += wower_pathway() + '</div></section>'
@@ -850,7 +861,7 @@ def build_internships():
       '<p class="mt-6 text-sm text-slate-500">Woways connects applicants with opportunities at partner companies; Woways is not the employer.</p></div>' % wl)
     b += ('<div class="reveal bg-brandTealTint border border-teal-200/60 p-8">'
       '<p class="font-display text-brandNavy" style="font-size:22px;line-height:1.4">&ldquo;Potential gets the opportunity. Performance creates the growth.&rdquo;</p>'
-      '<a class="mt-6 inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="#apply-form">Apply now <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a></div>')
+      '<a class="mt-6 inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="#apply-form">Apply to join <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a></div>')
     b += '</div></section>'
     ifields=[{'t':'text','id':'name','label':'Full name','req':True,'auto':'name'},
       {'t':'email','id':'email','label':'Email','req':True,'auto':'email'},
@@ -859,6 +870,7 @@ def build_internships():
       {'t':'text','id':'college','label':'College / organisation (optional)'},
       {'t':'select','id':'status','label':'Current status','req':True,'options':['College student','Pursuing graduate','Recent graduate','Working professional','Career starter']},
       {'t':'select','id':'interest','label':'Area of interest','req':True,'options':['Sales','Marketing','Operations','HR','Technology','Digital Business','Not sure yet']},
+      {'t':'url','id':'link','label':'Resume / LinkedIn / Portfolio link (optional)','auto':'url','full':True},
       {'t':'textarea','id':'msg','label':'Tell us a little about yourself','full':True}]
     iform=render_form('apply',ifields,'Submit application','New internship application — Woways website',ok_msg="Thank you for applying. We review applications and get back within 48 hours.")
     b += form_section('apply-form','Start your internship journey','Apply for an internship.',
@@ -866,13 +878,27 @@ def build_internships():
       ["We review every application within 48 hours.","No prior experience needed — we match you to your level.","Real projects, mentoring and performance-based growth."], iform)
     return page("Woways — Internships","internships.html",b)
 
+def build_products():
+    b = hero("Products","Software we build ourselves.",
+        "Beyond execution, Woways ships live products for education, career growth and running a business. Each opens in its own portal.",
+        [("Talk to us","contact.html",True)])
+    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += sec_head("Education &amp; career","For students, families and educators.","Guidance, discovery and future-readiness — from grade 10 through to a career.")
+    b += product_cards('edu') + '</div></section>'
+    b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += sec_head("Business systems","For running and growing a business.","CRM and performance analytics that power the way we — and our partners — execute.")
+    b += product_cards('biz') + '</div></section>'
+    b += cta_band()
+    return page("Woways — Products","products.html",b)
+
 pages={'index.html':build_index(),'companies.html':build_companies(),'wowers.html':build_wowers(),
-       'services.html':build_services(),'partnerships.html':build_partnerships(),'internships.html':build_internships(),
+       'products.html':build_products(),'services.html':build_services(),
+       'partnerships.html':build_partnerships(),'internships.html':build_internships(),
        'about.html':build_about(),'contact.html':build_contact(),
        'privacy.html':build_privacy(),'terms.html':build_terms(),'cookies.html':build_cookies()}
 import os,re
 def clean_hrefs(h):
-    for k in ['companies','wowers','services','partnerships','internships','about','contact','privacy','terms','cookies']:
+    for k in ['companies','wowers','products','services','partnerships','internships','about','contact','privacy','terms','cookies']:
         h=h.replace('href="%s.html"'%k,'href="%s"'%k).replace('href="%s.html#'%k,'href="%s#'%k)
     h=h.replace('href="index.html"','href="/"')
     return h
