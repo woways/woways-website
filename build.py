@@ -709,7 +709,7 @@ def render_form(form_id, fields, submit_label, subject, ok_msg="Thank you. Our t
     for f in fields:
         fid=form_id+'-'+f['id']; req=' required' if f.get('req') else ''
         full='md:col-span-2' if f.get('full') else ''
-        nm=f['label'].replace('"','')
+        nm=f.get('name') or f['label'].replace('"','')
         if f['t']=='select':
             opts=''.join('<option>%s</option>'%o for o in f['options'])
             ctrl='<select id="%s" name="%s"%s class="w-full h-11 px-3.5 border border-borderLine text-brandNavy bg-white"><option value="">Choose one</option>%s</select>'%(fid,nm,req,opts)
@@ -746,7 +746,7 @@ def form_section(section_id, eyebrow_t, heading, sub, bullets, form_html, h1=Fal
 def build_contact():
     fields=[{'t':'text','id':'name','label':'Your name','req':True,'auto':'name'},
       {'t':'text','id':'org','label':'Company / entity (optional)','auto':'organization'},
-      {'t':'email','id':'email','label':'Email','req':True,'auto':'email'},
+      {'t':'email','id':'email','label':'Email','req':True,'auto':'email','name':'email'},
       {'t':'tel','id':'phone','label':'Phone','auto':'tel'},
       {'t':'select','id':'topic','label':'What is this about?','req':True,'options':['Partnership','Internship','Product demo','Become a mentor','General enquiry'],'full':True},
       {'t':'textarea','id':'msg','label':'Tell us briefly what you need','req':True,'full':True}]
@@ -829,7 +829,7 @@ def build_partnerships():
     pfields=[{'t':'text','id':'company','label':'Company name','req':True,'auto':'organization'},
       {'t':'text','id':'name','label':'Your name','req':True,'auto':'name'},
       {'t':'text','id':'desig','label':'Designation','auto':'organization-title'},
-      {'t':'email','id':'email','label':'Work email','req':True,'auto':'email'},
+      {'t':'email','id':'email','label':'Work email','req':True,'auto':'email','name':'email'},
       {'t':'tel','id':'phone','label':'Phone','auto':'tel'},
       {'t':'select','id':'size','label':'Company size','options':['Startup (1–10)','SME (11–50)','Mid-size (51–200)','Large (201–1,000)','Enterprise (1,000+)']},
       {'t':'select','id':'timeline','label':'Timeline','options':['Immediately','Within 1 month','1–3 months','3–6 months','Just exploring']},
@@ -864,7 +864,7 @@ def build_internships():
       '<a class="mt-6 inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="#apply-form">Apply to join <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a></div>')
     b += '</div></section>'
     ifields=[{'t':'text','id':'name','label':'Full name','req':True,'auto':'name'},
-      {'t':'email','id':'email','label':'Email','req':True,'auto':'email'},
+      {'t':'email','id':'email','label':'Email','req':True,'auto':'email','name':'email'},
       {'t':'tel','id':'phone','label':'Phone','req':True,'auto':'tel'},
       {'t':'text','id':'city','label':'City','auto':'address-level2'},
       {'t':'text','id':'college','label':'College / organisation (optional)'},
@@ -879,9 +879,12 @@ def build_internships():
     return page("Woways — Internships","internships.html",b)
 
 def build_products():
+    collage=('<div class="relative w-full max-w-[460px] mx-auto">'
+      '<div class="absolute right-0 top-8 w-[72%] rotate-3 rounded-xl overflow-hidden border border-white/15 shadow-[0_30px_60px_-20px_rgba(0,0,0,.6)]"><img src="shot-collegemacha.jpg" alt="College Macha product preview" loading="lazy" class="w-full"/></div>'
+      '<div class="relative w-[80%] -rotate-2 rounded-xl overflow-hidden border border-white/15 shadow-[0_30px_60px_-20px_rgba(0,0,0,.6)]"><img src="shot-studentmentor.jpg" alt="Student Mentor product preview" loading="lazy" class="w-full"/></div></div>')
     b = hero("Products","Software we build ourselves.",
         "Beyond execution, Woways ships live products for education, career growth and running a business. Each opens in its own portal.",
-        [("Talk to us","contact.html",True)])
+        [("Talk to us","contact.html",True)], illo=collage)
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Education &amp; career","For students, families and educators.","Guidance, discovery and future-readiness — from grade 10 through to a career.")
     b += product_cards('edu') + '</div></section>'
