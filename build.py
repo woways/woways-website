@@ -39,6 +39,11 @@ tailwind.config={theme:{extend:{
  :focus-visible{outline:2.5px solid #00A9A9;outline-offset:3px}
  .skip{position:absolute;left:-9999px;top:0;background:#00A9A9;color:#02201E;padding:10px 16px;font-weight:600;z-index:200}
  .skip:focus{left:0}
+ /* page transition */
+ @keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+ main#main{animation:pageIn .55s cubic-bezier(.2,.7,.2,1) both}
+ body.is-leaving{opacity:0;transform:translateY(-8px);transition:opacity .26s ease,transform .26s ease}
+ @media (prefers-reduced-motion:reduce){main#main{animation:none}body.is-leaving{opacity:1!important;transform:none!important;transition:none}}
  /* animations */
  .js-anim .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
  .js-anim .reveal.in{opacity:1;transform:none}
@@ -178,6 +183,18 @@ SCRIPT = ('<script>'
  '.then(function(r){return r.json();}).then(function(j){if(j.success){f.reset();if(ok){ok.classList.remove("hidden");ok.scrollIntoView({block:"center",behavior:"smooth"});}}else{if(err){err.textContent=(j&&j.message)||"Something went wrong. Please email tech@woways.in.";err.classList.remove("hidden");}}})'
  '.catch(function(){if(err){err.textContent="Network error. Please email tech@woways.in.";err.classList.remove("hidden");}})'
  '.finally(function(){if(btn){btn.disabled=false;btn.textContent=lbl;}});});});})();'
+ '(function(){if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;'
+ 'document.addEventListener("click",function(e){if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;'
+ 'var a=e.target.closest&&e.target.closest("a");if(!a)return;'
+ 'if(a.target==="_blank"||a.hasAttribute("download"))return;'
+ 'var href=a.getAttribute("href")||"";if(!href||href.charAt(0)==="#"||/^(mailto:|tel:)/.test(href))return;'
+ 'var url;try{url=new URL(a.href,location.href);}catch(_){return;}'
+ 'if(url.origin!==location.origin)return;'
+ 'if(url.pathname===location.pathname){return;}'
+ 'e.preventDefault();document.body.classList.add("is-leaving");'
+ 'setTimeout(function(){location.href=a.href;},230);'
+ 'setTimeout(function(){document.body.classList.remove("is-leaving");},2500);});'
+ 'window.addEventListener("pageshow",function(ev){if(ev.persisted)document.body.classList.remove("is-leaving");});})();'
  '</script>')
 
 def page(title, active, body):
