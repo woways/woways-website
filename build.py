@@ -486,7 +486,7 @@ def where_today():
 def build_index():
     b = hero("Execution partner · Talent ecosystem","Where companies scale and Wowers build careers.",
         "We work with companies as an extended execution partner across Sales, Marketing, Operations, Technology and HR — while creating real work opportunities for Wowers through internships, practical projects and performance-driven career paths.<br class=\"hidden sm:block\"/><span class=\"inline-block mt-4 text-white font-semibold\">Not advice. Delivery.</span>",
-        [("Partner with us","contact.html",True),("Apply for internship","wowers.html",False)], funcs=True)
+        [("Partner with us","partnerships.html#partner-form",True),("Apply for internship","internships.html#apply-form",False)], funcs=True)
     b += credibility_strip()
     b += '<section class="bg-white py-16 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += '<p class="cap text-slate-500 mb-8 text-center reveal">Our impact</p>'
@@ -518,7 +518,7 @@ def build_index():
       '<h2 class="hd2 text-white mb-3" style="font-size:clamp(32px,5vw,52px)">WOWER — The WOW Maker</h2>'
       '<p class="font-display font-semibold text-brandTeal mb-6" style="font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em">Learn. Execute. Perform. Grow.</p>'
       '<p class="lead text-slate-300 mb-8 max-w-2xl">A performance-driven pathway that transforms aspiring talent into work-ready professionals through training, real projects, and meaningful career opportunities.</p>'
-      '<div class="flex flex-wrap gap-4"><a class="inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="wowers.html">Apply for internship <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>'
+      '<div class="flex flex-wrap gap-4"><a class="inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="internships.html#apply-form">Apply for internship <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>'
       '<a class="inline-flex items-center gap-2 border border-white/30 hover:border-white hover:bg-white/5 text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="wowers.html#pathway">How WOWER works</a></div></div></div></section>' % eyebrow("For Wowers"))
     b += inspiration()
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
@@ -567,7 +567,7 @@ def build_wowers():
       ("What will I gain?","Real project experience, practical business skills and a track record you can actually show.")]
     b = hero("For Wowers","WOWER — The WOW Maker",
         "<span class=\"block text-brandTeal font-display font-semibold mb-4\" style=\"font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em\">Learn. Execute. Perform. Grow.</span>A performance-driven pathway that transforms aspiring talent into work-ready professionals through training, real projects, and meaningful career opportunities.",
-        [("Apply now","contact.html",True),("How WOWER works","#pathway",False)])
+        [("Apply now","internships.html#apply-form",True),("How WOWER works","#pathway",False)])
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine" id="pathway"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("How WOWER works","Five steps, one performance-driven pathway.","From joining the ecosystem to real career growth — here is how a Wower's journey unfolds.")
     b += wower_pathway() + '</div></section>'
@@ -608,7 +608,7 @@ def build_wowers():
 def build_services():
     b = hero("Services","The work we run, end to end.",
         "Productized execution you can start with one service and scale as it proves out — from first outreach to closed revenue, plus the talent engine that delivers it.",
-        [("Discuss your needs","contact.html",True),("For companies","companies.html",False)], illo=illo_target())
+        [("Discuss your needs","contact.html",True),("For companies","companies.html",False)])
     b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we do","Four services, one pipeline.","Each service is run by our team and reports into yours. Pick one, or combine them.")
     b += services_detailed() + '</div></section>'
@@ -673,36 +673,59 @@ def build_about():
     b += cta_band()
     return page("Woways — About","about.html",b)
 
+PRIVACY_NOTE=('We collect these details only to respond to you and discuss working together. We keep them for up to 24 months after our last contact, then delete them. '
+  'To see, correct or delete your details, write to <a class="underline hover:text-brandTeal" href="mailto:tech@woways.in">tech@woways.in</a>. '
+  'Woways connects applicants with opportunities at partner companies; Woways is not the employer.')
+
+def render_form(form_id, fields, submit_label, ok_msg="Thank you. Our team will get back to you within 48 hours."):
+    ok=form_id+'-ok'
+    parts=''
+    for f in fields:
+        fid=form_id+'-'+f['id']; req=' required' if f.get('req') else ''
+        full='md:col-span-2' if f.get('full') else ''
+        if f['t']=='select':
+            opts=''.join('<option>%s</option>'%o for o in f['options'])
+            ctrl='<select id="%s"%s class="w-full h-11 px-3.5 border border-borderLine text-brandNavy bg-white"><option value="">Choose one</option>%s</select>'%(fid,req,opts)
+        elif f['t']=='textarea':
+            ctrl='<textarea id="%s" rows="4"%s class="w-full p-3.5 border border-borderLine text-brandNavy"></textarea>'%(fid,req)
+        else:
+            auto=' autocomplete="%s"'%f['auto'] if f.get('auto') else ''
+            ctrl='<input id="%s" type="%s"%s%s class="w-full h-11 px-3.5 border border-borderLine text-brandNavy"/>'%(fid,f['t'],req,auto)
+        parts+='<div class="%s"><label class="cap text-slate-600 block mb-1.5" for="%s">%s</label>%s</div>'%(full,fid,f['label'],ctrl)
+    return ('<form class="bg-white p-8 lg:p-10 herofade" novalidate onsubmit="event.preventDefault();document.getElementById(\'%s\').classList.remove(\'hidden\');this.reset();">'
+      '<div id="%s" class="hidden mb-5 p-4 bg-brandTealTint text-brandTealDark text-sm border border-teal-200">%s</div>'
+      '<div class="grid grid-cols-1 md:grid-cols-2 gap-5">%s</div>'
+      '<label class="flex items-start gap-2.5 mt-6 text-sm text-slate-600"><input type="checkbox" required class="mt-1"/> <span>I agree to Woways contacting me about this and to the <a class="underline hover:text-brandTeal" href="privacy.html">privacy policy</a>.</span></label>'
+      '<button type="submit" class="mt-6 w-full bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold py-4 transition-colors">%s</button>'
+      '<p class="mt-5 text-xs text-slate-500 leading-relaxed">%s</p>'
+      '</form>')%(ok,ok,ok_msg,parts,submit_label,PRIVACY_NOTE)
+
+def form_section(section_id, eyebrow_t, heading, sub, bullets, form_html, h1=False):
+    tag='h1' if h1 else 'h2'
+    bl=''.join('<div class="flex items-start gap-3 text-slate-300">%s<span>%s</span></div>'%(CHECK,x) for x in bullets)
+    return ('<section id="%s" class="bg-brandNavy text-white"><div class="max-w-[1440px] mx-auto px-6 lg:px-12 py-16 lg:py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">'
+      '<div class="herofade"><span class="cap text-brandTeal block mb-3">%s</span>'
+      '<%s class="hd1 text-white mb-5" style="font-size:clamp(28px,4vw,46px)">%s</%s>'
+      '<p class="lead text-slate-300 mb-8 max-w-xl">%s</p>'
+      '<div class="space-y-4">%s</div></div>%s</div></section>')%(section_id,eyebrow_t,tag,heading,tag,sub,bl,form_html)
+
 def build_contact():
-    opts=["Execution support (sales, marketing, ops, HR, tech)","Join as a Wower","Student Mentor","College Macha","Bispun","Perfoin","Talent Ignition","Become a mentor","Not sure yet"]
-    os_=''.join('<option>%s</option>'%o for o in opts)
-    reassure=["One short form. No sales call unless you ask for one.","We reply from a real person on the Woways team, not an inbox.","We'll get back to you within 48 hours."]
-    rl=''.join('<div class="flex items-start gap-3 text-slate-300">%s<span>%s</span></div>'%(CHECK,x) for x in reassure)
-    b = ('<section class="bg-brandNavy text-white"><div class="absolute inset-0"></div>'
-      '<div class="max-w-[1440px] mx-auto px-6 lg:px-12 py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">'
-      '<div class="herofade">%s<h1 class="hd1 text-white mb-5" style="font-size:clamp(30px,4.5vw,48px)">Get in touch.</h1>'
-      '<p class="lead text-slate-300 mb-8 max-w-xl">Whether you\'re a company seeking growth or a Wower seeking opportunity, let\'s talk. Tell us what you\'re trying to get done and we\'ll come back with where Woways fits — execution support, one of our products, or both.</p>'
-      '<div class="space-y-4">%s</div>'
-      '<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">'
-      '<div class="border border-white/15 bg-white/5 p-5"><div class="cap text-brandTeal mb-2">For companies</div>'
-      '<p class="text-sm text-slate-300 leading-relaxed">Partner with Woways and our team reviews your requirement and gets in touch within 48 hours to explore how we can create value together.</p></div>'
-      '<div class="border border-white/15 bg-white/5 p-5"><div class="cap text-brandOrange mb-2">For Wowers</div>'
-      '<p class="text-sm text-slate-300 leading-relaxed">Freshers, graduates and career starters looking for real work and growth — send us your query and we\'ll connect you with opportunities at partner companies.</p></div></div></div>'
-      '<form class="bg-white p-8 lg:p-10 herofade" novalidate onsubmit="event.preventDefault();document.getElementById(\'ok\').classList.remove(\'hidden\');this.reset();">'
-      '<div id="ok" class="hidden mb-5 p-4 bg-brandTealTint text-brandTealDark text-sm border border-teal-200">Thank you. Our team will get back to you within 48 hours.</div>'
-      '<div class="grid grid-cols-1 md:grid-cols-2 gap-5">'
-      '<div><label class="cap text-slate-600 block mb-1.5" for="c-name">Your name</label><input id="c-name" required class="w-full h-11 px-3.5 border border-borderLine text-brandNavy" autocomplete="name"/></div>'
-      '<div><label class="cap text-slate-600 block mb-1.5" for="c-desig">Designation</label><input id="c-desig" class="w-full h-11 px-3.5 border border-borderLine text-brandNavy" autocomplete="organization-title"/></div></div>'
-      '<div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">'
-      '<div><label class="cap text-slate-600 block mb-1.5" for="c-email">Email</label><input id="c-email" type="email" required class="w-full h-11 px-3.5 border border-borderLine text-brandNavy" autocomplete="email"/></div>'
-      '<div><label class="cap text-slate-600 block mb-1.5" for="c-phone">Phone number</label><input id="c-phone" class="w-full h-11 px-3.5 border border-borderLine text-brandNavy" autocomplete="tel"/></div></div>'
-      '<div class="mt-5"><label class="cap text-slate-600 block mb-1.5" for="c-org">Company / entity name</label><input id="c-org" class="w-full h-11 px-3.5 border border-borderLine text-brandNavy" autocomplete="organization"/></div>'
-      '<div class="mt-5"><label class="cap text-slate-600 block mb-1.5" for="c-int">What are you looking for?</label><select id="c-int" required class="w-full h-11 px-3.5 border border-borderLine text-brandNavy"><option value="">Select one</option>%s</select></div>'
-      '<div class="mt-5"><label class="cap text-slate-600 block mb-1.5" for="c-msg">Tell us briefly what you need</label><textarea id="c-msg" rows="3" class="w-full p-3.5 border border-borderLine text-brandNavy"></textarea></div>'
-      '<label class="flex items-start gap-2.5 mt-5 text-sm text-slate-600"><input type="checkbox" required class="mt-1"/> <span>I agree to Woways contacting me about this enquiry and to the privacy policy.</span></label>'
-      '<button type="submit" class="mt-6 w-full bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold py-4 transition-colors">Send request</button>'
-      '<p class="mt-5 text-xs text-slate-500 leading-relaxed">We collect these details only to reply to your enquiry and discuss working together. We keep them for up to 24 months after our last contact, then delete them. To see, correct or delete your details, write to <a class="underline hover:text-brandTeal" href="mailto:tech@woways.in">tech@woways.in</a>. Woways connects applicants with opportunities at partner companies; Woways is not the employer.</p>'
-      '</form></div></section>' % (eyebrow("Talk to the Woways team"), rl, os_))
+    fields=[{'t':'text','id':'name','label':'Your name','req':True,'auto':'name'},
+      {'t':'text','id':'org','label':'Company / entity (optional)','auto':'organization'},
+      {'t':'email','id':'email','label':'Email','req':True,'auto':'email'},
+      {'t':'tel','id':'phone','label':'Phone','auto':'tel'},
+      {'t':'select','id':'topic','label':'What is this about?','req':True,'options':['Partnership','Internship','Product demo','Become a mentor','General enquiry'],'full':True},
+      {'t':'textarea','id':'msg','label':'Tell us briefly what you need','req':True,'full':True}]
+    form=render_form('talk',fields,'Send message')
+    bullets=["One short form. No sales call unless you ask for one.","A real person on the Woways team replies, not an inbox.","We reply within 48 hours."]
+    b=form_section('talk-form','Talk to the Woways team','Get in touch.',
+      "Whether you're a company, a prospective Wower, or just exploring — tell us what you're trying to get done and we'll point you to the right place. For a partnership or an internship, the dedicated forms give us the details faster.",
+      bullets, form, h1=True)
+    b+=('<section class="bg-white py-14 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-3 gap-6 stagger reveal">'
+      '<a class="bg-paperBg border border-borderLine p-6 card-lift block" href="partnerships.html#partner-form"><span class="material-symbols-outlined text-brandTeal mb-3 block" aria-hidden="true">handshake</span><h3 class="hd3 text-brandNavy mb-1" style="font-size:18px">Partnership form</h3><p class="text-sm text-slate-600">For companies who want an execution partner.</p></a>'
+      '<a class="bg-paperBg border border-borderLine p-6 card-lift block" href="internships.html#apply-form"><span class="material-symbols-outlined text-brandTeal mb-3 block" aria-hidden="true">school</span><h3 class="hd3 text-brandNavy mb-1" style="font-size:18px">Internship form</h3><p class="text-sm text-slate-600">For Wowers applying for real project work.</p></a>'
+      '<div class="bg-paperBg border border-borderLine p-6"><span class="material-symbols-outlined text-brandTeal mb-3 block" aria-hidden="true">call</span><h3 class="hd3 text-brandNavy mb-1" style="font-size:18px">Direct</h3><p class="text-sm text-slate-600"><a class="hover:text-brandTeal" href="mailto:tech@woways.in">tech@woways.in</a><br/><a class="hover:text-brandTeal" href="tel:+919390188553">+91 93901 88553</a></p></div>'
+      '</div></section>')
     return page("Woways — Contact","contact.html",b)
 
 def legal_page(title, active, eyebrow_t, heading, updated, blocks):
@@ -751,7 +774,7 @@ def build_cookies():
 def build_partnerships():
     b = hero("Partnerships","Partner with Woways.",
         "Bring Woways in as an extended execution partner. We embed like an internal team across Sales, Marketing, Operations, Technology and HR — running the work on your systems and standards, and reporting straight back to you.",
-        [("Partner with us","contact.html",True),("See our services","services.html",False)])
+        [("Partner with us","#partner-form",True),("See our services","services.html",False)])
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What partnership looks like","What you get, and who we partner with.","")
     what=["Access to lead generation infrastructure","Sales pipeline management","Expansion into new markets","Cost-effective talent through the Wower ecosystem"]
@@ -768,13 +791,26 @@ def build_partnerships():
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Why companies partner with Woways","Execution you can hold accountable.","")
     b += why_cards() + '</div></section>'
-    b += industries() + cta_band()
+    b += industries()
+    pfields=[{'t':'text','id':'company','label':'Company name','req':True,'auto':'organization'},
+      {'t':'text','id':'name','label':'Your name','req':True,'auto':'name'},
+      {'t':'text','id':'desig','label':'Designation','auto':'organization-title'},
+      {'t':'email','id':'email','label':'Work email','req':True,'auto':'email'},
+      {'t':'tel','id':'phone','label':'Phone','auto':'tel'},
+      {'t':'select','id':'size','label':'Company size','options':['Startup (1–10)','SME (11–50)','Mid-size (51–200)','Large (201–1,000)','Enterprise (1,000+)']},
+      {'t':'select','id':'timeline','label':'Timeline','options':['Immediately','Within 1 month','1–3 months','3–6 months','Just exploring']},
+      {'t':'select','id':'need','label':'What do you need?','options':['Lead generation','Sales support','Marketing','Operations','Business scaling','Multiple / not sure']},
+      {'t':'textarea','id':'req','label':'Describe your requirement','req':True,'full':True}]
+    pform=render_form('partner',pfields,'Submit requirement',"Thank you. Our partnerships team will review your requirement and get back within 48 hours.")
+    b += form_section('partner-form','Become a partner','Tell us what you need.',
+      "Share your requirement and our partnerships team reviews it and gets in touch within 48 hours to explore how we can create value together.",
+      ["We review every requirement within 48 hours.","A real person from the partnerships team, not an inbox.","No obligation — a first conversation to see the fit."], pform)
     return page("Woways — Partnerships","partnerships.html",b)
 
 def build_internships():
     b = hero("Internships","Start your internship journey.",
         "<span class=\"block text-brandTeal font-display font-semibold mb-4\" style=\"font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em\">Learn. Execute. Perform. Grow.</span>Real work on live company projects, structured training and performance-based growth. Apply, and we'll match you to a project aligned with our partner companies.",
-        [("Apply now","contact.html",True),("How WOWER works","#pathway",False)])
+        [("Apply now","#apply-form",True),("How WOWER works","#pathway",False)])
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine" id="pathway"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("How WOWER works","Five steps, one performance-driven pathway.","From joining the ecosystem to real career growth — here is how a Wower's internship journey unfolds.")
     b += wower_pathway() + '</div></section>'
@@ -790,9 +826,20 @@ def build_internships():
       '<p class="mt-6 text-sm text-slate-500">Woways connects applicants with opportunities at partner companies; Woways is not the employer.</p></div>' % wl)
     b += ('<div class="reveal bg-brandTealTint border border-teal-200/60 p-8">'
       '<p class="font-display text-brandNavy" style="font-size:22px;line-height:1.4">&ldquo;Potential gets the opportunity. Performance creates the growth.&rdquo;</p>'
-      '<a class="mt-6 inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="contact.html">Apply now <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a></div>')
+      '<a class="mt-6 inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="#apply-form">Apply now <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a></div>')
     b += '</div></section>'
-    b += cta_band()
+    ifields=[{'t':'text','id':'name','label':'Full name','req':True,'auto':'name'},
+      {'t':'email','id':'email','label':'Email','req':True,'auto':'email'},
+      {'t':'tel','id':'phone','label':'Phone','req':True,'auto':'tel'},
+      {'t':'text','id':'city','label':'City','auto':'address-level2'},
+      {'t':'text','id':'college','label':'College / organisation (optional)'},
+      {'t':'select','id':'status','label':'Current status','req':True,'options':['College student','Pursuing graduate','Recent graduate','Working professional','Career starter']},
+      {'t':'select','id':'interest','label':'Area of interest','req':True,'options':['Sales','Marketing','Operations','HR','Technology','Digital Business','Not sure yet']},
+      {'t':'textarea','id':'msg','label':'Tell us a little about yourself','full':True}]
+    iform=render_form('apply',ifields,'Submit application',"Thank you for applying. We review applications and get back within 48 hours.")
+    b += form_section('apply-form','Start your internship journey','Apply for an internship.',
+      "Tell us about yourself and we'll match you to real project work with a partner company. Woways connects applicants with opportunities; Woways is not the employer.",
+      ["We review every application within 48 hours.","No prior experience needed — we match you to your level.","Real projects, mentoring and performance-based growth."], iform)
     return page("Woways — Internships","internships.html",b)
 
 pages={'index.html':build_index(),'companies.html':build_companies(),'wowers.html':build_wowers(),
