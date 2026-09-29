@@ -111,40 +111,37 @@ def illo_pathway():
       '<circle cx="254" cy="60" r="5" fill="#E8A33D" opacity="0"><animate attributeName="opacity" from="0" to="1" dur="0.4s" begin="1.1s" fill="freeze"/></circle>'+bars+'</svg>')
 
 NAV = [("index.html","Home"),("companies.html","For Companies"),("wowers.html","For Wowers"),
-       ("companies.html#services","Services"),("companies.html#partnerships","Partnerships"),
-       ("wowers.html#pathway","Internships"),("about.html","About"),("contact.html","Contact")]
-FOOTER_NAV = [("index.html","Home"),("companies.html","For Companies"),("wowers.html","For Wowers"),("about.html","About"),("contact.html","Contact")]
+       ("services.html","Services"),("partnerships.html","Partnerships"),
+       ("internships.html","Internships"),("about.html","About")]
+FOOTER_NAV = [("index.html","Home"),("companies.html","For Companies"),("wowers.html","For Wowers"),("services.html","Services"),("partnerships.html","Partnerships"),("internships.html","Internships"),("about.html","About"),("contact.html","Contact")]
 
 def header(active):
     links = ''
     for href,label in NAV:
         cur = ' aria-current="page"' if href==active else ''
-        if label=="Contact":
-            cls = 'text-brandOrange hover:text-white'
-        else:
-            cls = 'text-white' if href==active else 'text-slate-300 hover:text-white'
+        cls = 'text-white' if href==active else 'text-slate-300 hover:text-white'
         links += '<a class="cap %s transition-colors" href="%s"%s>%s</a>' % (cls,href,cur,label)
     mob=''
     for h,l in NAV:
-        c = 'text-brandOrange' if l=="Contact" else 'text-slate-200'
-        mob += '<a class="block px-6 py-3 %s border-t border-white/10 font-display font-semibold" href="%s">%s</a>'%(c,h,l)
+        mob += '<a class="block px-6 py-3 text-slate-200 border-t border-white/10 font-display font-semibold" href="%s">%s</a>'%(h,l)
+    mob += '<div class="p-4 border-t border-white/10"><a class="block text-center bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-6 py-3 transition-colors" href="contact.html">Talk to us</a></div>'
     return ('<a href="#main" class="skip">Skip to content</a>'
       '<header class="sticky top-0 z-50 bg-brandNavy/95 backdrop-blur border-b border-white/10">'
       '<div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-16 flex items-center justify-between">'
       '<a href="index.html" aria-label="Woways — Execute, Grow, Transform" class="flex items-center gap-1 shrink-0">'
       '<img src="logo-icon.png" alt="" class="h-5 w-auto"/>'
       '<img src="logo-word.png" alt="Woways" class="h-5 w-auto"/></a>'
-      '<div class="flex items-center gap-6">'
+      '<div class="flex items-center gap-5">'
       '<nav class="hidden md:flex items-center gap-4 lg:gap-6" aria-label="Primary">%s</nav>'
+      '<a class="hidden sm:inline-flex items-center bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-5 py-2.5 transition-colors" href="contact.html">Talk to us</a>'
       '<button id="mbtn" class="md:hidden text-white p-2" aria-label="Open menu" aria-expanded="false"><span class="material-symbols-outlined">menu</span></button>'
       '</div></div>'
       '<div id="mmenu" class="hidden md:hidden bg-brandNavy border-t border-white/10">%s</div>'
       '</header>') % (links, mob)
 
 def footer():
-    prod = [("https://studentmentor.co.in","Student Mentor"),("https://collegemacha.com","College Macha"),("https://bispun.com","Bispun"),("https://woways-site.vercel.app","Perfoin")]
+    prod = [("https://studentmentor.co.in","Student Mentor"),("https://collegemacha.com","College Macha"),("https://talentignition.in","Talent Ignition"),("https://bispun.com","Bispun"),("https://woways-site.vercel.app","Perfoin")]
     plinks = ''.join('<li><a class="hover:text-white transition-colors" href="%s" target="_blank" rel="noopener noreferrer">%s</a></li>'%(u,n) for u,n in prod)
-    plinks += '<li><span class="text-slate-500">Talent Ignition <span class="text-xs">(soon)</span></span></li>'
     exp = ''.join('<li><a class="hover:text-white transition-colors" href="%s">%s</a></li>'%(h,l) for h,l in FOOTER_NAV)
     return ('<footer class="bg-brandNavy text-slate-400 py-16 border-t border-white/10">'
       '<div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
@@ -229,10 +226,10 @@ def services_grid():
 def product_cards(group):
     edu=[("Career guidance · 10th to PG","Student Mentor","Career guidance and mentoring platform, from 10th grade to PG.","https://studentmentor.co.in","Visit Student Mentor"),
          ("College discovery","College Macha","Discover, book a demo and get clarity on selected institutions — choose the best fit for the student.","https://collegemacha.com","Visit College Macha"),
-         ("Ed-tech · Grades 4–12","Talent Ignition","An Ed-tech product — Ramanujan · Dhrona · Chanakya · Aryabhatta.",None,"Coming soon")]
+         ("Ed-tech · Grades 4–12","Talent Ignition","An Ed-tech product — Ramanujan · Dhrona · Chanakya · Aryabhatta.","https://talentignition.in","Visit Talent Ignition")]
     biz=[("CRM · consultants & institutions","Bispun","CRM portal for educational consultants and institutions.","https://bispun.com","Visit Bispun"),
          ("Performance analytics · SaaS","Perfoin","Performance Analytics Portal — a SaaS product.","https://woways-site.vercel.app","Visit Perfoin")]
-    IMG={"Student Mentor":"shot-studentmentor.jpg","College Macha":"shot-collegemacha.jpg","Bispun":"shot-bispun.jpg","Perfoin":"shot-performance.jpg"}
+    IMG={"Student Mentor":"shot-studentmentor.jpg","College Macha":"shot-collegemacha.jpg","Talent Ignition":"shot-talentignition.jpg","Bispun":"shot-bispun.jpg","Perfoin":"shot-performance.jpg"}
     def preview_html(name):
         shot=IMG.get(name)
         if shot:
@@ -263,9 +260,9 @@ def cta_band():
 
 def industries():
     inds=["Manufacturing","SaaS","Education","Professional Services","Growing Businesses"]
-    pills=''.join('<span class="px-4 py-2 bg-white border border-borderLine text-sm font-display font-medium text-brandNavy">%s</span>'%i for i in inds)
-    return ('<section class="bg-paperBg py-16 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12 reveal">'
-      '<p class="cap text-slate-500 mb-5">Industries we serve</p><div class="flex flex-wrap gap-3">%s</div></div></section>') % pills
+    pills=''.join('<span class="px-4 py-2 bg-white border border-borderLine text-sm font-display font-medium text-brandNavy card-lift">%s</span>'%i for i in inds)
+    return ('<section class="bg-paperBg py-16 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+      '<p class="cap text-slate-500 mb-5 reveal">Industries we serve</p><div class="flex flex-wrap gap-3 stagger reveal">%s</div></div></section>') % pills
 
 def hero(eb, h, sub, ctas, illo=None, funcs=False):
     fn=''
@@ -279,14 +276,14 @@ def hero(eb, h, sub, ctas, illo=None, funcs=False):
         else: btns+='<a class="border border-white/30 hover:border-white hover:bg-white/5 text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="%s">%s</a>'%(href,label)
     if illo:
         col='<div class="hidden lg:flex items-center justify-center herofade" style="animation-delay:.18s">%s</div>'%illo
-        grid='<div class="relative max-w-[1440px] mx-auto px-6 lg:px-12 pt-20 lg:pt-28 pb-14 lg:pb-20 grid lg:grid-cols-2 gap-12 items-center"><div class="max-w-2xl herofade">%s</div>%s</div>'
+        grid='<div class="relative max-w-[1440px] mx-auto px-6 lg:px-12 pt-12 lg:pt-16 pb-14 lg:pb-20 grid lg:grid-cols-2 gap-12 items-center"><div class="max-w-2xl herofade">%s</div>%s</div>'
         inner=('<div class="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/15 text-brandTeal cap mb-6"><span class="w-1.5 h-1.5 bg-brandTeal inline-block"></span> %s</div>'
           '<h1 class="hd1 text-white mb-6">%s</h1><p class="lead text-slate-300 mb-8">%s</p><div class="flex flex-wrap gap-4">%s</div>%s'%(eb,h,sub,btns,fn))
         return ('<section class="relative bg-brandNavy text-white overflow-hidden"><div class="absolute inset-0 glow pointer-events-none"></div>'
           '<div class="absolute inset-0 gridlines opacity-60 pointer-events-none"></div>'+(grid%(inner,col))+'</section>')
     return ('<section class="relative bg-brandNavy text-white overflow-hidden"><div class="absolute inset-0 glow pointer-events-none"></div>'
       '<div class="absolute inset-0 gridlines opacity-60 pointer-events-none"></div>'
-      '<div class="relative max-w-[1440px] mx-auto px-6 lg:px-12 pt-20 lg:pt-28 pb-14 lg:pb-16"><div class="max-w-3xl herofade">'
+      '<div class="relative max-w-[1440px] mx-auto px-6 lg:px-12 pt-12 lg:pt-16 pb-14 lg:pb-16"><div class="max-w-3xl herofade">'
       '<div class="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/15 text-brandTeal cap mb-6">'
       '<span class="w-1.5 h-1.5 bg-brandTeal inline-block"></span> %s</div>'
       '<h1 class="hd1 text-white mb-6">%s</h1><p class="lead text-slate-300 max-w-2xl mb-8">%s</p>'
@@ -747,12 +744,60 @@ def build_cookies():
       ("Contact",["Questions about this policy can be sent to tech@woways.in."]),
     ])
 
+def build_partnerships():
+    b = hero("Partnerships","Partner with Woways.",
+        "Bring Woways in as an extended execution partner. We embed like an internal team across Sales, Marketing, Operations, Technology and HR — running the work on your systems and standards, and reporting straight back to you.",
+        [("Partner with us","contact.html",True),("See our services","services.html",False)])
+    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += sec_head("What partnership looks like","What you get, and who we partner with.","")
+    what=["Access to lead generation infrastructure","Sales pipeline management","Expansion into new markets","Cost-effective talent through the Wower ecosystem"]
+    wl=''.join('<div class="flex items-start gap-3 text-slate-700">%s<span>%s</span></div>'%(CHECK,x) for x in what)
+    ptypes=["Technology Companies","Manufacturing Companies","Service Companies","Startups"]
+    pp=''.join('<span class="px-4 py-2 bg-paperBg border border-borderLine text-sm font-display font-medium text-brandNavy">%s</span>'%t for t in ptypes)
+    b += ('<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 reveal">'
+      '<div class="bg-white border border-borderLine p-8"><h3 class="hd3 text-brandNavy mb-5" style="font-size:20px">What you get</h3><div class="space-y-4">%s</div></div>'
+      '<div class="bg-white border border-borderLine p-8"><h3 class="hd3 text-brandNavy mb-5" style="font-size:20px">Partner types</h3><div class="flex flex-wrap gap-3">%s</div></div></div>' % (wl,pp))
+    b += '</div></section>'
+    b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += sec_head("How an engagement starts","A short, clear path to work moving.","No drawn-out sales cycle — a clear path from first conversation to work in motion.")
+    b += journey() + '</div></section>'
+    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += sec_head("Why companies partner with Woways","Execution you can hold accountable.","")
+    b += why_cards() + '</div></section>'
+    b += industries() + cta_band()
+    return page("Woways — Partnerships","partnerships.html",b)
+
+def build_internships():
+    b = hero("Internships","Start your internship journey.",
+        "<span class=\"block text-brandTeal font-display font-semibold mb-4\" style=\"font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em\">Learn. Execute. Perform. Grow.</span>Real work on live company projects, structured training and performance-based growth. Apply, and we'll match you to a project aligned with our partner companies.",
+        [("Apply now","contact.html",True),("How WOWER works","#pathway",False)])
+    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine" id="pathway"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += sec_head("How WOWER works","Five steps, one performance-driven pathway.","From joining the ecosystem to real career growth — here is how a Wower's internship journey unfolds.")
+    b += wower_pathway() + '</div></section>'
+    b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
+    b += sec_head("What you'll work on","Real work across partner companies.","")
+    b += wowers_work() + '</div></section>'
+    who=["Freshers and recent graduates","Pursuing graduates and interns","Career starters changing tracks","Anyone looking for meaningful, real work"]
+    wl=''.join('<li class="flex items-start gap-3 text-slate-700">%s<span>%s</span></li>'%(CHECK,x) for x in who)
+    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12 grid lg:grid-cols-2 gap-12 items-center">'
+    b += ('<div class="reveal"><span class="cap text-brandTeal block mb-3">Who can apply</span>'
+      '<h2 class="hd2 text-brandNavy mb-5" style="font-size:clamp(26px,3.4vw,38px)">Potential, ready to perform.</h2>'
+      '<ul class="space-y-4">%s</ul>'
+      '<p class="mt-6 text-sm text-slate-500">Woways connects applicants with opportunities at partner companies; Woways is not the employer.</p></div>' % wl)
+    b += ('<div class="reveal bg-brandTealTint border border-teal-200/60 p-8">'
+      '<p class="font-display text-brandNavy" style="font-size:22px;line-height:1.4">&ldquo;Potential gets the opportunity. Performance creates the growth.&rdquo;</p>'
+      '<a class="mt-6 inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="contact.html">Apply now <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a></div>')
+    b += '</div></section>'
+    b += cta_band()
+    return page("Woways — Internships","internships.html",b)
+
 pages={'index.html':build_index(),'companies.html':build_companies(),'wowers.html':build_wowers(),
-       'services.html':build_services(),'about.html':build_about(),'contact.html':build_contact(),
+       'services.html':build_services(),'partnerships.html':build_partnerships(),'internships.html':build_internships(),
+       'about.html':build_about(),'contact.html':build_contact(),
        'privacy.html':build_privacy(),'terms.html':build_terms(),'cookies.html':build_cookies()}
 import os,re
 def clean_hrefs(h):
-    for k in ['companies','wowers','services','about','contact','privacy','terms','cookies']:
+    for k in ['companies','wowers','services','partnerships','internships','about','contact','privacy','terms','cookies']:
         h=h.replace('href="%s.html"'%k,'href="%s"'%k).replace('href="%s.html#'%k,'href="%s#'%k)
     h=h.replace('href="index.html"','href="/"')
     return h
