@@ -875,12 +875,10 @@ def build_internships():
     return page("Woways — Internships","internships.html",b)
 
 def build_products():
-    collage=('<div class="relative w-full max-w-[460px] mx-auto">'
-      '<div class="absolute right-0 top-8 w-[72%] rotate-3 rounded-xl overflow-hidden border border-white/15 shadow-[0_30px_60px_-20px_rgba(0,0,0,.6)]"><img src="shot-collegemacha.jpg" alt="College Macha product preview" loading="lazy" class="w-full"/></div>'
-      '<div class="relative w-[80%] -rotate-2 rounded-xl overflow-hidden border border-white/15 shadow-[0_30px_60px_-20px_rgba(0,0,0,.6)]"><img src="shot-studentmentor.jpg" alt="Student Mentor product preview" loading="lazy" class="w-full"/></div></div>')
     b = hero("Products","Products built from real execution.",
         "We build focused platforms for education, career growth and business performance — shaped by the work we do with people and companies.",
-        [("Talk to us","contact.html",True)], illo=collage)
+        [("Talk to us","contact.html",True)],
+        illo='<img src="hero-products.png" alt="Woways products across devices" loading="eager" class="w-full" style="-webkit-mask-image:radial-gradient(120% 120% at 62% 40%,#000 46%,rgba(0,0,0,0) 82%);mask-image:radial-gradient(120% 120% at 62% 40%,#000 46%,rgba(0,0,0,0) 82%)"/>')
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Education &amp; career","For students, families and educators.","Guidance, discovery and future-readiness — from grade 10 through to a career.")
     b += product_cards('edu') + '</div></section>'
