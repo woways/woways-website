@@ -149,7 +149,7 @@ def footer():
       '<div class="col-span-2 md:col-span-1">'
       '<div class="flex items-center gap-1 mb-3"><img src="logo-icon.png" alt="" class="h-6 w-auto"/><img src="logo-word.png" alt="Woways" class="h-6 w-auto"/></div>'
       '<p class="cap text-brandTeal mb-2">Execute. Grow. Transform.</p>'
-      '<p class="text-sm max-w-[30ch]">An additional executive partner and product studio.</p></div>'
+      '<p class="text-sm max-w-[30ch]">An execution partner and product studio for growing companies.</p></div>'
       '<div><h4 class="cap text-white mb-4">Explore</h4><ul class="space-y-2.5 text-sm">%s</ul></div>'
       '<div><h4 class="cap text-white mb-4">Products</h4><ul class="space-y-2.5 text-sm">%s</ul></div>'
       '<div><h4 class="cap text-white mb-4">Contact</h4><p class="text-sm mb-1"><a class="hover:text-white transition-colors" href="mailto:tech@woways.in">tech@woways.in</a></p>'
@@ -234,11 +234,11 @@ def services_grid():
     return '<div class="grid grid-cols-1 md:grid-cols-2 gap-6 stagger reveal">%s</div>' % cards
 
 def product_cards(group):
-    edu=[("Career guidance · 10th to PG","Student Mentor","Career guidance and mentoring platform, from 10th grade to PG.","https://studentmentor.co.in","Visit Student Mentor"),
-         ("College discovery","College Macha","Discover, book a demo and get clarity on selected institutions — choose the best fit for the student.","https://collegemacha.com","Visit College Macha"),
-         ("Ed-tech · Grades 4–12","Talent Ignition","An Ed-tech product — Ramanujan · Dhrona · Chanakya · Aryabhatta.","https://talentignition.in","Visit Talent Ignition")]
-    biz=[("CRM · consultants & institutions","Bispun","CRM portal for educational consultants and institutions.","https://bispun.com","Visit Bispun"),
-         ("Performance analytics · SaaS","Perfoin","Performance Analytics Portal — a SaaS product.","https://woways-site.vercel.app","Visit Perfoin")]
+    edu=[("Career guidance · Class 10 to PG","Student Mentor","Career guidance and mentoring for students from Class 10 through postgraduate study.","https://studentmentor.co.in","Explore the product"),
+         ("College discovery","College Macha","A clearer way for students and families to explore college options and make informed choices.","https://collegemacha.com","Explore the product"),
+         ("Future-readiness · School","Talent Ignition","Future-readiness learning programs for school students.","https://talentignition.in","Explore the product")]
+    biz=[("CRM · consultants & institutions","Bispun","A CRM for education-focused consultants and institutions.","https://bispun.com","Explore the product"),
+         ("Performance management · SaaS","Perfoin","A performance-management platform for teams that want better visibility, accountability and growth.","https://woways-site.vercel.app","Explore the product")]
     IMG={"Student Mentor":"shot-studentmentor.jpg","College Macha":"shot-collegemacha.jpg","Talent Ignition":"shot-talentignition.jpg","Bispun":"shot-bispun.jpg","Perfoin":"shot-performance.jpg"}
     def preview_html(name):
         shot=IMG.get(name)
@@ -261,12 +261,19 @@ def product_cards(group):
         return '<div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger reveal">%s</div>' % ''.join(card(*e) for e in edu)
     return '<div class="grid grid-cols-1 md:grid-cols-2 gap-6 stagger reveal">%s</div>' % ''.join(card(*b) for b in biz)
 
-def cta_band():
+def cta_band(kind='general'):
+    conf={
+      'company':("Ready to move the work forward?","Share your requirement and we'll come back with the right execution scope within 48 hours.","Discuss your requirement","partnerships.html#partner-form"),
+      'wower':("Ready to do real work?","Apply for a project and start building evidence of what you can do.","Apply for opportunities","internships.html#apply-form"),
+      'product':("Want to see a product in action?","Tell us what you're looking for and we'll point you to the right one.","Talk to us","contact.html"),
+      'general':("Let's talk about what you need.","Whether you're a company or an emerging professional, we'll point you to the right place — within 48 hours.","Talk to us","contact.html"),
+    }
+    h,p,cta,href=conf.get(kind,conf['general'])
     return ('<section class="bg-brandNavy text-white py-20"><div class="max-w-[1440px] mx-auto px-6 lg:px-12 text-center reveal">'
-      '<h2 class="hd2 text-white mb-4">Let\'s find where Woways fits.</h2>'
-      '<p class="lead text-slate-300 max-w-2xl mx-auto mb-8">One short form. We reply within 48 hours, from a real person on the Woways team.</p>'
-      '<a class="inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-8 py-4 transition-colors" href="contact.html">Talk to us <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>'
-      '</div></section>')
+      '<h2 class="hd2 text-white mb-4">%s</h2>'
+      '<p class="lead text-slate-300 max-w-2xl mx-auto mb-8">%s</p>'
+      '<a class="inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-8 py-4 transition-colors" href="%s">%s <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>'
+      '</div></section>')%(h,p,href,cta)
 
 def industries():
     inds=["Manufacturing","SaaS","Education","Professional Services","Growing Businesses"]
@@ -339,11 +346,11 @@ def why_cards():
     return '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger reveal">%s</div>'%cards
 
 def services_detailed():
-    data=[("filter_alt","Lead Generation","DM campaigns, prospect research and targeted outreach to build a qualified pipeline.","A qualified pipeline you can sell to."),
-      ("call","Sales Services","Telecalling, demo scheduling, follow-ups and closing support.","Booked meetings and follow-through to close."),
-      ("campaign","Marketing","Digital campaigns, content outreach and social media management.","Consistent presence and inbound interest."),
-      ("account_tree","Operations","CRM setup, pipeline management and process automation.","A CRM and process that actually run."),
-      ("rocket_launch","Business Scaling","Support for startups at the 0-to-1 stage: strategy, execution and iteration.","Momentum from zero to first traction.")]
+    data=[("filter_alt","Lead Generation","Build a relevant prospect pipeline through research, outreach and campaign execution.","A qualified pipeline you can sell to."),
+      ("call","Sales Support","Improve follow-up, qualification, demo coordination and CRM discipline.","Booked meetings and follow-through to close."),
+      ("campaign","Marketing Execution","Keep campaigns, content and channels moving consistently.","Consistent presence and inbound interest."),
+      ("account_tree","Operations Systems","Create smoother processes, cleaner workflows and better execution visibility.","Processes that run without gaps."),
+      ("rocket_launch","Business Scaling","Turn early traction into a repeatable operating rhythm.","Momentum that compounds.")]
     cards=''
     for i,(ic,n,d,out) in enumerate(data):
         cards+=('<div class="group bg-white border border-borderLine p-7 card-lift hover:border-brandTeal transition-colors">'
@@ -503,9 +510,9 @@ def where_today():
 
 # ================= PAGES =================
 def build_index():
-    b = hero("Execution partner · Talent ecosystem","Where companies scale and Wowers build careers.",
-        "Woways helps growing companies execute sales, marketing, operations, technology and HR — through embedded teams, systems and measurable delivery.<br class=\"hidden sm:block\"/><span class=\"inline-block mt-4 text-white font-semibold\">Not advice. Delivery.</span>",
-        [("Book a discovery call","partnerships.html#partner-form",True),("Apply to join","internships.html#apply-form",False)], funcs=True,
+    b = hero("Execution partner · Talent ecosystem","Build momentum without building everything alone.",
+        "Woways gives growing companies an execution layer across sales, marketing, operations, technology and people functions. At the same time, we prepare emerging professionals through meaningful, real-world work.<br class=\"hidden sm:block\"/><span class=\"inline-block mt-4 text-white font-semibold\">Not advice. Delivery.</span>",
+        [("Talk about your business need","partnerships.html#partner-form",True),("Explore the Wower pathway","wowers.html",False)], funcs=True,
         illo='<img src="hero-home.png" alt="Abstract visual of work moving forward" loading="eager" class="w-full" style="-webkit-mask-image:radial-gradient(120% 120% at 62% 40%,#000 46%,rgba(0,0,0,0) 82%);mask-image:radial-gradient(120% 120% at 62% 40%,#000 46%,rgba(0,0,0,0) 82%)"/>')
     b += credibility_strip()
     b += '<section class="bg-brandNavy py-14 lg:py-16 border-b border-white/10"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
@@ -538,7 +545,7 @@ def build_index():
       '<h2 class="hd2 text-white mb-3" style="font-size:clamp(28px,4vw,44px)">WOWER — The WOW Maker</h2>'
       '<p class="font-display font-semibold text-brandTeal mb-6" style="font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em">Learn. Execute. Perform. Grow.</p>'
       '<p class="lead text-slate-300 mb-8 max-w-2xl">A performance-driven pathway that transforms aspiring talent into work-ready professionals through training, real projects, and meaningful career opportunities.</p>'
-      '<div class="flex flex-wrap gap-4"><a class="inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="internships.html#apply-form">Apply to join <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>'
+      '<div class="flex flex-wrap gap-4"><a class="inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="internships.html#apply-form">Apply for opportunities <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>'
       '<a class="inline-flex items-center gap-2 border border-white/30 hover:border-white hover:bg-white/5 text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="wowers.html#pathway">How WOWER works</a></div></div></div></section>' % eyebrow("For Wowers"))
     b += inspiration()
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
@@ -548,9 +555,9 @@ def build_index():
     return page("Woways — Your Executive Partner","index.html",b)
 
 def build_companies():
-    b = hero("For Companies","Your extended execution partner.",
-        "We work with companies as an extended execution partner across Sales, Marketing, Operations, Technology and HR — embedding like an internal team, running the work on your systems and standards, and reporting straight back to you.",
-        [("Book a discovery call","partnerships.html#partner-form",True),("See our services","companies.html#services",False)],
+    b = hero("For Companies","Your execution team for the work that cannot wait.",
+        "When sales pipelines, campaigns, operations or systems need momentum, Woways works alongside your team to make the work move — inside your tools, standards and reporting rhythm.",
+        [("Discuss your requirement","partnerships.html#partner-form",True),("See our services","companies.html#services",False)],
         illo='<img src="hero-companies.png" alt="A team planning work together" loading="eager" class="w-full" style="-webkit-mask-image:radial-gradient(120% 120% at 62% 40%,#000 46%,rgba(0,0,0,0) 82%);mask-image:radial-gradient(120% 120% at 62% 40%,#000 46%,rgba(0,0,0,0) 82%)"/>')
     b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine" id="capabilities"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we execute","Five functions, one embedded team.","Point to a work area, describe the need, and we take it on — with the scope and standards of an internal team.")
@@ -568,13 +575,15 @@ def build_companies():
       '<div class="bg-white border border-borderLine p-8"><h3 class="hd3 text-brandNavy mb-5" style="font-size:20px">What you get</h3><div class="space-y-4">%s</div></div>'
       '<div class="bg-white border border-borderLine p-8"><h3 class="hd3 text-brandNavy mb-5" style="font-size:20px">Partner types</h3><div class="flex flex-wrap gap-3">%s</div></div></div>' % (wl,pp))
     b += '</div></section>'
-    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
-    b += sec_head("Bringing us in","How an engagement starts.","A short, clear path from first conversation to work moving — no drawn-out sales cycle.")
-    b += journey() + '</div></section>'
+    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12 grid lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16 items-start">'
+    b += ('<div class="reveal"><span class="cap text-brandTeal block mb-2">Bringing us in</span>'
+      '<h2 class="hd2 text-brandNavy mb-3">How an engagement starts.</h2>'
+      '<p class="lead text-slate-600">A short, clear path from first conversation to work moving — no drawn-out sales cycle.</p></div>')
+    b += '<div>'+journey()+'</div></div></section>'
     b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Why companies choose Woways","Execution you can hold accountable.","")
     b += why_cards() + '</div></section>'
-    b += industries() + cta_band()
+    b += industries() + cta_band('company')
     return page("Woways — For Companies","companies.html",b)
 
 def build_wowers():
@@ -586,9 +595,9 @@ def build_wowers():
       ("Do I need prior experience?","No. We match you to work at your level and support you as you learn."),
       ("How do I start?","Apply with your interests and availability; we match you to a live project on a partner company."),
       ("What will I gain?","Real project experience, practical business skills and a track record you can actually show.")]
-    b = hero("For Wowers","WOWER — The WOW Maker",
-        "<span class=\"block text-brandTeal font-display font-semibold mb-4\" style=\"font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em\">Learn. Execute. Perform. Grow.</span>A performance-driven pathway that transforms aspiring talent into work-ready professionals through training, real projects, and meaningful career opportunities.",
-        [("Apply to join","internships.html#apply-form",True),("How WOWER works","#pathway",False)],
+    b = hero("For Wowers","Build your career by doing real work.",
+        "<span class=\"block text-brandTeal font-display font-semibold mb-4\" style=\"font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em\">Learn. Execute. Perform. Grow.</span>A Wower is an emerging professional who learns through live projects, structured guidance and performance-based growth — not classroom theory alone.",
+        [("Explore opportunities","internships.html#apply-form",True),("How WOWER works","#pathway",False)],
         illo='<img src="hero-wowers.png" alt="Wowers collaborating on a project" loading="eager" class="w-full" style="-webkit-mask-image:radial-gradient(120% 120% at 62% 40%,#000 46%,rgba(0,0,0,0) 82%);mask-image:radial-gradient(120% 120% at 62% 40%,#000 46%,rgba(0,0,0,0) 82%)"/>')
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine" id="pathway"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("How WOWER works","Five steps, one performance-driven pathway.","From joining the ecosystem to real career growth — here is how a Wower's journey unfolds.")
@@ -624,13 +633,13 @@ def build_wowers():
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += '<div class="max-w-3xl mx-auto text-center mb-12 reveal"><span class="cap text-brandTeal block mb-2">Questions</span><h2 class="hd2 text-brandNavy">Good to know.</h2></div>'
     b += faq(faqs) + '</div></section>'
-    b += cta_band()
+    b += cta_band('wower')
     return page("Woways — For Wowers","wowers.html",b)
 
 def build_services():
-    b = hero("Services","The work we run, end to end.",
-        "Productized execution you can start with one service and scale as it proves out — from first outreach to closed revenue, plus the talent engine that delivers it.",
-        [("Book a discovery call","partnerships.html#partner-form",True),("For companies","companies.html",False)])
+    b = hero("Services","Practical execution across the functions that drive growth.",
+        "Each service is run by our team and reports into yours — practical execution with a clear output, whether you start with one or combine several.",
+        [("Discuss your requirement","partnerships.html#partner-form",True),("For companies","companies.html",False)])
     b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we do","Five services, one execution partner.","Each service is run by our team and reports into yours. Pick one, or combine them.")
     b += services_detailed() + '</div></section>'
@@ -641,12 +650,12 @@ def build_services():
       '<div><h3 class="hd3 text-brandNavy mb-1" style="font-size:20px">The tools behind the work</h3><p class="text-slate-600">Our services run on the same platforms we ship to customers — Bispun and the Performance Portal.</p></div>'
       '<a class="shrink-0 inline-flex items-center gap-2 border border-borderLine px-6 py-3 text-sm font-semibold text-brandNavy hover:bg-brandNavy hover:text-white transition-colors grp" href="about.html">See our products <span class="material-symbols-outlined text-[16px] arrow-move" aria-hidden="true">arrow_forward</span></a>'
       '</div></section>')
-    b += cta_band()
+    b += cta_band('company')
     return page("Woways — Services","services.html",b)
 
 def build_about():
-    b = hero("About","About Woways.",
-        "We work with companies as an extended execution partner across Sales, Marketing, Operations, Technology and HR — while creating real work opportunities for Wowers through internships, practical projects and performance-driven career paths.",
+    b = hero("About","Built for work that creates visible progress.",
+        "Woways was created around a simple belief: growing companies need dependable execution, and emerging professionals need meaningful opportunities to prove themselves. We connect both through real work, clear ownership and measurable progress.",
         [("Work with us","contact.html",True),("How we work","#ecosystem",False)],
         illo='<img src="hero-about.png" alt="The Woways team at work" loading="eager" class="w-full" style="-webkit-mask-image:radial-gradient(120% 120% at 62% 40%,#000 46%,rgba(0,0,0,0) 82%);mask-image:radial-gradient(120% 120% at 62% 40%,#000 46%,rgba(0,0,0,0) 82%)"/>')
     b += '<section class="bg-brandNavy py-14 lg:py-16 border-b border-white/10"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
@@ -656,18 +665,20 @@ def build_about():
     wow=["Real company projects, not busywork","Practical business skills and mentoring","Performance incentives and career growth"]
     cl=''.join('<li class="flex items-start gap-3 text-slate-700">%s<span>%s</span></li>'%(CHECK,x) for x in comp)
     wl=''.join('<li class="flex items-start gap-3 text-slate-700">%s<span>%s</span></li>'%(CHECK,x) for x in wow)
-    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
-    b += sec_head("Our story","Built to do the opposite of advice.","")
-    b += ('<div class="max-w-3xl reveal space-y-5 text-lg text-slate-700 leading-relaxed">'
-      '<p>Woways started with a simple observation: companies need execution, and talented people need real experience. Most consultancies sell advice; most internships offer busywork.</p>'
-      '<p>We built Woways to do the opposite — run real work for companies, and staff it with talent that grows by doing. Our mission is to be the execution layer that helps companies grow, and the launchpad where careers get built.</p></div>'
+    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12 grid lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16 items-start">'
+    b += ('<div class="reveal"><span class="cap text-brandTeal block mb-2">Our story</span>'
+      '<h2 class="hd2 text-brandNavy">Where dependable execution meets real opportunity.</h2></div>')
+    b += ('<div class="reveal space-y-5 text-[17px] text-slate-700 leading-relaxed">'
+      '<p>Woways began with a simple belief: growing companies need dependable execution, and emerging professionals need meaningful opportunities to prove themselves.</p>'
+      '<p>We connect both through real work, clear ownership and measurable progress — an execution layer that helps companies grow, and a launchpad where careers get built.</p></div>'
       '</div></section>')
     b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Our core team","Experience that has done the work.","")
     b += core_team() + '</div></section>'
-    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
-    b += sec_head("Where we are today","Focused on measurable outcomes.","")
-    b += where_today() + '</div></section>'
+    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12 grid lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16 items-start">'
+    b += ('<div class="reveal"><span class="cap text-brandTeal block mb-2">Where we are today</span>'
+      '<h2 class="hd2 text-brandNavy">Focused on measurable outcomes.</h2></div>')
+    b += '<div>'+where_today()+'</div></div></section>'
     b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine" id="ecosystem"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("The ecosystem model","One partner. Two engines of growth.","Companies need execution and pipeline. Talent needs real experience. Woways connects the two into a single virtuous cycle.")
     b += ('<div class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal">'
@@ -683,16 +694,15 @@ def build_about():
       ("hub","Growth for both sides","Every engagement builds a company and a career at the same time.")]
     vcards=''.join('<div class="bg-paperBg border border-borderLine p-7 card-lift"><span class="material-symbols-outlined text-brandTeal mb-4 block" aria-hidden="true">%s</span><h3 class="hd3 text-brandNavy mb-2" style="font-size:18px">%s</h3><p class="text-[15px] leading-relaxed text-slate-600">%s</p></div>'%(ic,h,p) for ic,h,p in values)
     b += '<div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger reveal">%s</div></div></section>'%vcards
-    # The honest version — attractive, candid section
+    # Values — confident, positive
     b += '<section class="relative bg-brandNavy text-white overflow-hidden"><div class="absolute inset-0 glow pointer-events-none"></div><div class="absolute inset-0 gridlines opacity-60 pointer-events-none"></div>'
     b += '<div class="relative max-w-[1440px] mx-auto px-6 lg:px-12 py-16 lg:py-20">'
-    b += '<div class="max-w-3xl mb-12 reveal"><span class="cap text-brandTeal block mb-2">The honest version</span><h2 class="hd2 text-white mb-3">No inflated claims. Just work we can stand behind.</h2><p class="lead text-slate-300">We would rather under-promise and deliver than sell a story. Here is exactly what Woways is — and what it is not.</p></div>'
-    honest=[("We are an execution partner, not a consultancy","We do the work and report outcomes. We do not hand you a deck and walk away."),
-      ("Built for early-stage and growing companies","We work with early-stage and growing companies that need practical execution, building outreach systems that produce repeatable, measurable results."),
-      ("We measure what matters","Meetings booked, leads generated, pipelines built — real, checkable outcomes, not vanity metrics."),
-      ("We are not the employer","For Wowers, we connect talent with real opportunities at partner companies and grow careers through performance — clearly and transparently.")]
-    hc=''.join('<div class="border border-white/12 bg-white/5 p-7 card-lift"><span class="material-symbols-outlined text-brandTeal mb-4 block" aria-hidden="true">%s</span><h3 class="hd3 text-white mb-2" style="font-size:18px">%s</h3><p class="text-[15px] leading-relaxed text-slate-300 leading-relaxed">%s</p></div>'%(ic,h,p) for ic,(h,p) in zip(["handshake","trending_up","query_stats","diversity_3"],honest))
-    b += '<div class="grid grid-cols-1 md:grid-cols-2 gap-5 stagger reveal">%s</div></div></section>'%hc
+    b += '<div class="max-w-3xl mb-12 reveal"><span class="cap text-brandTeal block mb-2">What we value</span><h2 class="hd2 text-white mb-3">Progress you can see.</h2><p class="lead text-slate-300">Three principles shape how we work with companies and how Wowers grow.</p></div>'
+    vals=[("bolt","Work that moves","We focus on outputs, ownership and momentum."),
+      ("query_stats","Growth with evidence","We measure progress through work completed and outcomes created."),
+      ("trending_up","Opportunity through performance","Wowers grow by contributing to real business work.")]
+    hc=''.join('<div class="border border-white/12 bg-white/5 p-7 card-lift"><span class="material-symbols-outlined text-brandTeal mb-4 block" aria-hidden="true">%s</span><h3 class="hd3 text-white mb-2" style="font-size:18px">%s</h3><p class="text-[15px] leading-relaxed text-slate-300">%s</p></div>'%(ic,h,p) for ic,h,p in vals)
+    b += '<div class="grid grid-cols-1 md:grid-cols-3 gap-5 stagger reveal">%s</div></div></section>'%hc
     b += cta_band()
     return page("Woways — About","about.html",b)
 
@@ -730,9 +740,9 @@ def render_form(form_id, fields, submit_label, subject, form_type="enquiry", ok_
       '<div id="%s" class="form-err hidden mb-5 p-4 bg-red-50 text-red-700 text-sm border border-red-200" role="alert"></div>'
       '<div class="grid grid-cols-1 md:grid-cols-2 gap-5">%s</div>'
       '<button type="submit" class="mt-6 w-full bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold py-4 transition-colors disabled:opacity-60">%s</button>'
-      '<label class="flex items-start gap-2.5 mt-5 text-xs text-slate-500 leading-relaxed"><input type="checkbox" required class="mt-0.5"/> <span>I agree to Woways contacting me about this and to the <a class="underline hover:text-brandTeal" href="privacy.html">privacy policy</a>.</span></label>'
-      '<p class="mt-4 text-xs text-slate-500 leading-relaxed">%s</p>'
-      '</form>')%(form_type,subject,ok,ok_msg,err,parts,submit_label,PRIVACY_NOTE)
+      '<label class="flex items-start gap-2.5 mt-5 text-sm text-slate-600"><input type="checkbox" required class="mt-0.5"/> <span>I agree to be contacted by Woways about my enquiry and accept the <a class="underline hover:text-brandTeal" href="privacy.html">Privacy Policy</a>.</span></label>'
+      '<p class="mt-3 text-xs text-slate-400"><a class="hover:text-brandTeal" href="privacy.html">How we use your information</a></p>'
+      '</form>')%(form_type,subject,ok,ok_msg,err,parts,submit_label)
 
 def form_section(section_id, eyebrow_t, heading, sub, bullets, form_html, h1=False):
     tag='h1' if h1 else 'h2'
@@ -806,26 +816,12 @@ def build_cookies():
     ])
 
 def build_partnerships():
-    b = hero("Partnerships","Partner with Woways.",
-        "Bring Woways in as an extended execution partner. We embed like an internal team across Sales, Marketing, Operations, Technology and HR — running the work on your systems and standards, and reporting straight back to you.",
-        [("Book a discovery call","#partner-form",True),("See our services","services.html",False)])
-    b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
-    b += sec_head("What partnership looks like","What you get, and who we partner with.","")
-    what=["Access to lead generation infrastructure","Sales pipeline management","Expansion into new markets","Cost-effective talent through the Wower ecosystem"]
-    wl=''.join('<div class="flex items-start gap-3 text-slate-700">%s<span>%s</span></div>'%(CHECK,x) for x in what)
-    ptypes=["Technology Companies","Manufacturing Companies","Service Companies","Startups"]
-    pp=''.join('<span class="px-4 py-2 bg-paperBg border border-borderLine text-sm font-display font-medium text-brandNavy">%s</span>'%t for t in ptypes)
-    b += ('<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 reveal">'
-      '<div class="bg-white border border-borderLine p-8"><h3 class="hd3 text-brandNavy mb-5" style="font-size:20px">What you get</h3><div class="space-y-4">%s</div></div>'
-      '<div class="bg-white border border-borderLine p-8"><h3 class="hd3 text-brandNavy mb-5" style="font-size:20px">Partner types</h3><div class="flex flex-wrap gap-3">%s</div></div></div>' % (wl,pp))
-    b += '</div></section>'
-    b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
-    b += sec_head("How an engagement starts","A short, clear path to work moving.","No drawn-out sales cycle — a clear path from first conversation to work in motion.")
-    b += journey() + '</div></section>'
+    b = hero("Partnerships","Tell us what needs to move.",
+        "Share the outcome you want to achieve. We'll review the requirement, identify the right execution scope, and respond within 48 hours.",
+        [("Discuss your requirement","#partner-form",True),("See our services","services.html",False)])
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Why companies partner with Woways","Execution you can hold accountable.","")
     b += why_cards() + '</div></section>'
-    b += industries()
     pfields=[{'t':'text','id':'company','label':'Company name','req':True,'auto':'organization'},
       {'t':'text','id':'name','label':'Your name','req':True,'auto':'name'},
       {'t':'text','id':'desig','label':'Designation','auto':'organization-title'},
@@ -843,9 +839,9 @@ def build_partnerships():
     return page("Woways — Partnerships","partnerships.html",b)
 
 def build_internships():
-    b = hero("Internships","Start your internship journey.",
-        "<span class=\"block text-brandTeal font-display font-semibold mb-4\" style=\"font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em\">Learn. Execute. Perform. Grow.</span>Real work on live company projects, structured training and performance-based growth. Apply, and we'll match you to a project aligned with our partner companies.",
-        [("Apply to join","#apply-form",True),("How WOWER works","#pathway",False)])
+    b = hero("Internships","Apply for real project experience.",
+        "Work on meaningful business projects, learn from structured feedback, and build evidence of what you can do.<br class=\"hidden sm:block\"/><span class=\"inline-block mt-4 text-slate-400 text-sm\">Strong performance can lead to extended projects, referrals and role opportunities. Opportunities depend on project needs and performance; Woways does not guarantee employment.</span>",
+        [("Apply for opportunities","#apply-form",True),("How WOWER works","#pathway",False)])
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine" id="pathway"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("How WOWER works","Five steps, one performance-driven pathway.","From joining the ecosystem to real career growth — here is how a Wower's internship journey unfolds.")
     b += wower_pathway() + '</div></section>'
@@ -861,7 +857,7 @@ def build_internships():
       '<p class="mt-6 text-sm text-slate-500">Woways connects applicants with opportunities at partner companies; Woways is not the employer.</p></div>' % wl)
     b += ('<div class="reveal bg-brandTealTint border border-teal-200/60 p-8">'
       '<p class="font-display text-brandNavy" style="font-size:22px;line-height:1.4">&ldquo;Potential gets the opportunity. Performance creates the growth.&rdquo;</p>'
-      '<a class="mt-6 inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="#apply-form">Apply to join <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a></div>')
+      '<a class="mt-6 inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="#apply-form">Apply for opportunities <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a></div>')
     b += '</div></section>'
     ifields=[{'t':'text','id':'name','label':'Full name','req':True,'auto':'name'},
       {'t':'email','id':'email','label':'Email','req':True,'auto':'email','name':'email'},
@@ -882,8 +878,8 @@ def build_products():
     collage=('<div class="relative w-full max-w-[460px] mx-auto">'
       '<div class="absolute right-0 top-8 w-[72%] rotate-3 rounded-xl overflow-hidden border border-white/15 shadow-[0_30px_60px_-20px_rgba(0,0,0,.6)]"><img src="shot-collegemacha.jpg" alt="College Macha product preview" loading="lazy" class="w-full"/></div>'
       '<div class="relative w-[80%] -rotate-2 rounded-xl overflow-hidden border border-white/15 shadow-[0_30px_60px_-20px_rgba(0,0,0,.6)]"><img src="shot-studentmentor.jpg" alt="Student Mentor product preview" loading="lazy" class="w-full"/></div></div>')
-    b = hero("Products","Software we build ourselves.",
-        "Beyond execution, Woways ships live products for education, career growth and running a business. Each opens in its own portal.",
+    b = hero("Products","Products built from real execution.",
+        "We build focused platforms for education, career growth and business performance — shaped by the work we do with people and companies.",
         [("Talk to us","contact.html",True)], illo=collage)
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Education &amp; career","For students, families and educators.","Guidance, discovery and future-readiness — from grade 10 through to a career.")
@@ -891,7 +887,7 @@ def build_products():
     b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Business systems","For running and growing a business.","CRM and performance analytics that power the way we — and our partners — execute.")
     b += product_cards('biz') + '</div></section>'
-    b += cta_band()
+    b += cta_band('product')
     return page("Woways — Products","products.html",b)
 
 pages={'index.html':build_index(),'companies.html':build_companies(),'wowers.html':build_wowers(),
