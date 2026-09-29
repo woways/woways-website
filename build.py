@@ -394,32 +394,36 @@ def credibility_strip():
       '<div class="text-slate-300 text-sm md:text-base">Mentors from Microsoft, Deloitte, PwC, KPMG and Accenture</div></div>'
       '</div></section>') % av
 
-MENTOR_DATA=[("Nambi Diwakar","Microsoft, USA","nambi-diwakar.jpg"),
-  ("Beldari Lakshmi Sree","Structural Design Engineer, Dar Al-Handasah","lakshmi-sree.jpg"),
-  ("Udaya Sri Kumari Pamugari","Consultant, Workday Integrations, Deloitte","udaya-sri.jpg"),
-  ("Madhuvanthi Sankalkar","Software Engineer, Rakuten India","madhuvanthi.jpg"),
-  ("Punugu Jayanth Reddy","Consultant, KPMG","jayanth-reddy.jpg"),
-  ("Rishitha Reddy Guddeti","Quality Engineering Analyst, Accenture","rishitha-reddy.jpg"),
-  ("Bhargav Reddy Perugu","AML Analyst, PwC","bhargav-reddy.jpg"),
-  ("Jagadishwar Reddy","Curriculum Coordinator & Educator","jagadishwar-reddy.jpg"),
-  ("Sarath Chandra Reddy Yemma","Verizon Data Services","sarath-yemma.jpg"),
-  ("Wilson Teja","FWAI, India","wilson-teja.jpg"),
-  ("Vihang Gunnam","Founder & Director, Prakara Learning","vihang.jpg"),
-  ("Durga Bhargav Chowdary Kotha","Founder & Community Builder","bhargav-chowdary.jpg"),
-  ("Rohit Karre","General Manager, DocTutorials","rohit-karre.jpg"),
-  ("Gouse Lazam Shaik","Managing Director, AG Elevators & Zyrolifts","gouse-lazam-shaik.jpg"),
-  ("Magdumbi Shaik","Chief Sales Officer, Zyrolifts","magdumbi-shaik.jpg"),
-  ("Omkareshwar Boda","Regional Head, AP & TS, NxtWave","omkareshwar-boda.jpg"),
-  ("C. Latha Prakash","Educator, CBSE National Awardee","latha-prakash.jpg"),
-  ("Peddamale Chetan","Educator & Associate NCC Officer","chetan.jpg")]
+MENTOR_DATA=[("Nambi Diwakar","Microsoft, USA","nambi-diwakar.jpg","org-microsoft.png","Microsoft"),
+  ("Beldari Lakshmi Sree","Structural Design Engineer, Dar Al-Handasah","lakshmi-sree.jpg","org-dar-al-handasah.svg","Dar Al-Handasah"),
+  ("Udaya Sri Kumari Pamugari","Consultant, Workday Integrations, Deloitte","udaya-sri.jpg","org-deloitte.png","Deloitte"),
+  ("Madhuvanthi Sankalkar","Software Engineer, Rakuten India","madhuvanthi.jpg","org-rakuten.svg","Rakuten"),
+  ("Punugu Jayanth Reddy","Consultant, KPMG","jayanth-reddy.jpg","org-kpmg.svg","KPMG"),
+  ("Rishitha Reddy Guddeti","Quality Engineering Analyst, Accenture","rishitha-reddy.jpg","org-accenture.svg","Accenture"),
+  ("Bhargav Reddy Perugu","AML Analyst, PwC","bhargav-reddy.jpg","org-pwc.svg","PwC"),
+  ("Jagadishwar Reddy","Curriculum Coordinator & Educator","jagadishwar-reddy.jpg",None,None),
+  ("Sarath Chandra Reddy Yemma","Verizon Data Services","sarath-yemma.jpg","org-verizon.svg","Verizon"),
+  ("Wilson Teja","FWAI, India","wilson-teja.jpg","org-fwai.png","FWAI"),
+  ("Vihang Gunnam","Founder & Director, Prakara Learning","vihang.jpg","org-prakara-learning.png","Prakara Learning"),
+  ("Durga Bhargav Chowdary Kotha","Founder & Community Builder","bhargav-chowdary.jpg","org-bhargav-community.png","Community"),
+  ("Rohit Karre","General Manager, DocTutorials","rohit-karre.jpg","org-doctutorials.png","DocTutorials"),
+  ("Gouse Lazam Shaik","Managing Director, AG Elevators & Zyrolifts","gouse-lazam-shaik.jpg","org-zyrolifts.png","Zyrolifts"),
+  ("Magdumbi Shaik","Chief Sales Officer, Zyrolifts","magdumbi-shaik.jpg","org-zyrolifts.png","Zyrolifts"),
+  ("Omkareshwar Boda","Regional Head, AP & TS, NxtWave","omkareshwar-boda.jpg","org-nxtwave.png","NxtWave"),
+  ("C. Latha Prakash","Educator, CBSE National Awardee","latha-prakash.jpg","org-cbse.png","CBSE"),
+  ("Peddamale Chetan","Educator & Associate NCC Officer","chetan.jpg","org-ncc.png","NCC")]
 
 def mentors():
     cards=''
-    for n,r,a in MENTOR_DATA:
-        cards+=('<div class="snap-start shrink-0 w-[240px] bg-white border border-borderLine card-lift overflow-hidden">'
+    for n,r,a,logo,org in MENTOR_DATA:
+        if logo:
+            logo_html='<div class="mt-4 pt-4 border-t border-borderLine flex items-center justify-center h-10"><img src="m/%s" alt="%s" loading="lazy" class="max-h-6 max-w-[110px] w-auto object-contain"/></div>'%(logo,org)
+        else:
+            logo_html='<div class="mt-4 pt-4 border-t border-borderLine flex items-center justify-center h-10"><span class="cap text-slate-400">Educator</span></div>'
+        cards+=('<div class="snap-start shrink-0 w-[240px] bg-white border border-borderLine card-lift overflow-hidden flex flex-col">'
           '<div class="aspect-[4/3] overflow-hidden bg-paperDim"><img src="m/%s" alt="%s" loading="lazy" class="w-full h-full object-cover object-top"/></div>'
-          '<div class="p-5 text-center"><div class="font-display font-semibold text-brandNavy text-[15px] leading-tight">%s</div>'
-          '<div class="text-xs text-slate-500 mt-2 leading-snug">%s</div></div></div>'%(a,n,n,r))
+          '<div class="p-5 text-center flex-1 flex flex-col"><div class="font-display font-semibold text-brandNavy text-[15px] leading-tight">%s</div>'
+          '<div class="text-xs text-slate-500 mt-2 leading-snug flex-1">%s</div>%s</div></div>'%(a,n,n,r,logo_html))
     arrow=('<button type="button" aria-label="%s" onclick="document.getElementById(\'mscroll\').scrollBy({left:%d,behavior:\'smooth\'})" '
       'class="absolute %s top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white border border-borderLine shadow-md grid place-items-center text-brandNavy hover:bg-brandNavy hover:text-white transition-colors">'
       '<span class="material-symbols-outlined" aria-hidden="true">%s</span></button>')
