@@ -18,13 +18,7 @@ HEAD = '''<!DOCTYPE html>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script>
-tailwind.config={theme:{extend:{
- colors:{brandNavy:"#000F24",brandNavy2:"#0A1830",brandInk:"#122238",brandTeal:"#00A9A9",brandTealDark:"#00807F",brandTealTint:"#E3F4F3",brandOrange:"#E8A33D",brandOrangeDark:"#C6842A",paperBg:"#F5F7FA",paperDim:"#EAEEF3",borderLine:"#DCE3EA"},
- fontFamily:{display:["Syne","sans-serif"],body:["Hanken Grotesk","sans-serif"]},
-}}};
-</script>
+<link rel="stylesheet" href="styles.css"/>
 <style>
  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;display:inline-block;vertical-align:middle;line-height:1}
  body{font-family:"Hanken Grotesk",sans-serif;overflow-x:hidden}
@@ -952,4 +946,16 @@ for fn,html in pages.items():
 # remove stale extra pages so nav stays consistent
 for extra in ['solutions.html','product.html','wowers2.html']:
     if os.path.exists(extra): os.remove(extra); print('removed',extra)
+# compile Tailwind to a static stylesheet (no runtime CDN)
+import subprocess
+tw = os.path.abspath('tw.exe' if os.name=='nt' else 'tw')
+try:
+    r = subprocess.run([tw,'-i','input.css','-o','styles.css','--minify'],
+                       capture_output=True, text=True, cwd=os.getcwd())
+    if r.returncode==0 and os.path.exists('styles.css'):
+        print('compiled styles.css', round(os.path.getsize('styles.css')/1024), 'KB')
+    else:
+        print('WARN tailwind build failed:', (r.stderr or r.stdout)[:200])
+except FileNotFoundError:
+    print('WARN tw.exe not found — run tailwind manually')
 print('done')

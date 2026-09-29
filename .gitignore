@@ -8,3 +8,6 @@ Thumbs.db
 
 .vercel
 .env*
+tw.exe
+input.css
+tailwind.config.js
