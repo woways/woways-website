@@ -31,8 +31,8 @@ tailwind.config={theme:{extend:{
  img{max-width:100%;height:auto}
  header img,footer img{max-height:2.5rem;width:auto}
  h1,h2,h3,h4,.font-display{font-family:"Syne",sans-serif;letter-spacing:-0.02em}
- .hd1{font-size:clamp(36px,6vw,58px);line-height:1.03;font-weight:700}
- .hd2{font-size:clamp(28px,4vw,42px);line-height:1.08;font-weight:700}
+ .hd1{font-size:clamp(32px,4.6vw,48px);line-height:1.05;font-weight:700}
+ .hd2{font-size:clamp(26px,3.6vw,40px);line-height:1.1;font-weight:700}
  .hd3{font-size:22px;line-height:1.2;font-weight:600}
  .lead{font-size:clamp(17px,2.2vw,20px);line-height:1.6}
  .cap{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
@@ -205,7 +205,7 @@ def caps_grid():
     for ic,n,d in CAPS:
         cards += ('<div class="bg-white border border-borderLine p-6 card-lift group">'
           '<span class="material-symbols-outlined text-[26px] text-brandNavy group-hover:text-brandTeal transition-colors mb-6 block" aria-hidden="true">%s</span>'
-          '<h3 class="hd3 text-brandNavy mb-2">%s</h3><p class="text-sm text-slate-600 leading-relaxed">%s</p></div>' % (ic,n,d))
+          '<h3 class="hd3 text-brandNavy mb-2">%s</h3><p class="text-[15px] leading-relaxed text-slate-600 leading-relaxed">%s</p></div>' % (ic,n,d))
     return '<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 stagger reveal">%s</div>' % cards
 
 def egt():
@@ -250,12 +250,12 @@ def product_cards(group):
         if url:
             return ('<a class="bg-white border border-borderLine p-8 card-lift grp flex flex-col justify-between hover:border-brandNavy overflow-hidden" href="%s" target="_blank" rel="noopener noreferrer">'
               '<div>%s<span class="cap text-brandTeal bg-brandTealTint px-2.5 py-1">%s</span>'
-              '<h3 class="hd3 text-brandNavy mt-4 mb-3" style="font-size:20px">%s</h3><p class="text-sm text-slate-600 leading-relaxed mb-8">%s</p></div>'
+              '<h3 class="hd3 text-brandNavy mt-4 mb-3" style="font-size:20px">%s</h3><p class="text-[15px] leading-relaxed text-slate-600 leading-relaxed mb-8">%s</p></div>'
               '<span class="inline-flex items-center gap-2 text-sm font-semibold text-brandNavy">%s <span class="material-symbols-outlined text-[16px] arrow-move" aria-hidden="true">open_in_new</span></span></a>' % (url,preview,tag,name,desc,cta))
         # coming soon (no link)
         return ('<div class="bg-white border border-borderLine p-8 flex flex-col justify-between overflow-hidden">'
           '<div>%s<span class="cap text-orange-700 bg-orange-50 px-2.5 py-1" style="color:#C6842A;background:#FDF3E3">%s</span>'
-          '<h3 class="hd3 text-brandNavy mt-4 mb-3" style="font-size:20px">%s</h3><p class="text-sm text-slate-600 leading-relaxed mb-8">%s</p></div>'
+          '<h3 class="hd3 text-brandNavy mt-4 mb-3" style="font-size:20px">%s</h3><p class="text-[15px] leading-relaxed text-slate-600 leading-relaxed mb-8">%s</p></div>'
           '<span class="inline-flex items-center gap-2 text-sm font-semibold text-slate-400">%s <span class="material-symbols-outlined text-[16px]" aria-hidden="true">schedule</span></span></div>' % (preview,tag,name,desc,cta))
     if group=='edu':
         return '<div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger reveal">%s</div>' % ''.join(card(*e) for e in edu)
@@ -309,7 +309,7 @@ def caps_detailed():
     for ic,n,d in data:
         cards+=('<div class="bg-white border border-borderLine p-7 card-lift flex gap-5 items-start">'
           '<span class="w-11 h-11 shrink-0 bg-brandTealTint text-brandTealDark grid place-items-center"><span class="material-symbols-outlined" aria-hidden="true">%s</span></span>'
-          '<div><h3 class="hd3 text-brandNavy mb-1.5" style="font-size:19px">%s</h3><p class="text-sm text-slate-600 leading-relaxed">%s</p></div></div>'%(ic,n,d))
+          '<div><h3 class="hd3 text-brandNavy mb-1.5" style="font-size:19px">%s</h3><p class="text-[15px] leading-relaxed text-slate-600 leading-relaxed">%s</p></div></div>'%(ic,n,d))
     return '<div class="grid grid-cols-1 md:grid-cols-2 gap-6 stagger reveal">%s</div>'%cards
 
 def journey():
@@ -335,7 +335,7 @@ def why_cards():
     cards=''
     for ic,h,p in data:
         cards+=('<div class="bg-white border border-borderLine p-6 card-lift"><span class="material-symbols-outlined text-brandTeal mb-4 block" aria-hidden="true">%s</span>'
-          '<h3 class="hd3 text-brandNavy mb-2" style="font-size:18px">%s</h3><p class="text-sm text-slate-600 leading-relaxed">%s</p></div>'%(ic,h,p))
+          '<h3 class="hd3 text-brandNavy mb-2" style="font-size:18px">%s</h3><p class="text-[15px] leading-relaxed text-slate-600 leading-relaxed">%s</p></div>'%(ic,h,p))
     return '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger reveal">%s</div>'%cards
 
 def services_detailed():
@@ -367,7 +367,7 @@ def wowers_work():
       ("terminal","Product & tech projects","Hands-on work on real tools and platforms.")]
     cards=''
     for ic,h,p in data:
-        cards+=('<div class="bg-white border border-borderLine p-6 card-lift"><span class="material-symbols-outlined text-brandTeal mb-4 block" aria-hidden="true">%s</span><h3 class="hd3 text-brandNavy mb-2" style="font-size:17px">%s</h3><p class="text-sm text-slate-600">%s</p></div>'%(ic,h,p))
+        cards+=('<div class="bg-white border border-borderLine p-6 card-lift"><span class="material-symbols-outlined text-brandTeal mb-4 block" aria-hidden="true">%s</span><h3 class="hd3 text-brandNavy mb-2" style="font-size:17px">%s</h3><p class="text-[15px] leading-relaxed text-slate-600">%s</p></div>'%(ic,h,p))
     return '<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 stagger reveal">%s</div>'%cards
 
 def faq(items):
@@ -467,7 +467,7 @@ def wower_pathway():
       ("Execute","Work on real projects across functions such as Sales, Marketing, Operations, HR, Technology and Digital Business."),
       ("Perform","Demonstrate your skills, ownership, commitment, professionalism and ability to deliver measurable outcomes."),
       ("Grow","Your performance can open pathways to PPO opportunities, jobs with potential packages, extended internships and other career opportunities.")]
-    sc=''.join('<div class="border border-borderLine p-6 bg-white card-lift text-left"><div class="flex items-center gap-3 mb-4"><div class="w-10 h-10 bg-brandTeal text-white grid place-items-center font-display font-bold shrink-0">%02d</div><h3 class="hd3 text-brandNavy" style="font-size:17px">%s</h3></div><p class="text-sm text-slate-600 leading-relaxed">%s</p></div>'%(i+1,h,p) for i,(h,p) in enumerate(steps))
+    sc=''.join('<div class="border border-borderLine p-6 bg-white card-lift text-left"><div class="flex items-center gap-3 mb-4"><div class="w-10 h-10 bg-brandTeal text-white grid place-items-center font-display font-bold shrink-0">%02d</div><h3 class="hd3 text-brandNavy" style="font-size:17px">%s</h3></div><p class="text-[15px] leading-relaxed text-slate-600 leading-relaxed">%s</p></div>'%(i+1,h,p) for i,(h,p) in enumerate(steps))
     return '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 stagger reveal">%s</div>'%sc
 
 def ecosystem_model():
@@ -535,7 +535,7 @@ def build_index():
       '<div class="absolute inset-0 gridlines opacity-60 pointer-events-none"></div>'
       '<div class="relative max-w-[1440px] mx-auto px-6 lg:px-12 py-16 lg:py-24">'
       '<div class="max-w-3xl reveal">%s'
-      '<h2 class="hd2 text-white mb-3" style="font-size:clamp(32px,5vw,52px)">WOWER — The WOW Maker</h2>'
+      '<h2 class="hd2 text-white mb-3" style="font-size:clamp(28px,4vw,44px)">WOWER — The WOW Maker</h2>'
       '<p class="font-display font-semibold text-brandTeal mb-6" style="font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em">Learn. Execute. Perform. Grow.</p>'
       '<p class="lead text-slate-300 mb-8 max-w-2xl">A performance-driven pathway that transforms aspiring talent into work-ready professionals through training, real projects, and meaningful career opportunities.</p>'
       '<div class="flex flex-wrap gap-4"><a class="inline-flex items-center gap-2 bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="internships.html#apply-form">Apply to join <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>'
@@ -681,7 +681,7 @@ def build_about():
     values=[("bolt","Delivery over decks","We run the work and are measured on outcomes, not slideware."),
       ("verified","Honesty over hype","Intended value, stated plainly — no inflated claims or fake metrics."),
       ("hub","Growth for both sides","Every engagement builds a company and a career at the same time.")]
-    vcards=''.join('<div class="bg-paperBg border border-borderLine p-7 card-lift"><span class="material-symbols-outlined text-brandTeal mb-4 block" aria-hidden="true">%s</span><h3 class="hd3 text-brandNavy mb-2" style="font-size:18px">%s</h3><p class="text-sm text-slate-600">%s</p></div>'%(ic,h,p) for ic,h,p in values)
+    vcards=''.join('<div class="bg-paperBg border border-borderLine p-7 card-lift"><span class="material-symbols-outlined text-brandTeal mb-4 block" aria-hidden="true">%s</span><h3 class="hd3 text-brandNavy mb-2" style="font-size:18px">%s</h3><p class="text-[15px] leading-relaxed text-slate-600">%s</p></div>'%(ic,h,p) for ic,h,p in values)
     b += '<div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger reveal">%s</div></div></section>'%vcards
     # The honest version — attractive, candid section
     b += '<section class="relative bg-brandNavy text-white overflow-hidden"><div class="absolute inset-0 glow pointer-events-none"></div><div class="absolute inset-0 gridlines opacity-60 pointer-events-none"></div>'
@@ -691,7 +691,7 @@ def build_about():
       ("Built for early-stage and growing companies","We work with early-stage and growing companies that need practical execution, building outreach systems that produce repeatable, measurable results."),
       ("We measure what matters","Meetings booked, leads generated, pipelines built — real, checkable outcomes, not vanity metrics."),
       ("We are not the employer","For Wowers, we connect talent with real opportunities at partner companies and grow careers through performance — clearly and transparently.")]
-    hc=''.join('<div class="border border-white/12 bg-white/5 p-7 card-lift"><span class="material-symbols-outlined text-brandTeal mb-4 block" aria-hidden="true">%s</span><h3 class="hd3 text-white mb-2" style="font-size:18px">%s</h3><p class="text-sm text-slate-300 leading-relaxed">%s</p></div>'%(ic,h,p) for ic,(h,p) in zip(["handshake","trending_up","query_stats","diversity_3"],honest))
+    hc=''.join('<div class="border border-white/12 bg-white/5 p-7 card-lift"><span class="material-symbols-outlined text-brandTeal mb-4 block" aria-hidden="true">%s</span><h3 class="hd3 text-white mb-2" style="font-size:18px">%s</h3><p class="text-[15px] leading-relaxed text-slate-300 leading-relaxed">%s</p></div>'%(ic,h,p) for ic,(h,p) in zip(["handshake","trending_up","query_stats","diversity_3"],honest))
     b += '<div class="grid grid-cols-1 md:grid-cols-2 gap-5 stagger reveal">%s</div></div></section>'%hc
     b += cta_band()
     return page("Woways — About","about.html",b)
@@ -739,7 +739,7 @@ def form_section(section_id, eyebrow_t, heading, sub, bullets, form_html, h1=Fal
     bl=''.join('<div class="flex items-start gap-3 text-slate-300">%s<span>%s</span></div>'%(CHECK,x) for x in bullets)
     return ('<section id="%s" class="bg-brandNavy text-white"><div class="max-w-[1440px] mx-auto px-6 lg:px-12 py-16 lg:py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">'
       '<div class="herofade"><span class="cap text-brandTeal block mb-3">%s</span>'
-      '<%s class="hd1 text-white mb-5" style="font-size:clamp(28px,4vw,46px)">%s</%s>'
+      '<%s class="hd1 text-white mb-5" style="font-size:clamp(26px,3.6vw,42px)">%s</%s>'
       '<p class="lead text-slate-300 mb-8 max-w-xl">%s</p>'
       '<div class="space-y-4">%s</div></div>%s</div></section>')%(section_id,eyebrow_t,tag,heading,tag,sub,bl,form_html)
 
@@ -756,9 +756,9 @@ def build_contact():
       "Whether you're a company, a prospective Wower, or just exploring — tell us what you're trying to get done and we'll point you to the right place. For a partnership or an internship, the dedicated forms give us the details faster.",
       bullets, form, h1=True)
     b+=('<section class="bg-white py-14 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-3 gap-6 stagger reveal">'
-      '<a class="bg-paperBg border border-borderLine p-6 card-lift block" href="partnerships.html#partner-form"><span class="material-symbols-outlined text-brandTeal mb-3 block" aria-hidden="true">handshake</span><h3 class="hd3 text-brandNavy mb-1" style="font-size:18px">Partnership form</h3><p class="text-sm text-slate-600">For companies who want an execution partner.</p></a>'
-      '<a class="bg-paperBg border border-borderLine p-6 card-lift block" href="internships.html#apply-form"><span class="material-symbols-outlined text-brandTeal mb-3 block" aria-hidden="true">school</span><h3 class="hd3 text-brandNavy mb-1" style="font-size:18px">Internship form</h3><p class="text-sm text-slate-600">For Wowers applying for real project work.</p></a>'
-      '<div class="bg-paperBg border border-borderLine p-6"><span class="material-symbols-outlined text-brandTeal mb-3 block" aria-hidden="true">call</span><h3 class="hd3 text-brandNavy mb-1" style="font-size:18px">Direct</h3><p class="text-sm text-slate-600"><a class="hover:text-brandTeal" href="mailto:tech@woways.in">tech@woways.in</a><br/><a class="hover:text-brandTeal" href="tel:+919390188553">+91 93901 88553</a></p></div>'
+      '<a class="bg-paperBg border border-borderLine p-6 card-lift block" href="partnerships.html#partner-form"><span class="material-symbols-outlined text-brandTeal mb-3 block" aria-hidden="true">handshake</span><h3 class="hd3 text-brandNavy mb-1" style="font-size:18px">Partnership form</h3><p class="text-[15px] leading-relaxed text-slate-600">For companies who want an execution partner.</p></a>'
+      '<a class="bg-paperBg border border-borderLine p-6 card-lift block" href="internships.html#apply-form"><span class="material-symbols-outlined text-brandTeal mb-3 block" aria-hidden="true">school</span><h3 class="hd3 text-brandNavy mb-1" style="font-size:18px">Internship form</h3><p class="text-[15px] leading-relaxed text-slate-600">For Wowers applying for real project work.</p></a>'
+      '<div class="bg-paperBg border border-borderLine p-6"><span class="material-symbols-outlined text-brandTeal mb-3 block" aria-hidden="true">call</span><h3 class="hd3 text-brandNavy mb-1" style="font-size:18px">Direct</h3><p class="text-[15px] leading-relaxed text-slate-600"><a class="hover:text-brandTeal" href="mailto:tech@woways.in">tech@woways.in</a><br/><a class="hover:text-brandTeal" href="tel:+919390188553">+91 93901 88553</a></p></div>'
       '</div></section>')
     return page("Woways — Contact","contact.html",b)
 
