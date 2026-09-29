@@ -687,9 +687,11 @@ PRIVACY_NOTE=('We collect these details only to respond to you and discuss worki
   'To see, correct or delete your details, write to <a class="underline hover:text-brandTeal" href="mailto:tech@woways.in">tech@woways.in</a>. '
   'Woways connects applicants with opportunities at partner companies; Woways is not the employer.')
 
-# Web3Forms access key — submissions are emailed to the address tied to this key (tech@woways.in).
+# Web3Forms access key — the PRIMARY recipient is the address tied to this key (tech@woways.in).
 # Get a free key at https://web3forms.com (enter tech@woways.in) and paste it here, then rebuild + deploy.
-WEB3FORMS_KEY = "REPLACE_WITH_WEB3FORMS_ACCESS_KEY"
+WEB3FORMS_KEY = "27b6dd29-ea5c-4f5a-9af3-0b3878f94d9b"
+# Extra recipients — every submission is also copied to these (comma-separated). Leave "" for none.
+CC_EMAILS = "povanapun@woways.in, hr@woways.in"
 
 def render_form(form_id, fields, submit_label, subject, ok_msg="Thank you. Our team will get back to you within 48 hours."):
     ok=form_id+'-ok'; err=form_id+'-err'
@@ -707,8 +709,10 @@ def render_form(form_id, fields, submit_label, subject, ok_msg="Thank you. Our t
             auto=' autocomplete="%s"'%f['auto'] if f.get('auto') else ''
             ctrl='<input id="%s" name="%s" type="%s"%s%s class="w-full h-11 px-3.5 border border-borderLine text-brandNavy"/>'%(fid,nm,f['t'],req,auto)
         parts+='<div class="%s"><label class="cap text-slate-600 block mb-1.5" for="%s">%s</label>%s</div>'%(full,fid,f['label'],ctrl)
+    cc_field='<input type="hidden" name="cc" value="%s"/>'%CC_EMAILS if CC_EMAILS else ''
     return ('<form class="w3form bg-white p-8 lg:p-10 herofade" action="https://api.web3forms.com/submit" method="POST">'
       '<input type="hidden" name="access_key" value="%s"/>'
+      +cc_field+
       '<input type="hidden" name="subject" value="%s"/>'
       '<input type="hidden" name="from_name" value="Woways website"/>'
       '<input type="checkbox" name="botcheck" tabindex="-1" aria-hidden="true" style="display:none"/>'
