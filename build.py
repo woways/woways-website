@@ -168,6 +168,16 @@ SCRIPT = ('<script>'
  'var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.12,rootMargin:"0px 0px -6% 0px"});'
  'els.forEach(function(e){io.observe(e);});'
  'setTimeout(function(){els.forEach(function(e){e.classList.add("in");});},1600);})();'
+ '(function(){document.querySelectorAll("form.w3form").forEach(function(f){f.addEventListener("submit",function(e){e.preventDefault();'
+ 'var ok=f.querySelector(".form-ok"),err=f.querySelector(".form-err"),btn=f.querySelector("button[type=submit]"),lbl=btn?btn.textContent:"";'
+ 'if(err)err.classList.add("hidden");if(ok)ok.classList.add("hidden");'
+ 'var key=f.querySelector("input[name=access_key]");'
+ 'if(key&&key.value.indexOf("REPLACE_WITH")===0){if(err){err.textContent="Form not connected yet. Please email tech@woways.in.";err.classList.remove("hidden");}return;}'
+ 'if(btn){btn.disabled=true;btn.textContent="Sending\\u2026";}'
+ 'fetch("https://api.web3forms.com/submit",{method:"POST",headers:{Accept:"application/json"},body:new FormData(f)})'
+ '.then(function(r){return r.json();}).then(function(j){if(j.success){f.reset();if(ok){ok.classList.remove("hidden");ok.scrollIntoView({block:"center",behavior:"smooth"});}}else{if(err){err.textContent=(j&&j.message)||"Something went wrong. Please email tech@woways.in.";err.classList.remove("hidden");}}})'
+ '.catch(function(){if(err){err.textContent="Network error. Please email tech@woways.in.";err.classList.remove("hidden");}})'
+ '.finally(function(){if(btn){btn.disabled=false;btn.textContent=lbl;}});});});})();'
  '</script>')
 
 def page(title, active, body):
@@ -677,28 +687,38 @@ PRIVACY_NOTE=('We collect these details only to respond to you and discuss worki
   'To see, correct or delete your details, write to <a class="underline hover:text-brandTeal" href="mailto:tech@woways.in">tech@woways.in</a>. '
   'Woways connects applicants with opportunities at partner companies; Woways is not the employer.')
 
-def render_form(form_id, fields, submit_label, ok_msg="Thank you. Our team will get back to you within 48 hours."):
-    ok=form_id+'-ok'
+# Web3Forms access key — submissions are emailed to the address tied to this key (tech@woways.in).
+# Get a free key at https://web3forms.com (enter tech@woways.in) and paste it here, then rebuild + deploy.
+WEB3FORMS_KEY = "REPLACE_WITH_WEB3FORMS_ACCESS_KEY"
+
+def render_form(form_id, fields, submit_label, subject, ok_msg="Thank you. Our team will get back to you within 48 hours."):
+    ok=form_id+'-ok'; err=form_id+'-err'
     parts=''
     for f in fields:
         fid=form_id+'-'+f['id']; req=' required' if f.get('req') else ''
         full='md:col-span-2' if f.get('full') else ''
+        nm=f['label'].replace('"','')
         if f['t']=='select':
             opts=''.join('<option>%s</option>'%o for o in f['options'])
-            ctrl='<select id="%s"%s class="w-full h-11 px-3.5 border border-borderLine text-brandNavy bg-white"><option value="">Choose one</option>%s</select>'%(fid,req,opts)
+            ctrl='<select id="%s" name="%s"%s class="w-full h-11 px-3.5 border border-borderLine text-brandNavy bg-white"><option value="">Choose one</option>%s</select>'%(fid,nm,req,opts)
         elif f['t']=='textarea':
-            ctrl='<textarea id="%s" rows="4"%s class="w-full p-3.5 border border-borderLine text-brandNavy"></textarea>'%(fid,req)
+            ctrl='<textarea id="%s" name="%s" rows="4"%s class="w-full p-3.5 border border-borderLine text-brandNavy"></textarea>'%(fid,nm,req)
         else:
             auto=' autocomplete="%s"'%f['auto'] if f.get('auto') else ''
-            ctrl='<input id="%s" type="%s"%s%s class="w-full h-11 px-3.5 border border-borderLine text-brandNavy"/>'%(fid,f['t'],req,auto)
+            ctrl='<input id="%s" name="%s" type="%s"%s%s class="w-full h-11 px-3.5 border border-borderLine text-brandNavy"/>'%(fid,nm,f['t'],req,auto)
         parts+='<div class="%s"><label class="cap text-slate-600 block mb-1.5" for="%s">%s</label>%s</div>'%(full,fid,f['label'],ctrl)
-    return ('<form class="bg-white p-8 lg:p-10 herofade" novalidate onsubmit="event.preventDefault();document.getElementById(\'%s\').classList.remove(\'hidden\');this.reset();">'
-      '<div id="%s" class="hidden mb-5 p-4 bg-brandTealTint text-brandTealDark text-sm border border-teal-200">%s</div>'
+    return ('<form class="w3form bg-white p-8 lg:p-10 herofade" action="https://api.web3forms.com/submit" method="POST">'
+      '<input type="hidden" name="access_key" value="%s"/>'
+      '<input type="hidden" name="subject" value="%s"/>'
+      '<input type="hidden" name="from_name" value="Woways website"/>'
+      '<input type="checkbox" name="botcheck" tabindex="-1" aria-hidden="true" style="display:none"/>'
+      '<div id="%s" class="form-ok hidden mb-5 p-4 bg-brandTealTint text-brandTealDark text-sm border border-teal-200">%s</div>'
+      '<div id="%s" class="form-err hidden mb-5 p-4 bg-red-50 text-red-700 text-sm border border-red-200" role="alert"></div>'
       '<div class="grid grid-cols-1 md:grid-cols-2 gap-5">%s</div>'
       '<label class="flex items-start gap-2.5 mt-6 text-sm text-slate-600"><input type="checkbox" required class="mt-1"/> <span>I agree to Woways contacting me about this and to the <a class="underline hover:text-brandTeal" href="privacy.html">privacy policy</a>.</span></label>'
-      '<button type="submit" class="mt-6 w-full bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold py-4 transition-colors">%s</button>'
+      '<button type="submit" class="mt-6 w-full bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold py-4 transition-colors disabled:opacity-60">%s</button>'
       '<p class="mt-5 text-xs text-slate-500 leading-relaxed">%s</p>'
-      '</form>')%(ok,ok,ok_msg,parts,submit_label,PRIVACY_NOTE)
+      '</form>')%(WEB3FORMS_KEY,subject,ok,ok_msg,err,parts,submit_label,PRIVACY_NOTE)
 
 def form_section(section_id, eyebrow_t, heading, sub, bullets, form_html, h1=False):
     tag='h1' if h1 else 'h2'
@@ -716,7 +736,7 @@ def build_contact():
       {'t':'tel','id':'phone','label':'Phone','auto':'tel'},
       {'t':'select','id':'topic','label':'What is this about?','req':True,'options':['Partnership','Internship','Product demo','Become a mentor','General enquiry'],'full':True},
       {'t':'textarea','id':'msg','label':'Tell us briefly what you need','req':True,'full':True}]
-    form=render_form('talk',fields,'Send message')
+    form=render_form('talk',fields,'Send message','New enquiry — Woways website')
     bullets=["One short form. No sales call unless you ask for one.","A real person on the Woways team replies, not an inbox.","We reply within 48 hours."]
     b=form_section('talk-form','Talk to the Woways team','Get in touch.',
       "Whether you're a company, a prospective Wower, or just exploring — tell us what you're trying to get done and we'll point you to the right place. For a partnership or an internship, the dedicated forms give us the details faster.",
@@ -801,7 +821,7 @@ def build_partnerships():
       {'t':'select','id':'timeline','label':'Timeline','options':['Immediately','Within 1 month','1–3 months','3–6 months','Just exploring']},
       {'t':'select','id':'need','label':'What do you need?','options':['Lead generation','Sales support','Marketing','Operations','Business scaling','Multiple / not sure']},
       {'t':'textarea','id':'req','label':'Describe your requirement','req':True,'full':True}]
-    pform=render_form('partner',pfields,'Submit requirement',"Thank you. Our partnerships team will review your requirement and get back within 48 hours.")
+    pform=render_form('partner',pfields,'Submit requirement','New partnership requirement — Woways website',ok_msg="Thank you. Our partnerships team will review your requirement and get back within 48 hours.")
     b += form_section('partner-form','Become a partner','Tell us what you need.',
       "Share your requirement and our partnerships team reviews it and gets in touch within 48 hours to explore how we can create value together.",
       ["We review every requirement within 48 hours.","A real person from the partnerships team, not an inbox.","No obligation — a first conversation to see the fit."], pform)
@@ -836,7 +856,7 @@ def build_internships():
       {'t':'select','id':'status','label':'Current status','req':True,'options':['College student','Pursuing graduate','Recent graduate','Working professional','Career starter']},
       {'t':'select','id':'interest','label':'Area of interest','req':True,'options':['Sales','Marketing','Operations','HR','Technology','Digital Business','Not sure yet']},
       {'t':'textarea','id':'msg','label':'Tell us a little about yourself','full':True}]
-    iform=render_form('apply',ifields,'Submit application',"Thank you for applying. We review applications and get back within 48 hours.")
+    iform=render_form('apply',ifields,'Submit application','New internship application — Woways website',ok_msg="Thank you for applying. We review applications and get back within 48 hours.")
     b += form_section('apply-form','Start your internship journey','Apply for an internship.',
       "Tell us about yourself and we'll match you to real project work with a partner company. Woways connects applicants with opportunities; Woways is not the employer.",
       ["We review every application within 48 hours.","No prior experience needed — we match you to your level.","Real projects, mentoring and performance-based growth."], iform)
