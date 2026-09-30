@@ -682,6 +682,35 @@ def viz_converge():
       '<circle cx="200" cy="200" r="30" fill="none" stroke="#00A9A9" stroke-width="1.5"><animate attributeName="r" values="30;60;30" dur="2.6s" repeatCount="indefinite"/><animate attributeName="opacity" values=".6;0;.6" dur="2.6s" repeatCount="indefinite"/></circle>')
     return _svg(faint+nodes+movers+core,"Work converging into one embedded team")
 
+def viz_chart():
+    # Companies — a growth chart: bars rise and a trend line climbs to a glowing peak
+    base='<line x1="40" y1="332" x2="372" y2="332" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>'
+    bars=''
+    data=[(70,150,'#0A6E6E'),(140,205,'#00807F'),(210,255,'#00A9A9'),(280,300,'#E8A33D')]
+    for i,(x,h,col) in enumerate(data):
+        y=332-h
+        bars+=('<rect x="%d" y="332" width="52" height="0" rx="6" fill="%s" opacity=".9">'
+          '<animate attributeName="height" values="0;%d" dur="1.1s" begin="%.1fs" fill="freeze" calcMode="spline" keySplines="0.2 0.7 0.2 1"/>'
+          '<animate attributeName="y" values="332;%d" dur="1.1s" begin="%.1fs" fill="freeze" calcMode="spline" keySplines="0.2 0.7 0.2 1"/></rect>'%(x,col,h,i*0.25,y,i*0.25))
+    trend=('<path d="M96 210 L166 165 L236 120 L306 70" fill="none" stroke="#7FE9E6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="360" stroke-dashoffset="360">'
+      '<animate attributeName="stroke-dashoffset" values="360;0" dur="1.6s" begin="1s" fill="freeze"/></path>')
+    peak=('<circle cx="306" cy="70" r="26" fill="url(#vc)" opacity="0"><animate attributeName="opacity" values="0;.6" dur=".5s" begin="2.4s" fill="freeze"/></circle>'
+      '<circle cx="306" cy="70" r="6" fill="#fff" opacity="0"><animate attributeName="opacity" values="0;1" dur=".4s" begin="2.4s" fill="freeze"/><animate attributeName="r" values="6;8;6" dur="2.4s" begin="2.8s" repeatCount="indefinite"/></circle>')
+    return _svg(base+bars+trend+peak,"Business growth driven by execution")
+
+def viz_ascend():
+    # Wowers — an ascending staircase climbing to a star (career takeoff)
+    poly='50,322 128,322 128,262 206,262 206,196 284,196 284,126 344,126 344,64'
+    steps=('<polyline points="%s" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="2" stroke-linejoin="round"/>'
+      '<polyline points="%s" fill="none" stroke="#00A9A9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="640" stroke-dashoffset="640"><animate attributeName="stroke-dashoffset" values="640;0" dur="3s" fill="freeze"/></polyline>'%(poly,poly))
+    dots=''
+    for i,(x,y) in enumerate([(128,262),(206,196),(284,126),(344,64)]):
+        dots+=('<circle cx="%d" cy="%d" r="6" fill="#0A1830" stroke="#00A9A9" stroke-width="2.5" opacity="0"><animate attributeName="opacity" values="0;1" dur=".4s" begin="%.1fs" fill="freeze"/><animate attributeName="r" values="6;8;6" dur="2.4s" begin="%.1fs" repeatCount="indefinite"/></circle>'%(x,y,0.7+i*0.7,1+i*0.7))
+    star=('<g transform="translate(344 46)" opacity="0"><animate attributeName="opacity" values="0;1" dur=".5s" begin="3.2s" fill="freeze"/>'
+      '<path d="M0 -18 L5 -5 L18 -5 L7 3 L11 16 L0 8 L-11 16 L-7 3 L-18 -5 L-5 -5 Z" fill="#E8A33D" filter="url(#vg)"><animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="24s" repeatCount="indefinite"/></path></g>')
+    marker='<circle r="5.5" fill="#E8A33D" filter="url(#vg)"><animateMotion path="M50 322 L128 322 L128 262 L206 262 L206 196 L284 196 L284 126 L344 126 L344 64" dur="4.5s" begin="3s" repeatCount="indefinite"/></circle>'
+    return _svg(steps+dots+star+marker,"A career climbing to new opportunities")
+
 def viz_constellation():
     # About — star map with faint links
     pts=[(70,90),(150,60),(250,90),(330,70),(110,180),(210,160),(300,190),(80,290),(180,300),(290,300),(350,240)]
@@ -740,7 +769,7 @@ def build_companies():
     b = hero("For Companies","Your execution team for the work that cannot wait.",
         "When sales pipelines, campaigns, operations or systems need momentum, Woways works alongside your team to make the work move — inside your tools, standards and reporting rhythm.",
         [("Discuss your requirement","partnerships.html#partner-form",True),("See our services","companies.html#services",False)],
-        illo=viz_converge())
+        illo=viz_chart())
     b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine" id="capabilities"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we execute","Five functions, one embedded team.","Point to a work area, describe the need, and we take it on — with the scope and standards of an internal team.")
     b += caps_detailed() + '</div></section>'
@@ -780,7 +809,7 @@ def build_wowers():
     b = hero("For Wowers","Build your career by doing real work.",
         "<span class=\"block text-brandTeal font-display font-semibold mb-4\" style=\"font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em\">Learn. Execute. Perform. Grow.</span>A Wower is an emerging professional who learns through live projects, structured guidance and performance-based growth — not classroom theory alone.",
         [("Explore opportunities","internships.html#apply-form",True),("How WOWER works","#pathway",False)],
-        illo=viz_ring())
+        illo=viz_ascend())
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine" id="pathway"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("How WOWER works","Five steps, one performance-driven pathway.","From joining the ecosystem to real career growth — here is how a Wower's journey unfolds.")
     b += wower_pathway() + '</div></section>'
