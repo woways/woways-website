@@ -641,7 +641,7 @@ def build_index():
     b = hero("Execution partner · Talent ecosystem","Build momentum without building everything alone.",
         "Woways gives growing companies an execution layer across sales, marketing, operations, technology and people functions. At the same time, we prepare emerging professionals through meaningful, real-world work.<br class=\"hidden sm:block\"/><span class=\"inline-block mt-4 text-white font-semibold\">Not advice. Delivery.</span>",
         [("Talk about your business need","partnerships.html#partner-form",True),("Explore the Wower pathway","wowers.html",False)],
-        illo=viz_orbit(["Sales","Marketing","Operations","Technology","People"],"Woways execution across five functions"))
+        illo=viz_orbit(["Sales","Marketing","Operations","HR","Technology"],"Woways execution across five functions"))
     b += credibility_strip()
     b += '<section class="bg-brandNavy py-14 lg:py-16 border-b border-white/10"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += '<p class="cap text-slate-400 mb-8 text-center reveal">Our impact</p>'
