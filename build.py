@@ -533,14 +533,75 @@ def hero_cards(items):
           '<div class="font-display font-bold text-white leading-none" style="font-size:26px">%s</div>%s</div>'%(pos[i],i*0.8,ic,label,val,sub))
     return '<div class="relative w-full max-w-[440px] h-[380px] mx-auto">%s</div>'%cards
 
+_VDEFS=('<defs><filter id="vg" x="-50%" y="-50%" width="200%" height="200%">'
+  '<feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>'
+  '<radialGradient id="vc" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#00A9A9" stop-opacity=".9"/><stop offset="100%" stop-color="#00A9A9" stop-opacity="0"/></radialGradient></defs>')
+
+def _svg(inner, label):
+    return ('<svg viewBox="0 0 400 400" class="w-full max-w-[460px] mx-auto" role="img" aria-label="%s">%s%s</svg>'%(label,_VDEFS,inner))
+
+def viz_orbit():
+    # Home — orbiting execution network around a teal core
+    rings='<circle cx="200" cy="200" r="165" fill="none" stroke="rgba(255,255,255,.07)"/><circle cx="200" cy="200" r="115" fill="none" stroke="rgba(255,255,255,.10)"/><circle cx="200" cy="200" r="65" fill="none" stroke="rgba(0,169,169,.35)"/>'
+    def spin(r,dur,rev,dot,col):
+        d='%d %d'%(360 if not rev else 0,0)
+        frm='0 200 200'; to='%d 200 200'%(360 if not rev else -360)
+        return ('<g><animateTransform attributeName="transform" type="rotate" from="%s" to="%s" dur="%ds" repeatCount="indefinite"/>'
+          '<circle cx="%d" cy="200" r="%d" fill="%s"/></g>'%(frm,to,dur,200+r,dot,col))
+    dots=spin(165,50,False,5,'#00A9A9')+spin(115,38,True,4,'#E8A33D')+spin(65,26,False,4,'#ffffff')
+    core=('<circle cx="200" cy="200" r="46" fill="url(#vc)" opacity=".5"/>'
+      '<circle cx="200" cy="200" r="30" fill="#0A1830" stroke="#00A9A9" stroke-width="1.5"/>'
+      '<path d="M186 200 l8 9 18 -20" fill="none" stroke="#00A9A9" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>'
+      '<circle cx="200" cy="200" r="30" fill="none" stroke="#00A9A9" stroke-width="1.5"><animate attributeName="r" values="30;150;30" dur="6s" repeatCount="indefinite"/><animate attributeName="opacity" values=".6;0;.6" dur="6s" repeatCount="indefinite"/></circle>')
+    stars=''.join('<circle cx="%d" cy="%d" r="1.6" fill="#fff"><animate attributeName="opacity" values=".2;1;.2" dur="%ss" begin="%ss" repeatCount="indefinite"/></circle>'%(x,y,d,b) for x,y,d,b in [(60,80,3,0),(340,110,4,1),(70,320,3.5,.5),(330,320,3,1.5),(200,40,4,.8)])
+    return _svg(rings+dots+stars+core,"Woways execution network")
+
+def viz_network():
+    # Companies — connected node graph
+    nodes=[(80,120),(200,80),(320,140),(120,260),(260,280),(200,180)]
+    lines=[(0,1),(1,2),(0,5),(1,5),(2,5),(3,5),(4,5),(3,0),(4,2)]
+    ln=''.join('<line x1="%d" y1="%d" x2="%d" y2="%d" stroke="rgba(0,169,169,.25)" stroke-width="1"/>'%(nodes[a][0],nodes[a][1],nodes[b][0],nodes[b][1]) for a,b in lines)
+    nd=''
+    for i,(x,y) in enumerate(nodes):
+        r=10 if i==5 else 6
+        col='#00A9A9' if i==5 else ('#E8A33D' if i in (1,4) else '#7FD9D6')
+        nd+=('<circle cx="%d" cy="%d" r="%d" fill="%s"><animate attributeName="opacity" values=".55;1;.55" dur="%ss" begin="%ss" repeatCount="indefinite"/></circle>'%(x,y,r,col,3+i*0.3,i*0.4))
+    pulse='<circle cx="200" cy="180" r="10" fill="none" stroke="#00A9A9"><animate attributeName="r" values="10;70;10" dur="5s" repeatCount="indefinite"/><animate attributeName="opacity" values=".7;0;.7" dur="5s" repeatCount="indefinite"/></circle>'
+    return _svg(ln+pulse+nd,"An embedded team, connected")
+
+def viz_growth():
+    # Wowers — an ascending path with a travelling marker
+    path='M40 320 C 120 300, 150 220, 210 200 S 300 140, 360 70'
+    base='<path d="%s" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="2"/>'%path
+    prog=('<path d="%s" fill="none" stroke="#00A9A9" stroke-width="3" stroke-linecap="round" stroke-dasharray="520" stroke-dashoffset="520">'
+      '<animate attributeName="stroke-dashoffset" values="520;0" dur="3s" fill="freeze"/></path>'%path)
+    steps=''.join('<circle cx="%d" cy="%d" r="5" fill="#0A1830" stroke="#00A9A9" stroke-width="2"><animate attributeName="r" values="5;7;5" dur="2.4s" begin="%ss" repeatCount="indefinite"/></circle>'%(x,y,b) for x,y,b in [(40,320,0),(140,262,.4),(210,200,.8),(300,132,1.2),(360,70,1.6)])
+    marker=('<circle r="6" fill="#E8A33D" filter="url(#vg)"><animateMotion path="%s" dur="4s" repeatCount="indefinite"/></circle>'%path)
+    glow='<circle cx="360" cy="70" r="30" fill="url(#vc)" opacity=".5"/>'
+    return _svg(base+prog+glow+steps+marker,"Learn, execute, perform, grow")
+
+def viz_rings():
+    # Services — concentric pulse rings
+    r=''.join('<circle cx="200" cy="200" r="30" fill="none" stroke="#00A9A9" stroke-width="1.5"><animate attributeName="r" values="30;170" dur="4s" begin="%ss" repeatCount="indefinite"/><animate attributeName="opacity" values=".7;0" dur="4s" begin="%ss" repeatCount="indefinite"/></circle>'%(b,b) for b in [0,1,2,3])
+    dots=''.join('<circle cx="%d" cy="%d" r="4" fill="%s"/>'%(200+int(120* (1 if i%2 else -1) * (0.5+0.1*i)),200+int(90*((-1)**i)*(0.4+0.12*i)),'#E8A33D' if i%3==0 else '#7FD9D6') for i in range(5))
+    core=('<circle cx="200" cy="200" r="34" fill="#0A1830" stroke="#00A9A9" stroke-width="1.5"/>'
+      '<path d="M186 200 l8 9 18 -20" fill="none" stroke="#00A9A9" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>')
+    return _svg(r+dots+core,"Services radiating from one team")
+
+def viz_constellation():
+    # About — star map with faint links
+    pts=[(70,90),(150,60),(250,90),(330,70),(110,180),(210,160),(300,190),(80,290),(180,300),(290,300),(350,240)]
+    links=[(0,1),(1,2),(2,3),(0,4),(4,5),(5,6),(6,3),(4,7),(7,8),(8,9),(9,10),(5,8),(6,10)]
+    ln=''.join('<line x1="%d" y1="%d" x2="%d" y2="%d" stroke="rgba(255,255,255,.08)" stroke-width="1"/>'%(pts[a][0],pts[a][1],pts[b][0],pts[b][1]) for a,b in links)
+    nd=''.join('<circle cx="%d" cy="%d" r="%s" fill="%s"><animate attributeName="opacity" values=".3;1;.3" dur="%ss" begin="%ss" repeatCount="indefinite"/></circle>'%(x,y,(3 if i in(5,) else 2),'#00A9A9' if i in(5,2,8) else ('#E8A33D' if i in(1,10) else '#cfe'),3+ (i%4),i*0.3) for i,(x,y) in enumerate(pts))
+    return _svg(ln+nd,"A connected ecosystem")
+
 # ================= PAGES =================
 def build_index():
     b = hero("Execution partner · Talent ecosystem","Build momentum without building everything alone.",
         "Woways gives growing companies an execution layer across sales, marketing, operations, technology and people functions. At the same time, we prepare emerging professionals through meaningful, real-world work.<br class=\"hidden sm:block\"/><span class=\"inline-block mt-4 text-white font-semibold\">Not advice. Delivery.</span>",
         [("Talk about your business need","partnerships.html#partner-form",True),("Explore the Wower pathway","wowers.html",False)],
-        illo=hero_cards([("trending_up","Leads generated","59,675+","across partner companies"),
-          ("task_alt","Projects executed","125+","and counting"),
-          ("groups","Wowers trained","300+","on real project work")]))
+        illo=viz_orbit())
     b += credibility_strip()
     b += '<section class="bg-brandNavy py-14 lg:py-16 border-b border-white/10"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += '<p class="cap text-slate-400 mb-8 text-center reveal">Our impact</p>'
@@ -585,9 +646,7 @@ def build_companies():
     b = hero("For Companies","Your execution team for the work that cannot wait.",
         "When sales pipelines, campaigns, operations or systems need momentum, Woways works alongside your team to make the work move — inside your tools, standards and reporting rhythm.",
         [("Discuss your requirement","partnerships.html#partner-form",True),("See our services","companies.html#services",False)],
-        illo=hero_cards([("hub","Functions covered","5","sales · mktg · ops · tech · people"),
-          ("schedule","Reply time","48 hrs","from a real person"),
-          ("trending_up","Leads generated","59,675+","for partner companies")]))
+        illo=viz_network())
     b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine" id="capabilities"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we execute","Five functions, one embedded team.","Point to a work area, describe the need, and we take it on — with the scope and standards of an internal team.")
     b += caps_detailed() + '</div></section>'
@@ -627,9 +686,7 @@ def build_wowers():
     b = hero("For Wowers","Build your career by doing real work.",
         "<span class=\"block text-brandTeal font-display font-semibold mb-4\" style=\"font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em\">Learn. Execute. Perform. Grow.</span>A Wower is an emerging professional who learns through live projects, structured guidance and performance-based growth — not classroom theory alone.",
         [("Explore opportunities","internships.html#apply-form",True),("How WOWER works","#pathway",False)],
-        illo=hero_cards([("school","Wowers trained","300+","and growing"),
-          ("work","Real projects","125+","across partner companies"),
-          ("diversity_3","Mentors","18+","from industry")]))
+        illo=viz_growth())
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine" id="pathway"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("How WOWER works","Five steps, one performance-driven pathway.","From joining the ecosystem to real career growth — here is how a Wower's journey unfolds.")
     b += wower_pathway() + '</div></section>'
@@ -670,7 +727,8 @@ def build_wowers():
 def build_services():
     b = hero("Services","Practical execution across the functions that drive growth.",
         "Each service is run by our team and reports into yours — practical execution with a clear output, whether you start with one or combine several.",
-        [("Discuss your requirement","partnerships.html#partner-form",True),("For companies","companies.html",False)])
+        [("Discuss your requirement","partnerships.html#partner-form",True),("For companies","companies.html",False)],
+        illo=viz_rings())
     b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we do","Five services, one execution partner.","Each service is run by our team and reports into yours. Pick one, or combine them.")
     b += services_detailed() + '</div></section>'
@@ -688,9 +746,7 @@ def build_about():
     b = hero("About","Built for work that creates visible progress.",
         "Woways was created around a simple belief: growing companies need dependable execution, and emerging professionals need meaningful opportunities to prove themselves. We connect both through real work, clear ownership and measurable progress.",
         [("Work with us","contact.html",True),("How we work","#ecosystem",False)],
-        illo=hero_cards([("apartment","Companies partnered","25+","and growing"),
-          ("trending_up","Leads generated","59,675+","measurable outcomes"),
-          ("task_alt","Projects executed","125+","real business work")]))
+        illo=viz_constellation())
     b += '<section class="bg-brandNavy py-14 lg:py-16 border-b border-white/10"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += impact_stats(dark=True) + '</div></section>'
     # two-sided
