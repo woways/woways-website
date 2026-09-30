@@ -568,7 +568,7 @@ _VDEFS=('<defs><filter id="vg" x="-50%" y="-50%" width="200%" height="200%">'
   '<radialGradient id="vc" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#00A9A9" stop-opacity=".9"/><stop offset="100%" stop-color="#00A9A9" stop-opacity="0"/></radialGradient></defs>')
 
 def _svg(inner, label):
-    return ('<svg viewBox="0 0 400 400" class="w-full max-w-[460px] mx-auto" role="img" aria-label="%s">%s%s</svg>'%(label,_VDEFS,inner))
+    return ('<svg viewBox="-40 -16 480 432" class="w-full max-w-[480px] mx-auto" role="img" aria-label="%s">%s%s</svg>'%(label,_VDEFS,inner))
 
 def viz_orbit(labels=None, aria="Woways execution orbit"):
     # Reusable execution orbit — labels distributed evenly around a teal core
