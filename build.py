@@ -295,6 +295,20 @@ def industries():
     return ('<section class="bg-paperBg py-16 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
       '<p class="cap text-slate-500 mb-5 reveal">Industries we serve</p><div class="flex flex-wrap gap-3 stagger reveal">%s</div></div></section>') % pills
 
+def hero_big(eb, h, sub, ctas):
+    btns=''
+    for label,href,prim in ctas:
+        if prim: btns+='<a class="bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors inline-flex items-center gap-2" href="%s">%s <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>'%(href,label)
+        else: btns+='<a class="border border-white/30 hover:border-white hover:bg-white/5 text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="%s">%s</a>'%(href,label)
+    return ('<section class="relative bg-brandNavy text-white overflow-hidden"><div class="absolute inset-0 glow pointer-events-none"></div>'
+      '<div class="absolute inset-0 gridlines opacity-60 pointer-events-none"></div>'
+      '<div class="relative max-w-[1440px] mx-auto px-6 lg:px-12 pt-16 lg:pt-28 pb-16 lg:pb-24 herofade">'
+      '<span class="cap text-brandTeal block mb-5">%s</span>'
+      '<h1 class="font-display font-bold text-white tracking-[-0.02em] max-w-[16ch]" style="font-size:clamp(40px,7vw,84px);line-height:1.02">%s</h1>'
+      '<p class="lead text-slate-300 max-w-2xl mt-8">%s</p>'
+      '<div class="flex flex-wrap gap-4 mt-9">%s</div>'
+      '</div></section>') % (eb,h,sub,btns)
+
 def hero_chips(eb, h, sub, ctas, chips):
     btns=''
     for label,href,prim in ctas:
@@ -707,10 +721,9 @@ def build_wowers():
       ("Do I need prior experience?","No. We match you to work at your level and support you as you learn."),
       ("How do I start?","Apply with your interests and availability; we match you to a live project on a partner company."),
       ("What will I gain?","Real project experience, practical business skills and a track record you can actually show.")]
-    b = hero_chips("For Wowers","Build your career by doing real work.",
+    b = hero_big("For Wowers","Build your career by doing real work.",
         "<span class=\"block text-brandTeal font-display font-semibold mb-4\" style=\"font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em\">Learn. Execute. Perform. Grow.</span>A Wower is an emerging professional who learns through live projects, structured guidance and performance-based growth — not classroom theory alone.",
-        [("Explore opportunities","internships.html#apply-form",True),("How WOWER works","#pathway",False)],
-        [("school","Structured training"),("work","Real projects"),("trending_up","Performance growth"),("diversity_3","Mentor guidance")])
+        [("Explore opportunities","internships.html#apply-form",True),("How WOWER works","#pathway",False)])
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine" id="pathway"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("How WOWER works","Five steps, one performance-driven pathway.","From joining the ecosystem to real career growth — here is how a Wower's journey unfolds.")
     b += wower_pathway() + '</div></section>'
