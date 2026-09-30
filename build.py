@@ -344,7 +344,7 @@ def hero(eb, h, sub, ctas, illo=None, funcs=False, cover=False, img=None, img_al
         if contain:
             deskimg=('<img src="%s" alt="%s" loading="eager" class="w-full h-full object-contain object-center px-2"/>'%(img,img_alt))
             imgcol=('<div class="hidden lg:block absolute top-0 right-0 h-full w-[52%%] herofade" style="animation-delay:.18s">%s</div>'%deskimg)
-            mobimg=('<img src="%s" alt="%s" loading="eager" class="lg:hidden block mt-8 mx-auto w-full max-w-md h-auto object-contain herofade" style="animation-delay:.12s"/>'%(img,img_alt))
+            mobimg=('<img src="%s" alt="%s" loading="eager" class="lg:hidden block mt-8 h-auto object-contain herofade" style="animation-delay:.12s;width:calc(100%% + 3rem);margin-left:-1.5rem;margin-right:-1.5rem"/>'%(img,img_alt))
         else:
             deskimg=('<img src="%s" alt="%s" loading="eager" class="w-full h-full object-cover object-center" '
               'style="-webkit-mask-image:linear-gradient(to right,transparent 0%%,rgba(0,0,0,.12) 16%%,#000 48%%);mask-image:linear-gradient(to right,transparent 0%%,rgba(0,0,0,.12) 16%%,#000 48%%)"/>'%(img,img_alt))
