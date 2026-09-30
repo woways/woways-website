@@ -640,6 +640,48 @@ def viz_rings():
       '<path d="M186 200 l8 9 18 -20" fill="none" stroke="#00A9A9" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>')
     return _svg(r+dots+core,"Services radiating from one team")
 
+def viz_ring():
+    # Wowers — a growth ring: four stages sit ON the circle, a marker travels round touching each
+    import math
+    R=140; C=2*math.pi*R
+    base='<circle cx="200" cy="200" r="140" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="2"/>'
+    arc=('<circle cx="200" cy="200" r="140" fill="none" stroke="#00A9A9" stroke-width="3" stroke-linecap="round" transform="rotate(-90 200 200)" stroke-dasharray="%.0f" stroke-dashoffset="%.0f">'
+      '<animate attributeName="stroke-dashoffset" values="%.0f;0" dur="3.5s" fill="freeze"/></circle>'%(C,C,C))
+    stages=[("Learn",-90),("Execute",0),("Perform",90),("Grow",180)]
+    pts=''
+    for name,ang in stages:
+        a=math.radians(ang); x=200+R*math.cos(a); y=200+R*math.sin(a)
+        if ang==-90: lx,ly,an,dy=x,y-20,'middle',0
+        elif ang==0: lx,ly,an,dy=x+16,y,'start',4
+        elif ang==90: lx,ly,an,dy=x,y+30,'middle',0
+        else: lx,ly,an,dy=x-16,y,'end',4
+        pts+=('<circle cx="%.0f" cy="%.0f" r="7" fill="#0A1830" stroke="#00A9A9" stroke-width="2.5"/>'
+          '<text x="%.0f" y="%.0f" text-anchor="%s" dy="%d" font-family="Hanken Grotesk,sans-serif" font-size="13" font-weight="600" fill="rgba(255,255,255,.9)">%s</text>'%(x,y,lx,ly,an,dy,name))
+    cpath='M 200 60 A 140 140 0 1 1 199.99 60'
+    marker='<circle r="7" fill="#E8A33D" filter="url(#vg)"><animateMotion path="%s" dur="7s" repeatCount="indefinite"/></circle>'%cpath
+    core=('<circle cx="200" cy="200" r="34" fill="url(#vc)" opacity=".4"/>'
+      '<circle cx="200" cy="200" r="26" fill="#0A1830" stroke="#00A9A9" stroke-width="1.5"/>'
+      '<path d="M188 200 l7 8 16 -18" fill="none" stroke="#00A9A9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>')
+    return _svg(base+arc+pts+marker+core,"A growth ring: learn, execute, perform, grow")
+
+def viz_converge():
+    # Companies — work converging into one embedded team
+    import math
+    pts=[(-90),(-30),(30),(90),(150),(210)]
+    faint=''; movers=''; nodes=''
+    for i,ang in enumerate(pts):
+        a=math.radians(ang); r=155; x=200+r*math.cos(a); y=200+r*math.sin(a)
+        col='#E8A33D' if i%3==1 else '#7FD9D6'
+        faint+='<line x1="%.0f" y1="%.0f" x2="200" y2="200" stroke="rgba(0,169,169,.16)" stroke-width="1"/>'%(x,y)
+        nodes+='<circle cx="%.0f" cy="%.0f" r="5.5" fill="%s"><animate attributeName="opacity" values=".55;1;.55" dur="%ss" begin="%ss" repeatCount="indefinite"/></circle>'%(x,y,col,3+i*0.2,i*0.3)
+        movers+=('<circle r="3.5" fill="%s"><animateMotion path="M %.0f %.0f L 200 200" dur="2.6s" begin="%.1fs" repeatCount="indefinite"/>'
+          '<animate attributeName="opacity" values="1;1;0" keyTimes="0;.85;1" dur="2.6s" begin="%.1fs" repeatCount="indefinite"/></circle>'%(col,x,y,i*0.42,i*0.42))
+    core=('<circle cx="200" cy="200" r="46" fill="url(#vc)" opacity=".45"/>'
+      '<circle cx="200" cy="200" r="30" fill="#0A1830" stroke="#00A9A9" stroke-width="1.5"/>'
+      '<path d="M186 200 l8 9 18 -20" fill="none" stroke="#00A9A9" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>'
+      '<circle cx="200" cy="200" r="30" fill="none" stroke="#00A9A9" stroke-width="1.5"><animate attributeName="r" values="30;60;30" dur="2.6s" repeatCount="indefinite"/><animate attributeName="opacity" values=".6;0;.6" dur="2.6s" repeatCount="indefinite"/></circle>')
+    return _svg(faint+nodes+movers+core,"Work converging into one embedded team")
+
 def viz_constellation():
     # About — star map with faint links
     pts=[(70,90),(150,60),(250,90),(330,70),(110,180),(210,160),(300,190),(80,290),(180,300),(290,300),(350,240)]
@@ -698,7 +740,7 @@ def build_companies():
     b = hero("For Companies","Your execution team for the work that cannot wait.",
         "When sales pipelines, campaigns, operations or systems need momentum, Woways works alongside your team to make the work move — inside your tools, standards and reporting rhythm.",
         [("Discuss your requirement","partnerships.html#partner-form",True),("See our services","companies.html#services",False)],
-        illo=viz_network())
+        illo=viz_converge())
     b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine" id="capabilities"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we execute","Five functions, one embedded team.","Point to a work area, describe the need, and we take it on — with the scope and standards of an internal team.")
     b += caps_detailed() + '</div></section>'
@@ -738,7 +780,7 @@ def build_wowers():
     b = hero("For Wowers","Build your career by doing real work.",
         "<span class=\"block text-brandTeal font-display font-semibold mb-4\" style=\"font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em\">Learn. Execute. Perform. Grow.</span>A Wower is an emerging professional who learns through live projects, structured guidance and performance-based growth — not classroom theory alone.",
         [("Explore opportunities","internships.html#apply-form",True),("How WOWER works","#pathway",False)],
-        illo=viz_growth())
+        illo=viz_ring())
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine" id="pathway"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("How WOWER works","Five steps, one performance-driven pathway.","From joining the ecosystem to real career growth — here is how a Wower's journey unfolds.")
     b += wower_pathway() + '</div></section>'
