@@ -721,10 +721,10 @@ def viz_constellation():
 
 # ================= PAGES =================
 def build_index():
-    b = hero("Execution partner · Talent ecosystem","Build momentum without building everything alone.",
+    b = hero_chips("Execution partner · Talent ecosystem","Build momentum without building everything alone.",
         "Woways gives growing companies an execution layer across sales, marketing, operations, technology and people functions. At the same time, we prepare emerging professionals through meaningful, real-world work.<br class=\"hidden sm:block\"/><span class=\"inline-block mt-4 text-white font-semibold\">Not advice. Delivery.</span>",
         [("Talk about your business need","partnerships.html#partner-form",True),("Explore the Wower pathway","wowers.html",False)],
-        illo=viz_orbit(["Sales","Marketing","Operations","HR","Technology"],"Woways execution across five functions"))
+        [("grid_view","Five functions"),("groups","Talent ecosystem"),("insights","Measurable delivery"),("apps","Products we build")])
     b += credibility_strip()
     b += '<section class="bg-brandNavy py-14 lg:py-16 border-b border-white/10"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += '<p class="cap text-slate-400 mb-8 text-center reveal">Our impact</p>'
@@ -766,10 +766,10 @@ def build_index():
     return page("Woways — Your Executive Partner","index.html",b)
 
 def build_companies():
-    b = hero("For Companies","Your execution team for the work that cannot wait.",
+    b = hero_chips("For Companies","Your execution team for the work that cannot wait.",
         "When sales pipelines, campaigns, operations or systems need momentum, Woways works alongside your team to make the work move — inside your tools, standards and reporting rhythm.",
         [("Discuss your requirement","partnerships.html#partner-form",True),("See our services","companies.html#services",False)],
-        illo=viz_chart())
+        [("grid_view","Five core functions"),("bolt","End-to-end delivery"),("insights","Measurable outcomes"),("schedule","48-hour reply")])
     b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine" id="capabilities"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we execute","Five functions, one embedded team.","Point to a work area, describe the need, and we take it on — with the scope and standards of an internal team.")
     b += caps_detailed() + '</div></section>'
@@ -806,10 +806,10 @@ def build_wowers():
       ("Do I need prior experience?","No. We match you to work at your level and support you as you learn."),
       ("How do I start?","Apply with your interests and availability; we match you to a live project on a partner company."),
       ("What will I gain?","Real project experience, practical business skills and a track record you can actually show.")]
-    b = hero("For Wowers","Build your career by doing real work.",
+    b = hero_chips("For Wowers","Build your career by doing real work.",
         "<span class=\"block text-brandTeal font-display font-semibold mb-4\" style=\"font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em\">Learn. Execute. Perform. Grow.</span>A Wower is an emerging professional who learns through live projects, structured guidance and performance-based growth — not classroom theory alone.",
         [("Explore opportunities","internships.html#apply-form",True),("How WOWER works","#pathway",False)],
-        illo=viz_ascend())
+        [("school","Structured training"),("work","Real projects"),("trending_up","Performance growth"),("diversity_3","Mentor guidance")])
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine" id="pathway"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("How WOWER works","Five steps, one performance-driven pathway.","From joining the ecosystem to real career growth — here is how a Wower's journey unfolds.")
     b += wower_pathway() + '</div></section>'
@@ -848,10 +848,10 @@ def build_wowers():
     return page("Woways — For Wowers","wowers.html",b)
 
 def build_services():
-    b = hero("Services","Practical execution across the functions that drive growth.",
+    b = hero_chips("Services","Practical execution across the functions that drive growth.",
         "Each service is run by our team and reports into yours — practical execution with a clear output, whether you start with one or combine several.",
         [("Discuss your requirement","partnerships.html#partner-form",True),("For companies","companies.html",False)],
-        illo=viz_rings())
+        [("filter_alt","Lead generation"),("call","Sales support"),("campaign","Marketing"),("rocket_launch","Business scaling")])
     b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we do","Five services, one execution partner.","Each service is run by our team and reports into yours. Pick one, or combine them.")
     b += services_detailed() + '</div></section>'
