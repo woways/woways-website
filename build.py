@@ -328,7 +328,7 @@ def hero_chips(eb, h, sub, ctas, chips):
       '<div class="mt-12 flex flex-wrap justify-center gap-x-8 gap-y-4 reveal">%s</div>'
       '</div></section>') % (eb,h,sub,btns,chiprow)
 
-def hero(eb, h, sub, ctas, illo=None, funcs=False, cover=False, img=None, img_alt=""):
+def hero(eb, h, sub, ctas, illo=None, funcs=False, cover=False, img=None, img_alt="", contain=False):
     fn=''
     if funcs:
         pills=''.join('<span class="px-3 py-1 bg-white/5 border border-white/10 text-slate-300 cap text-[11px]">%s</span>'%x for x in ["Sales","Marketing","Operations","HR","Technology"])
@@ -341,12 +341,17 @@ def hero(eb, h, sub, ctas, illo=None, funcs=False, cover=False, img=None, img_al
     if cover and img:
         inner=('<div class="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/15 text-brandTeal cap mb-6"><span class="w-1.5 h-1.5 bg-brandTeal inline-block"></span> %s</div>'
           '<h1 class="hd1 text-white mb-6">%s</h1><p class="lead text-slate-300 mb-8">%s</p><div class="flex flex-wrap gap-4">%s</div>%s'%(eb,h,sub,btns,fn))
-        deskimg=('<img src="%s" alt="%s" loading="eager" class="w-full h-full object-cover object-center" '
-          'style="-webkit-mask-image:linear-gradient(to right,transparent 0%%,rgba(0,0,0,.12) 16%%,#000 48%%);mask-image:linear-gradient(to right,transparent 0%%,rgba(0,0,0,.12) 16%%,#000 48%%)"/>'%(img,img_alt))
-        imgcol=('<div class="hidden lg:block absolute top-0 right-0 h-full w-[58%%] herofade" style="animation-delay:.18s">%s</div>'%deskimg)
-        mobimg=('<img src="%s" alt="%s" loading="eager" class="lg:hidden block mt-10 h-60 sm:h-72 object-cover object-center herofade" '
-          'style="animation-delay:.12s;width:calc(100%% + 3rem);margin-left:-1.5rem;margin-right:-1.5rem;'
-          '-webkit-mask-image:linear-gradient(to bottom,transparent 0%%,#000 26%%,#000 100%%);mask-image:linear-gradient(to bottom,transparent 0%%,#000 26%%,#000 100%%)"/>'%(img,img_alt))
+        if contain:
+            deskimg=('<img src="%s" alt="%s" loading="eager" class="w-full h-full object-contain object-center px-2"/>'%(img,img_alt))
+            imgcol=('<div class="hidden lg:block absolute top-0 right-0 h-full w-[52%%] herofade" style="animation-delay:.18s">%s</div>'%deskimg)
+            mobimg=('<img src="%s" alt="%s" loading="eager" class="lg:hidden block mt-8 mx-auto w-full max-w-md h-auto object-contain herofade" style="animation-delay:.12s"/>'%(img,img_alt))
+        else:
+            deskimg=('<img src="%s" alt="%s" loading="eager" class="w-full h-full object-cover object-center" '
+              'style="-webkit-mask-image:linear-gradient(to right,transparent 0%%,rgba(0,0,0,.12) 16%%,#000 48%%);mask-image:linear-gradient(to right,transparent 0%%,rgba(0,0,0,.12) 16%%,#000 48%%)"/>'%(img,img_alt))
+            imgcol=('<div class="hidden lg:block absolute top-0 right-0 h-full w-[58%%] herofade" style="animation-delay:.18s">%s</div>'%deskimg)
+            mobimg=('<img src="%s" alt="%s" loading="eager" class="lg:hidden block mt-10 h-60 sm:h-72 object-cover object-center herofade" '
+              'style="animation-delay:.12s;width:calc(100%% + 3rem);margin-left:-1.5rem;margin-right:-1.5rem;'
+              '-webkit-mask-image:linear-gradient(to bottom,transparent 0%%,#000 26%%,#000 100%%);mask-image:linear-gradient(to bottom,transparent 0%%,#000 26%%,#000 100%%)"/>'%(img,img_alt))
         return ('<section class="relative bg-brandNavy text-white overflow-hidden">'
           '<div class="absolute inset-0 glow pointer-events-none"></div>'
           '<div class="absolute inset-0 gridlines opacity-60 pointer-events-none"></div>'+imgcol+
@@ -1107,7 +1112,7 @@ def build_products():
     b = hero("Products","Products built from real execution.",
         "We build focused platforms for education, career growth and business performance — shaped by the work we do with people and companies.",
         [("Talk to us","contact.html",True)],
-        cover=True, img="hero-products.png", img_alt="A professional working on a laptop")
+        cover=True, contain=True, img="hero-products.png", img_alt="Woways product dashboards shown on a desktop, tablet and phone")
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Education &amp; career","For students, families and educators.","Guidance, discovery and future-readiness — from grade 10 through to a career.")
     b += product_cards('edu') + '</div></section>'
