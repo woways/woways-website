@@ -39,18 +39,24 @@ HEAD = '''<!DOCTYPE html>
  body.is-leaving{opacity:0;transform:translateY(-8px);transition:opacity .26s ease,transform .26s ease}
  @media (prefers-reduced-motion:reduce){main#main{animation:none}body.is-leaving{opacity:1!important;transform:none!important;transition:none}}
  /* animations */
- .js-anim .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
- .js-anim .reveal.in{opacity:1;transform:none}
- .js-anim .stagger.in>*{opacity:0;transform:translateY(18px);animation:rise .6s cubic-bezier(.2,.7,.2,1) forwards}
- .js-anim .stagger.in>*:nth-child(2){animation-delay:.08s}.js-anim .stagger.in>*:nth-child(3){animation-delay:.16s}
- .js-anim .stagger.in>*:nth-child(4){animation-delay:.24s}.js-anim .stagger.in>*:nth-child(5){animation-delay:.32s}
- @keyframes rise{to{opacity:1;transform:none}}
+ .js-anim .reveal{opacity:0;transform:translateY(30px);filter:blur(6px);transition:opacity .8s cubic-bezier(.19,.9,.22,1),transform .8s cubic-bezier(.19,.9,.22,1),filter .8s cubic-bezier(.19,.9,.22,1)}
+ .js-anim .reveal.in{opacity:1;transform:none;filter:none}
+ .js-anim .stagger.in>*{opacity:0;transform:translateY(24px);filter:blur(5px);animation:rise .7s cubic-bezier(.19,.9,.22,1) forwards}
+ .js-anim .stagger.in>*:nth-child(2){animation-delay:.09s}.js-anim .stagger.in>*:nth-child(3){animation-delay:.18s}
+ .js-anim .stagger.in>*:nth-child(4){animation-delay:.27s}.js-anim .stagger.in>*:nth-child(5){animation-delay:.36s}
+ .js-anim .stagger.in>*:nth-child(6){animation-delay:.45s}
+ @keyframes rise{to{opacity:1;transform:none;filter:none}}
  .herofade{opacity:0;transform:translateY(16px);animation:rise .8s cubic-bezier(.2,.7,.2,1) .05s forwards}
+ /* masked headline reveal */
+ .hrise{overflow:hidden;padding-bottom:.16em}
+ .hrise>span{display:block;transform:translateY(108%);animation:hrise .95s cubic-bezier(.19,.9,.22,1) .12s both}
+ @keyframes hrise{from{transform:translateY(108%)}to{transform:translateY(0)}}
+ @media (prefers-reduced-motion:reduce){.hrise{overflow:visible;padding-bottom:0}.hrise>span{transform:none;animation:none}}
  .card-lift{transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
  .card-lift:hover{transform:translateY(-4px);box-shadow:0 24px 50px -30px rgba(0,15,36,.5)}
  .arrow-move{transition:transform .16s ease}
  .grp:hover .arrow-move{transform:translateX(4px)}
- @media (prefers-reduced-motion:reduce){.reveal,.stagger>*,.herofade{opacity:1!important;transform:none!important;animation:none!important}.mascot-float{animation:none!important}}
+ @media (prefers-reduced-motion:reduce){.reveal,.stagger>*,.herofade{opacity:1!important;transform:none!important;filter:none!important;animation:none!important}.mascot-float{animation:none!important}}
  .mascot-float{animation:bob 4.2s ease-in-out infinite}
  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
@@ -173,6 +179,7 @@ SCRIPT = ('<script>'
  'var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:.12,rootMargin:"0px 0px -6% 0px"});'
  'els.forEach(function(e){io.observe(e);});'
  'setTimeout(function(){els.forEach(function(e){e.classList.add("in");});},1600);})();'
+ '(function(){if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;var els=[].slice.call(document.querySelectorAll("[data-parallax]"));if(!els.length)return;var run=function(){if(innerWidth<1024){els.forEach(function(e){e.style.transform="";});return;}var y=window.scrollY||0;var d=Math.max(-28,Math.min(28,y*0.06));els.forEach(function(e){var s=e.classList.contains("scale-[1.08]")?" scale(1.08)":"";e.style.transform="translate3d(0,"+d.toFixed(1)+"px,0)"+s;});};var tick=false;addEventListener("scroll",function(){if(!tick){tick=true;requestAnimationFrame(function(){run();tick=false;});}},{passive:true});addEventListener("resize",run,{passive:true});run();})();'
  '(function(){var els=document.querySelectorAll(".countup");if(!els.length)return;var fmt=function(n){return n.toLocaleString("en-IN");};var run=function(el){var to=parseInt(el.getAttribute("data-to"),10)||0,st=null,d=1400;setTimeout(function(){el.textContent=fmt(to);},d+500);if(matchMedia("(prefers-reduced-motion: reduce)").matches||!window.requestAnimationFrame){el.textContent=fmt(to);return;}el.textContent="0";function step(t){if(!st)st=t;var p=Math.min((t-st)/d,1);el.textContent=fmt(Math.floor((1-Math.pow(1-p,3))*to));if(p<1)requestAnimationFrame(step);}requestAnimationFrame(step);};if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){run(e.target);io.unobserve(e.target);}});},{threshold:.4});els.forEach(function(e){io.observe(e);});}else{els.forEach(run);}})();'
  '(function(){document.querySelectorAll("form.w3form").forEach(function(f){f.addEventListener("submit",function(e){e.preventDefault();'
  'var ok=f.querySelector(".form-ok"),err=f.querySelector(".form-err"),btn=f.querySelector("button[type=submit]"),lbl=btn?btn.textContent:"";'
@@ -322,7 +329,7 @@ def hero_chips(eb, h, sub, ctas, chips):
       '<div class="absolute inset-0 gridlines opacity-60 pointer-events-none"></div>'
       '<div class="relative max-w-[1000px] mx-auto px-6 lg:px-12 pt-14 lg:pt-20 pb-14 lg:pb-16 text-center herofade">'
       '<span class="cap text-brandTeal block mb-4">%s</span>'
-      '<h1 class="hd1 text-white mb-6">%s</h1>'
+      '<h1 class="hd1 text-white mb-6 hrise"><span>%s</span></h1>'
       '<p class="lead text-slate-300 max-w-2xl mx-auto mb-8">%s</p>'
       '<div class="flex flex-wrap gap-4 justify-center">%s</div>'
       '<div class="mt-12 flex flex-wrap justify-center gap-x-8 gap-y-4 reveal">%s</div>'
@@ -340,15 +347,15 @@ def hero(eb, h, sub, ctas, illo=None, funcs=False, cover=False, img=None, img_al
         else: btns+='<a class="border border-white/30 hover:border-white hover:bg-white/5 text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="%s">%s</a>'%(href,label)
     if cover and img:
         inner=('<div class="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/15 text-brandTeal cap mb-6"><span class="w-1.5 h-1.5 bg-brandTeal inline-block"></span> %s</div>'
-          '<h1 class="hd1 text-white mb-6">%s</h1><p class="lead text-slate-300 mb-8">%s</p><div class="flex flex-wrap gap-4">%s</div>%s'%(eb,h,sub,btns,fn))
+          '<h1 class="hd1 text-white mb-6 hrise"><span>%s</span></h1><p class="lead text-slate-300 mb-8">%s</p><div class="flex flex-wrap gap-4">%s</div>%s'%(eb,h,sub,btns,fn))
         if contain:
             deskimg=('<img src="%s" alt="%s" loading="eager" class="w-full h-full object-contain object-center px-2"/>'%(img,img_alt))
-            imgcol=('<div class="hidden lg:block absolute top-0 right-0 h-full w-[52%%] herofade" style="animation-delay:.18s">%s</div>'%deskimg)
+            imgcol=('<div class="hidden lg:block absolute top-0 right-0 h-full w-[52%%] overflow-hidden herofade" style="animation-delay:.18s"><div data-parallax class="h-full w-full will-change-transform">%s</div></div>'%deskimg)
             mobimg=('<img src="%s" alt="%s" loading="eager" class="lg:hidden block mt-8 h-auto object-contain herofade" style="animation-delay:.12s;width:calc(100%% + 3rem);margin-left:-1.5rem;margin-right:-1.5rem"/>'%(img,img_alt))
         else:
             deskimg=('<img src="%s" alt="%s" loading="eager" class="w-full h-full object-cover object-center" '
               'style="-webkit-mask-image:linear-gradient(to right,transparent 0%%,rgba(0,0,0,.12) 16%%,#000 48%%);mask-image:linear-gradient(to right,transparent 0%%,rgba(0,0,0,.12) 16%%,#000 48%%)"/>'%(img,img_alt))
-            imgcol=('<div class="hidden lg:block absolute top-0 right-0 h-full w-[58%%] herofade" style="animation-delay:.18s">%s</div>'%deskimg)
+            imgcol=('<div class="hidden lg:block absolute top-0 right-0 h-full w-[58%%] overflow-hidden herofade" style="animation-delay:.18s"><div data-parallax class="h-full w-full will-change-transform scale-[1.08]">%s</div></div>'%deskimg)
             mobimg=('<img src="%s" alt="%s" loading="eager" class="lg:hidden block mt-10 h-60 sm:h-72 object-cover object-center herofade" '
               'style="animation-delay:.12s;width:calc(100%% + 3rem);margin-left:-1.5rem;margin-right:-1.5rem;'
               '-webkit-mask-image:linear-gradient(to bottom,transparent 0%%,#000 26%%,#000 100%%);mask-image:linear-gradient(to bottom,transparent 0%%,#000 26%%,#000 100%%)"/>'%(img,img_alt))
@@ -361,7 +368,7 @@ def hero(eb, h, sub, ctas, illo=None, funcs=False, cover=False, img=None, img_al
         col='<div class="hidden lg:flex items-center justify-center herofade" style="animation-delay:.18s">%s</div>'%illo
         grid='<div class="relative max-w-[1440px] mx-auto px-6 lg:px-12 pt-12 lg:pt-16 pb-14 lg:pb-20 grid lg:grid-cols-2 gap-12 items-center"><div class="max-w-2xl herofade">%s</div>%s</div>'
         inner=('<div class="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/15 text-brandTeal cap mb-6"><span class="w-1.5 h-1.5 bg-brandTeal inline-block"></span> %s</div>'
-          '<h1 class="hd1 text-white mb-6">%s</h1><p class="lead text-slate-300 mb-8">%s</p><div class="flex flex-wrap gap-4">%s</div>%s'%(eb,h,sub,btns,fn))
+          '<h1 class="hd1 text-white mb-6 hrise"><span>%s</span></h1><p class="lead text-slate-300 mb-8">%s</p><div class="flex flex-wrap gap-4">%s</div>%s'%(eb,h,sub,btns,fn))
         return ('<section class="relative bg-brandNavy text-white overflow-hidden"><div class="absolute inset-0 glow pointer-events-none"></div>'
           '<div class="absolute inset-0 gridlines opacity-60 pointer-events-none"></div>'+(grid%(inner,col))+'</section>')
     return ('<section class="relative bg-brandNavy text-white overflow-hidden"><div class="absolute inset-0 glow pointer-events-none"></div>'
@@ -369,7 +376,7 @@ def hero(eb, h, sub, ctas, illo=None, funcs=False, cover=False, img=None, img_al
       '<div class="relative max-w-[1440px] mx-auto px-6 lg:px-12 pt-12 lg:pt-16 pb-14 lg:pb-16"><div class="max-w-3xl herofade">'
       '<div class="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/15 text-brandTeal cap mb-6">'
       '<span class="w-1.5 h-1.5 bg-brandTeal inline-block"></span> %s</div>'
-      '<h1 class="hd1 text-white mb-6">%s</h1><p class="lead text-slate-300 max-w-2xl mb-8">%s</p>'
+      '<h1 class="hd1 text-white mb-6 hrise"><span>%s</span></h1><p class="lead text-slate-300 max-w-2xl mb-8">%s</p>'
       '<div class="flex flex-wrap gap-4">%s</div>%s</div></div></section>' % (eb,h,sub,btns,fn))
 
 def caps_detailed():
