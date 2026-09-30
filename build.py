@@ -721,9 +721,10 @@ def build_wowers():
       ("Do I need prior experience?","No. We match you to work at your level and support you as you learn."),
       ("How do I start?","Apply with your interests and availability; we match you to a live project on a partner company."),
       ("What will I gain?","Real project experience, practical business skills and a track record you can actually show.")]
-    b = hero_big("For Wowers","Build your career by doing real work.",
+    b = hero_chips("For Wowers","Build your career by doing real work.",
         "<span class=\"block text-brandTeal font-display font-semibold mb-4\" style=\"font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em\">Learn. Execute. Perform. Grow.</span>A Wower is an emerging professional who learns through live projects, structured guidance and performance-based growth — not classroom theory alone.",
-        [("Explore opportunities","internships.html#apply-form",True),("How WOWER works","#pathway",False)])
+        [("Explore opportunities","internships.html#apply-form",True),("How WOWER works","#pathway",False)],
+        [("school","Structured training"),("work","Real projects"),("trending_up","Performance growth"),("diversity_3","Mentor guidance")])
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine" id="pathway"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("How WOWER works","Five steps, one performance-driven pathway.","From joining the ecosystem to real career growth — here is how a Wower's journey unfolds.")
     b += wower_pathway() + '</div></section>'
