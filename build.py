@@ -346,7 +346,7 @@ def hero(eb, h, sub, ctas, illo=None, funcs=False, cover=False):
           '<div class="absolute inset-0 glow pointer-events-none"></div>'
           '<div class="absolute inset-0 gridlines opacity-60 pointer-events-none"></div>'+imgcol+
           '<div class="relative max-w-[1440px] mx-auto px-6 lg:px-12 pt-12 lg:pt-16 pb-14 lg:pb-20">'
-          '<div class="max-w-2xl herofade lg:min-h-[440px] flex flex-col justify-center">'+inner+'</div></div></section>')
+          '<div class="max-w-2xl herofade lg:min-h-[440px] flex flex-col justify-center items-start">'+inner+'</div></div></section>')
     if illo:
         col='<div class="hidden lg:flex items-center justify-center herofade" style="animation-delay:.18s">%s</div>'%illo
         grid='<div class="relative max-w-[1440px] mx-auto px-6 lg:px-12 pt-12 lg:pt-16 pb-14 lg:pb-20 grid lg:grid-cols-2 gap-12 items-center"><div class="max-w-2xl herofade">%s</div>%s</div>'
