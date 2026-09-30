@@ -49,6 +49,9 @@
  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
  .floaty{animation:floaty 6s ease-in-out infinite}
  @media (prefers-reduced-motion:reduce){.floaty{animation:none!important}}
+ @keyframes haloPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.85;transform:scale(1.07)}}
+ .halo{filter:blur(34px);animation:haloPulse 7.5s ease-in-out infinite;will-change:opacity,transform}
+ @media (prefers-reduced-motion:reduce){.halo{animation:none!important;opacity:.68!important;transform:none!important}}
  .glow{background:radial-gradient(46% 60% at 85% 0%,rgba(0,169,169,.28),transparent 60%),radial-gradient(40% 55% at 0% 100%,rgba(232,163,61,.14),transparent 60%)}
  .gridlines{background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:64px 64px;-webkit-mask:radial-gradient(120% 90% at 50% 0%,#000 30%,transparent 78%);mask:radial-gradient(120% 90% at 50% 0%,#000 30%,transparent 78%)}
 </style>

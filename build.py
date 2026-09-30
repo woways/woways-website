@@ -56,6 +56,9 @@ HEAD = '''<!DOCTYPE html>
  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
  .floaty{animation:floaty 6s ease-in-out infinite}
  @media (prefers-reduced-motion:reduce){.floaty{animation:none!important}}
+ @keyframes haloPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.85;transform:scale(1.07)}}
+ .halo{filter:blur(34px);animation:haloPulse 7.5s ease-in-out infinite;will-change:opacity,transform}
+ @media (prefers-reduced-motion:reduce){.halo{animation:none!important;opacity:.68!important;transform:none!important}}
  .glow{background:radial-gradient(46% 60% at 85% 0%,rgba(0,169,169,.28),transparent 60%),radial-gradient(40% 55% at 0% 100%,rgba(232,163,61,.14),transparent 60%)}
  .gridlines{background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:64px 64px;-webkit-mask:radial-gradient(120% 90% at 50% 0%,#000 30%,transparent 78%);mask:radial-gradient(120% 90% at 50% 0%,#000 30%,transparent 78%)}
 </style>
@@ -325,7 +328,7 @@ def hero_chips(eb, h, sub, ctas, chips):
       '<div class="mt-12 flex flex-wrap justify-center gap-x-8 gap-y-4 reveal">%s</div>'
       '</div></section>') % (eb,h,sub,btns,chiprow)
 
-def hero(eb, h, sub, ctas, illo=None, funcs=False):
+def hero(eb, h, sub, ctas, illo=None, funcs=False, cover=False):
     fn=''
     if funcs:
         pills=''.join('<span class="px-3 py-1 bg-white/5 border border-white/10 text-slate-300 cap text-[11px]">%s</span>'%x for x in ["Sales","Marketing","Operations","HR","Technology"])
@@ -335,6 +338,15 @@ def hero(eb, h, sub, ctas, illo=None, funcs=False):
     for i,(label,href,prim) in enumerate(ctas):
         if prim: btns+='<a class="bg-brandTeal hover:bg-brandTealDark text-white text-sm font-semibold px-7 py-3.5 transition-colors inline-flex items-center gap-2" href="%s">%s <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span></a>'%(href,label)
         else: btns+='<a class="border border-white/30 hover:border-white hover:bg-white/5 text-white text-sm font-semibold px-7 py-3.5 transition-colors" href="%s">%s</a>'%(href,label)
+    if illo and cover:
+        inner=('<div class="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/15 text-brandTeal cap mb-6"><span class="w-1.5 h-1.5 bg-brandTeal inline-block"></span> %s</div>'
+          '<h1 class="hd1 text-white mb-6">%s</h1><p class="lead text-slate-300 mb-8">%s</p><div class="flex flex-wrap gap-4">%s</div>%s'%(eb,h,sub,btns,fn))
+        imgcol=('<div class="hidden lg:block absolute top-0 right-0 h-full w-[58%%] herofade" style="animation-delay:.18s">%s</div>'%illo)
+        return ('<section class="relative bg-brandNavy text-white overflow-hidden">'
+          '<div class="absolute inset-0 glow pointer-events-none"></div>'
+          '<div class="absolute inset-0 gridlines opacity-60 pointer-events-none"></div>'+imgcol+
+          '<div class="relative max-w-[1440px] mx-auto px-6 lg:px-12 pt-12 lg:pt-16 pb-14 lg:pb-20">'
+          '<div class="max-w-2xl herofade lg:min-h-[440px] flex flex-col justify-center">'+inner+'</div></div></section>')
     if illo:
         col='<div class="hidden lg:flex items-center justify-center herofade" style="animation-delay:.18s">%s</div>'%illo
         grid='<div class="relative max-w-[1440px] mx-auto px-6 lg:px-12 pt-12 lg:pt-16 pb-14 lg:pb-20 grid lg:grid-cols-2 gap-12 items-center"><div class="max-w-2xl herofade">%s</div>%s</div>'
@@ -721,10 +733,11 @@ def viz_constellation():
 
 # ================= PAGES =================
 def build_index():
-    b = hero_chips("Execution partner · Talent ecosystem","Build momentum without building everything alone.",
+    b = hero("Execution partner · Talent ecosystem","Build momentum without building everything alone.",
         "Woways gives growing companies an execution layer across sales, marketing, operations, technology and people functions. At the same time, we prepare emerging professionals through meaningful, real-world work.<br class=\"hidden sm:block\"/><span class=\"inline-block mt-4 text-white font-semibold\">Not advice. Delivery.</span>",
         [("Talk about your business need","partnerships.html#partner-form",True),("Explore the Wower pathway","wowers.html",False)],
-        [("grid_view","Five functions"),("groups","Talent ecosystem"),("insights","Measurable delivery"),("apps","Products we build")])
+        cover=True,
+        illo='<img src="hero-home.png" alt="A team collaborating around a table in a modern office" loading="eager" class="w-full h-full object-cover object-center" style="-webkit-mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.12) 16%,#000 48%);mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.12) 16%,#000 48%)"/>')
     b += credibility_strip()
     b += '<section class="bg-brandNavy py-14 lg:py-16 border-b border-white/10"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += '<p class="cap text-slate-400 mb-8 text-center reveal">Our impact</p>'
@@ -766,10 +779,11 @@ def build_index():
     return page("Woways — Your Executive Partner","index.html",b)
 
 def build_companies():
-    b = hero_chips("For Companies","Your execution team for the work that cannot wait.",
+    b = hero("For Companies","Your execution team for the work that cannot wait.",
         "When sales pipelines, campaigns, operations or systems need momentum, Woways works alongside your team to make the work move — inside your tools, standards and reporting rhythm.",
         [("Discuss your requirement","partnerships.html#partner-form",True),("See our services","companies.html#services",False)],
-        [("grid_view","Five core functions"),("bolt","End-to-end delivery"),("insights","Measurable outcomes"),("schedule","48-hour reply")])
+        cover=True,
+        illo='<img src="hero-companies.png" alt="An Indian professional team meeting in an office" loading="eager" class="w-full h-full object-cover object-center" style="-webkit-mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.12) 16%,#000 48%);mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.12) 16%,#000 48%)"/>')
     b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine" id="capabilities"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we execute","Five functions, one embedded team.","Point to a work area, describe the need, and we take it on — with the scope and standards of an internal team.")
     b += caps_detailed() + '</div></section>'
@@ -806,10 +820,11 @@ def build_wowers():
       ("Do I need prior experience?","No. We match you to work at your level and support you as you learn."),
       ("How do I start?","Apply with your interests and availability; we match you to a live project on a partner company."),
       ("What will I gain?","Real project experience, practical business skills and a track record you can actually show.")]
-    b = hero_chips("For Wowers","Build your career by doing real work.",
+    b = hero("For Wowers","Build your career by doing real work.",
         "<span class=\"block text-brandTeal font-display font-semibold mb-4\" style=\"font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em\">Learn. Execute. Perform. Grow.</span>A Wower is an emerging professional who learns through live projects, structured guidance and performance-based growth — not classroom theory alone.",
         [("Explore opportunities","internships.html#apply-form",True),("How WOWER works","#pathway",False)],
-        [("school","Structured training"),("work","Real projects"),("trending_up","Performance growth"),("diversity_3","Mentor guidance")])
+        cover=True,
+        illo='<img src="hero-wowers.png" alt="A confident young professional" loading="eager" class="w-full h-full object-cover object-center" style="-webkit-mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.12) 16%,#000 48%);mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.12) 16%,#000 48%)"/>')
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine" id="pathway"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("How WOWER works","Five steps, one performance-driven pathway.","From joining the ecosystem to real career growth — here is how a Wower's journey unfolds.")
     b += wower_pathway() + '</div></section>'
@@ -866,10 +881,11 @@ def build_services():
     return page("Woways — Services","services.html",b)
 
 def build_about():
-    b = hero_chips("About","Built for work that creates visible progress.",
+    b = hero("About","Built for work that creates visible progress.",
         "Woways was created around a simple belief: growing companies need dependable execution, and emerging professionals need meaningful opportunities to prove themselves. We connect both through real work, clear ownership and measurable progress.",
         [("Work with us","contact.html",True),("How we work","#ecosystem",False)],
-        [("bolt","Execution-first"),("query_stats","Evidence of progress"),("handshake","Growth for both sides"),("groups","Emerging talent")])
+        cover=True,
+        illo='<img src="hero-about.png" alt="A Woways team member speaking to a room of people" loading="eager" class="w-full h-full object-cover object-center" style="-webkit-mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.12) 16%,#000 48%);mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.12) 16%,#000 48%)"/>')
     b += '<section class="bg-brandNavy py-14 lg:py-16 border-b border-white/10"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += impact_stats(dark=True) + '</div></section>'
     # two-sided
@@ -1090,7 +1106,8 @@ def build_products():
     b = hero("Products","Products built from real execution.",
         "We build focused platforms for education, career growth and business performance — shaped by the work we do with people and companies.",
         [("Talk to us","contact.html",True)],
-        illo='<img src="hero-products.png" alt="Woways products across devices" loading="eager" class="w-full" style="-webkit-mask-image:radial-gradient(120% 120% at 62% 40%,#000 46%,rgba(0,0,0,0) 82%);mask-image:radial-gradient(120% 120% at 62% 40%,#000 46%,rgba(0,0,0,0) 82%)"/>')
+        cover=True,
+        illo='<img src="hero-products.png" alt="A professional working on a laptop" loading="eager" class="w-full h-full object-cover object-center" style="-webkit-mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.12) 16%,#000 48%);mask-image:linear-gradient(to right,transparent 0%,rgba(0,0,0,.12) 16%,#000 48%)"/>')
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("Education &amp; career","For students, families and educators.","Guidance, discovery and future-readiness — from grade 10 through to a career.")
     b += product_cards('edu') + '</div></section>'
