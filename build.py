@@ -570,11 +570,13 @@ _VDEFS=('<defs><filter id="vg" x="-50%" y="-50%" width="200%" height="200%">'
 def _svg(inner, label):
     return ('<svg viewBox="0 0 400 400" class="w-full max-w-[460px] mx-auto" role="img" aria-label="%s">%s%s</svg>'%(label,_VDEFS,inner))
 
-def viz_orbit():
-    # Home — execution orbit with our five functions as nodes
+def viz_orbit(labels=None, aria="Woways execution orbit"):
+    # Reusable execution orbit — labels distributed evenly around a teal core
     import math
+    labels = labels or ["Sales","Marketing","Operations","Technology","People"]
     rings='<circle cx="200" cy="200" r="150" fill="none" stroke="rgba(255,255,255,.08)"/><circle cx="200" cy="200" r="95" fill="none" stroke="rgba(0,169,169,.28)"/>'
-    funcs=[("Sales",-90),("Marketing",-18),("Operations",54),("Technology",126),("People",198)]
+    n=len(labels)
+    funcs=[(name, -90 + i*360.0/n) for i,name in enumerate(labels)]
     spokes=''; nodes=''
     for i,(name,ang) in enumerate(funcs):
         a=math.radians(ang); r=150
@@ -592,7 +594,7 @@ def viz_orbit():
       '<circle cx="200" cy="200" r="30" fill="#0A1830" stroke="#00A9A9" stroke-width="1.5"/>'
       '<path d="M186 200 l8 9 18 -20" fill="none" stroke="#00A9A9" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>'
       '<circle cx="200" cy="200" r="30" fill="none" stroke="#00A9A9" stroke-width="1.5"><animate attributeName="r" values="30;150;30" dur="6s" repeatCount="indefinite"/><animate attributeName="opacity" values=".55;0;.55" dur="6s" repeatCount="indefinite"/></circle>')
-    return _svg(rings+spokes+orbit+nodes+core,"Woways execution across five functions")
+    return _svg(rings+spokes+orbit+nodes+core,aria)
 
 def viz_network():
     # Companies — connected node graph
@@ -639,7 +641,7 @@ def build_index():
     b = hero("Execution partner · Talent ecosystem","Build momentum without building everything alone.",
         "Woways gives growing companies an execution layer across sales, marketing, operations, technology and people functions. At the same time, we prepare emerging professionals through meaningful, real-world work.<br class=\"hidden sm:block\"/><span class=\"inline-block mt-4 text-white font-semibold\">Not advice. Delivery.</span>",
         [("Talk about your business need","partnerships.html#partner-form",True),("Explore the Wower pathway","wowers.html",False)],
-        illo=viz_orbit())
+        illo=viz_orbit(["Sales","Marketing","Operations","Technology","People"],"Woways execution across five functions"))
     b += credibility_strip()
     b += '<section class="bg-brandNavy py-14 lg:py-16 border-b border-white/10"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += '<p class="cap text-slate-400 mb-8 text-center reveal">Our impact</p>'
@@ -681,10 +683,10 @@ def build_index():
     return page("Woways — Your Executive Partner","index.html",b)
 
 def build_companies():
-    b = hero_chips("For Companies","Your execution team for the work that cannot wait.",
+    b = hero("For Companies","Your execution team for the work that cannot wait.",
         "When sales pipelines, campaigns, operations or systems need momentum, Woways works alongside your team to make the work move — inside your tools, standards and reporting rhythm.",
         [("Discuss your requirement","partnerships.html#partner-form",True),("See our services","companies.html#services",False)],
-        [("grid_view","Five core functions"),("bolt","End-to-end delivery"),("insights","Measurable outcomes"),("schedule","48-hour reply")])
+        illo=viz_orbit(["Lead Gen","Sales","Marketing","Operations","Scaling"],"Execution services around one embedded team"))
     b += '<section class="bg-paperBg py-16 lg:py-20 border-b border-borderLine" id="capabilities"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("What we execute","Five functions, one embedded team.","Point to a work area, describe the need, and we take it on — with the scope and standards of an internal team.")
     b += caps_detailed() + '</div></section>'
@@ -721,10 +723,10 @@ def build_wowers():
       ("Do I need prior experience?","No. We match you to work at your level and support you as you learn."),
       ("How do I start?","Apply with your interests and availability; we match you to a live project on a partner company."),
       ("What will I gain?","Real project experience, practical business skills and a track record you can actually show.")]
-    b = hero_chips("For Wowers","Build your career by doing real work.",
+    b = hero("For Wowers","Build your career by doing real work.",
         "<span class=\"block text-brandTeal font-display font-semibold mb-4\" style=\"font-size:clamp(20px,2.8vw,30px);letter-spacing:-0.01em\">Learn. Execute. Perform. Grow.</span>A Wower is an emerging professional who learns through live projects, structured guidance and performance-based growth — not classroom theory alone.",
         [("Explore opportunities","internships.html#apply-form",True),("How WOWER works","#pathway",False)],
-        [("school","Structured training"),("work","Real projects"),("trending_up","Performance growth"),("diversity_3","Mentor guidance")])
+        illo=viz_orbit(["Learn","Execute","Perform","Grow"],"The Wower pathway: learn, execute, perform, grow"))
     b += '<section class="bg-white py-16 lg:py-20 border-b border-borderLine" id="pathway"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += sec_head("How WOWER works","Five steps, one performance-driven pathway.","From joining the ecosystem to real career growth — here is how a Wower's journey unfolds.")
     b += wower_pathway() + '</div></section>'
