@@ -354,10 +354,10 @@ def hero(eb, h, sub, ctas, illo=None, funcs=False, cover=False, img=None, img_al
             mobimg=('<img src="%s" alt="%s" loading="eager" class="lg:hidden block mt-8 h-auto object-contain herofade" style="animation-delay:.12s;width:calc(100%% + 3rem);margin-left:-1.5rem;margin-right:-1.5rem"/>'%(img,img_alt))
         else:
             deskimg=('<img src="%s" alt="%s" loading="eager" class="w-full h-full object-cover object-center" '
-              'style="-webkit-mask-image:linear-gradient(to right,transparent 0%%,rgba(0,0,0,.12) 16%%,#000 48%%);mask-image:linear-gradient(to right,transparent 0%%,rgba(0,0,0,.12) 16%%,#000 48%%)"/>'%(img,img_alt))
+              'style="filter:saturate(.72) brightness(.8);-webkit-mask-image:linear-gradient(to right,transparent 0%%,rgba(0,0,0,.12) 16%%,#000 48%%);mask-image:linear-gradient(to right,transparent 0%%,rgba(0,0,0,.12) 16%%,#000 48%%)"/>'%(img,img_alt))
             imgcol=('<div class="hidden lg:block absolute top-0 right-0 h-full w-[58%%] overflow-hidden herofade" style="animation-delay:.18s"><div data-parallax class="h-full w-full will-change-transform scale-[1.08]">%s</div></div>'%deskimg)
             mobimg=('<img src="%s" alt="%s" loading="eager" class="lg:hidden block mt-10 h-60 sm:h-72 object-cover object-center herofade" '
-              'style="animation-delay:.12s;width:calc(100%% + 3rem);margin-left:-1.5rem;margin-right:-1.5rem;'
+              'style="animation-delay:.12s;filter:saturate(.72) brightness(.8);width:calc(100%% + 3rem);margin-left:-1.5rem;margin-right:-1.5rem;'
               '-webkit-mask-image:linear-gradient(to bottom,transparent 0%%,#000 26%%,#000 100%%);mask-image:linear-gradient(to bottom,transparent 0%%,#000 26%%,#000 100%%)"/>'%(img,img_alt))
         return ('<section class="relative bg-brandNavy text-white overflow-hidden">'
           '<div class="absolute inset-0 glow pointer-events-none"></div>'
