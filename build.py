@@ -65,7 +65,18 @@ HEAD = '''<!DOCTYPE html>
  @keyframes haloPulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:.85;transform:scale(1.07)}}
  .halo{filter:blur(34px);animation:haloPulse 7.5s ease-in-out infinite;will-change:opacity,transform}
  @media (prefers-reduced-motion:reduce){.halo{animation:none!important;opacity:.68!important;transform:none!important}}
- .glow{background:radial-gradient(46% 60% at 85% 0%,rgba(0,169,169,.28),transparent 60%),radial-gradient(40% 55% at 0% 100%,rgba(232,163,61,.14),transparent 60%)}
+ .glow{background:radial-gradient(46% 60% at 85% 0%,rgba(0,169,169,.28),transparent 60%),radial-gradient(40% 55% at 0% 100%,rgba(232,163,61,.14),transparent 60%);animation:glowdrift 16s ease-in-out infinite;will-change:transform,opacity}
+ @keyframes glowdrift{0%,100%{transform:scale(1) translate3d(0,0,0);opacity:1}50%{transform:scale(1.12) translate3d(2%,1.5%,0);opacity:.82}}
+ @media (prefers-reduced-motion:reduce){.glow{animation:none!important}}
+ /* logo marquee */
+ .mq{position:relative;-webkit-mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+ .mq-track{display:flex;align-items:center;gap:60px;width:max-content;animation:mqscroll 42s linear infinite}
+ .mq:hover .mq-track{animation-play-state:paused}
+ .mq-item{display:inline-flex;align-items:center;flex:none}
+ .mq-item img{height:30px;width:auto;max-width:150px;object-fit:contain;filter:brightness(0) invert(1);opacity:.55;transition:opacity .25s ease}
+ .mq-item:hover img{opacity:.95}
+ @keyframes mqscroll{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+ @media (prefers-reduced-motion:reduce){.mq-track{animation:none;flex-wrap:wrap;justify-content:center;width:100%;gap:28px 48px}.mq{-webkit-mask:none;mask:none}}
  .gridlines{background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:64px 64px;-webkit-mask:radial-gradient(120% 90% at 50% 0%,#000 30%,transparent 78%);mask:radial-gradient(120% 90% at 50% 0%,#000 30%,transparent 78%)}
 </style>
 </head>'''
@@ -493,6 +504,16 @@ def credibility_strip():
       '<div class="text-slate-300 text-sm md:text-base">Mentors from Microsoft, Deloitte, PwC, KPMG and Accenture</div></div>'
       '</div></section>') % av
 
+def logo_marquee():
+    logos=[("org-microsoft.png","Microsoft"),("org-deloitte.png","Deloitte"),("org-pwc.svg","PwC"),
+      ("org-kpmg.svg","KPMG"),("org-accenture.svg","Accenture"),("org-rakuten.svg","Rakuten"),
+      ("org-verizon.svg","Verizon"),("org-dar-al-handasah.svg","Dar Al-Handasah"),("org-nxtwave.png","NxtWave"),
+      ("org-doctutorials.png","DocTutorials"),("org-zyrolifts.png","Zyrolifts")]
+    row=''.join('<span class="mq-item"><img src="m/%s" alt="%s" loading="lazy"/></span>'%(f,n) for f,n in logos)
+    return ('<section class="bg-brandNavy py-12 lg:py-14 border-b border-white/10 overflow-hidden">'
+      '<div class="max-w-[1440px] mx-auto px-6 lg:px-12"><p class="cap text-slate-400 text-center mb-8 reveal">Our mentors come from</p></div>'
+      '<div class="mq" aria-hidden="true"><div class="mq-track">%s%s</div></div></section>' % (row,row))
+
 MENTOR_DATA=[("Nambi Diwakar","Microsoft, USA","nambi-diwakar.jpg","org-microsoft.png","Microsoft"),
   ("Beldari Lakshmi Sree","Structural Design Engineer, Dar Al-Handasah","lakshmi-sree.jpg","org-dar-al-handasah.svg","Dar Al-Handasah"),
   ("Udaya Sri Kumari Pamugari","Consultant, Workday Integrations, Deloitte","udaya-sri.jpg","org-deloitte.png","Deloitte"),
@@ -755,6 +776,7 @@ def build_index():
         [("Talk about your business need","partnerships.html#partner-form",True),("Explore the Wower pathway","wowers.html",False)],
         cover=True, img="hero-home.png", img_alt="A team collaborating around a table in a modern office")
     b += credibility_strip()
+    b += logo_marquee()
     b += '<section class="bg-brandNavy py-14 lg:py-16 border-b border-white/10"><div class="max-w-[1440px] mx-auto px-6 lg:px-12">'
     b += '<p class="cap text-slate-400 mb-8 text-center reveal">Our impact</p>'
     b += impact_stats(dark=True) + '</div></section>'
